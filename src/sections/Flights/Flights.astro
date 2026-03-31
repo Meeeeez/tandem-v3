@@ -1,0 +1,117 @@
+---
+import "./Flights.scss";
+import ArrowIcon from "../../assets/icons/arrow.svg";
+import FlightCard from "../../components/FlightCard/FlightCard.astro";
+---
+
+<section class="Flights">
+  <h3 class="Flights__title">paragliding is calmer than you think</h3>
+  <p class="Flights__description">
+    Core Cities are the UK’s major urban centres, places that drive regional economies, shape national growth, and anchor investment, jobs, and innovation.
+    <br /><br />
+    If Bradford matched Core City averages across key metrics, productivity would rise to £37.80 per hour, the business base would grow to nearly 20,000, and the working‑age population would increase.
+  </p>
+
+  <div class="Flights__scrollContainer">
+    <FlightCard
+      title="Glide"
+      description="A relaxed flight from the top of the mountain back to the valley."
+      price="120 €"
+      duration="30 min"
+    />
+    <FlightCard
+      title="Thermal"
+      description="We will use rising air to fly longer and higher."
+      price="150 €"
+      duration="45 min"
+      isMarked
+    />
+    <FlightCard
+      title="Adventure"
+      description="A long journey across the beautiful dolomite peaks..."
+      price="210 €"
+      duration="90 min"
+    />
+  </div>
+
+  <div class="Flights__controls">
+    <button class="Flights__controlButton Flights__controlButton--prev">
+      <ArrowIcon />
+    </button>
+    <div class="Flights__pagination"></div>
+    <button class="Flights__controlButton Flights__controlButton--next">
+      <ArrowIcon />
+    </button>
+  </div>
+</section>
+
+<script>
+  // Wait for the DOM to load
+  document.addEventListener("DOMContentLoaded", () => {
+    const container = document.querySelector(".Flights__scrollContainer");
+    const pagination = document.querySelector(".Flights__pagination");
+    const cards = container?.querySelectorAll(":scope > *");
+    const prevBtn = document.querySelector(".Flights__controlButton--prev");
+    const nextBtn = document.querySelector(".Flights__controlButton--next");
+
+    if (!container || !pagination) return;
+    if (!cards || cards.length === 0) return;
+
+    // 1. Generate the dots dynamically based on the number of cards
+    cards?.forEach((_, index) => {
+      const dot = document.createElement("button");
+      dot.classList.add("Flights__dot");
+      dot.setAttribute("aria-label", `Go to slide ${index + 1}`);
+      pagination.appendChild(dot);
+    });
+
+    const dots = pagination.querySelectorAll(".Flights__dot");
+    let activeIndex = 0;
+
+    const scrollToIndex = (index: number) => {
+      const clamped = Math.max(0, Math.min(index, cards.length - 1));
+      activeIndex = clamped;
+      cards[clamped]?.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+        inline: "center",
+      });
+    };
+
+    // 2. Use IntersectionObserver to highlight the active dot
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Find which card is intersecting
+            activeIndex = Array.from(cards ?? []).indexOf(entry.target);
+
+            // Update dot classes
+            dots.forEach((dot, index) => {
+              dot.classList.toggle(
+                "Flights__dot--active",
+                index === activeIndex,
+              );
+            });
+          }
+        });
+      },
+      {
+        root: container,
+        threshold: 0.6, // Triggers when 60% of the card is visible
+      },
+    );
+
+    // Observe all cards
+    cards?.forEach((card) => observer.observe(card));
+
+    // 3. Make the Prev/Next buttons work
+    prevBtn?.addEventListener("click", () => {
+      scrollToIndex(activeIndex - 1);
+    });
+
+    nextBtn?.addEventListener("click", () => {
+      scrollToIndex(activeIndex + 1);
+    });
+  });
+</script>

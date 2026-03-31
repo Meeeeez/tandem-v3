@@ -1,0 +1,125 @@
+@use "./definitions" as *;
+@use "./fonts" as *;
+
+body {
+  font-family: 'Roboto', sans-serif;
+  scroll-behavior: smooth;
+  color: $color-font-dark;
+  line-height: 1;
+  background-color: $color-background;
+}
+
+section {
+  padding: $gutter-lg $gutter-md;
+
+  @include md {
+    padding: $gutter-xl;
+  }
+
+  &:not(:first-of-type) {
+    margin-top: $gutter-md;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: 1;
+  margin: 0;
+  padding: 0;
+  font-family: 'Londrina Solid', sans-serif;
+  text-transform: uppercase;
+}
+
+h2 {
+  font-size: $font-title-md;
+  font-family: 'Londrina Solid', sans-serif;
+}
+
+h3 {
+  font-size: $font-title-sm;
+  font-family: 'RobotoCondensed', sans-serif;
+  font-weight: 900;
+}
+
+// Base Button Styles
+button {
+  color: $color-primary;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $gutter-sm;
+  background: white;
+  padding: $gutter-md $gutter-lg;
+  border: none;
+  cursor: pointer;
+  border-radius: $rounded-md;
+  font-size: $font-xl;
+  text-transform: uppercase;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 600;
+  -webkit-tap-highlight-color: transparent;
+
+  @include lg {
+    padding: $gutter-sm $gutter-lg;
+  }
+
+  // Icon Button Hover Effect
+  &.animate-fill:hover svg>path {
+    fill: white;
+  }
+}
+
+p {
+  line-height: 150%;
+}
+
+.animate-fill {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  transition: color 0.25s ease;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 150%;
+    /* Larger than button to ensure corners are covered */
+    aspect-ratio: 1 / 1;
+    background-color: $color-primary;
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.25s ease;
+    z-index: -1;
+  }
+
+  &:hover {
+    color: white;
+  }
+
+  &:hover::before {
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.button--icon {
+  width: 55px;
+  height: 55px;
+  padding: 0;
+}
+
+.button--filled {
+  background-color: $color-primary;
+}
+
+.big {
+  font-size: $font-title-sm;
+  font-family: 'Londrina Solid', sans-serif;
+  line-height: 1;
+  text-wrap: nowrap;
+}

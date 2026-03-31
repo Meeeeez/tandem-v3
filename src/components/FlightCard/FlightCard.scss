@@ -1,0 +1,86 @@
+@use "../../definitions" as *;
+
+.FlightCard {
+  color: white;
+  height: 70svh;
+  position: relative;
+  padding: $gutter-md;
+  overflow: hidden;
+  border-radius: $rounded-md;
+  display: flex;
+  align-items: flex-end;
+
+  &__content {
+    width: 100%;
+  }
+
+  &__content > p {
+    margin: 0;
+    opacity: 0.8;
+  }
+
+  &__title {
+    font-weight: 400;
+    margin-bottom: $gutter-md;
+  }
+
+  &__bottom {
+    display: flex;
+    gap: $gutter-lg;
+    align-items: flex-end;
+  }
+
+  &__description {
+    margin: 0;
+  }
+
+  &__priceWrapper {
+    text-wrap: nowrap;
+  }
+
+  &__priceWrapper > p {
+    margin: 0;
+    text-align: right;
+    font-size: $font-xs;
+  }
+
+  &__price {
+    font-size: $font-title-sm;
+    font-family: "Londrina Solid", sans-serif;
+  }
+
+  &__button {
+    border-radius: $rounded-sm;
+    margin-top: 1rem;
+    width: 100%;
+  }
+
+  &__backgroundVideo {
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    object-fit: cover;
+    z-index: -1;
+  }
+
+  &__bottom {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__marker {
+    position: absolute;
+    transform: rotate(45deg);
+    top: 10px;
+    right: -30px;
+    background-color: $color-secondary;
+    color: white;
+    padding: $gutter-sm $gutter-xl;
+    font-weight: bold;
+    z-index: 1;
+  }
+}

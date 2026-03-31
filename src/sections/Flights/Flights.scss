@@ -1,0 +1,83 @@
+@use "../../definitions" as *;
+
+.Flights {
+  &__scrollContainer {
+    display: flex;
+    gap: $gutter-md;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    width: 100%;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    // Target the FlightCards inside the container
+    &>* {
+      scroll-snap-align: center;
+      scroll-snap-stop: always;
+      flex-shrink: 0;
+      width: calc(100vw - $gutter-xl * 2);
+
+      @include md {
+        width: calc(100vw - $gutter-xl * 3);
+      }
+    }
+  }
+
+  &__controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: $gutter-lg;
+  }
+
+  &__controlButton {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: $gutter-sm;
+
+    // Modifier for the left arrow to flip it 180 degrees
+    &--prev {
+      transform: rotate(180deg);
+    }
+  }
+
+  &__pagination {
+    display: flex;
+    gap: 8px; // Space between the dots
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #d1d5db; // A light gray for inactive state
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+
+    // Optional hover state for desktop users
+    &:hover {
+      background-color: #9ca3af;
+    }
+
+    &--active {
+      background-color: $color-primary; // Uses your primary theme color
+      transform: scale(1.2); // Makes the active dot slightly larger
+
+      &:hover {
+        background-color: $color-primary; // Keep it primary on hover if active
+      }
+    }
+  }
+}

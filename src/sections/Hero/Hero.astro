@@ -1,0 +1,65 @@
+---
+import "./Hero.scss";
+import ArrowIcon from "../../assets/icons/arrow.svg";
+import WhatsappIcon from "../../components/WhatsappIcon/WhatsappIcon.astro";
+---
+
+<section class="Hero">
+  <video
+    class="Hero__backgroundVideo"
+    src="/vid.mp4"
+    autoplay
+    muted
+    loop
+    playsinline></video>
+  <header class="Hero__header">
+    <div class="Hero__buttonsTop">
+      <button class="animate-fill">
+        <ArrowIcon />
+        Book Now
+      </button>
+      <button class="button--icon animate-fill">
+        <WhatsappIcon />
+      </button>
+      <button class="animate-fill">lang</button>
+    </div>
+    <div class="Hero__logoWrapper">logo</div>
+    <div class="Hero__navContainer">
+      <button class="Hero__navOpen button--icon">☰</button>
+      <nav class="Hero__nav">
+        <button class="Hero__navClose button--icon">x</button>
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+      </nav>
+      <script>
+        const openNavButton = document.querySelector(".Hero__navOpen");
+        const closeNavButton = document.querySelector(".Hero__navClose");
+        const body = document.body;
+        const nav = document.querySelector(".Hero__nav");
+        openNavButton?.addEventListener("click", () => {
+          nav?.classList.toggle("is-open");
+          body.style.overflow = "hidden";
+        });
+        closeNavButton?.addEventListener("click", () => {
+          nav?.classList.remove("is-open");
+          body.style.overflow = "visible";
+        });
+      </script>
+    </div>
+  </header>
+
+  <div>
+    <h1 class="Hero__title">Let’s Fly</h1>
+    <h2 class="Hero__subtitle">Paragliding in the Dolomites</h2>
+    <div class="Hero__buttonsBottom">
+      <button class="Hero__ctaButton animate-fill">
+        <ArrowIcon />
+        Book Now
+      </button>
+      <button class="Hero__whatsappButton button--icon animate-fill">
+        <WhatsappIcon />
+      </button>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,7 @@
+@use "../../definitions" as *;
+
+.WhatsappIcon {
+  &__path {
+    fill: $color-primary;
+  }
+}

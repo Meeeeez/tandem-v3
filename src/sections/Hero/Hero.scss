@@ -1,0 +1,234 @@
+@use "../../definitions" as *;
+
+.Hero {
+  height: calc(100svh - $gutter-lg * 2);
+  padding: $gutter-lg $gutter-md;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  @include md {
+    padding: $gutter-xl;
+    height: calc(100svh - $gutter-xl * 2);
+  }
+
+  &__title {
+    font-size: 25vw;
+    color: white;
+    text-transform: uppercase;
+    font-weight: 400;
+    margin-bottom: $gutter-sm;
+    text-wrap: nowrap;
+
+    @include xs {
+      font-size: 17vw;
+    }
+
+    @include sm {
+      font-size: 17vw;
+    }
+
+    @include lg {
+      font-size: 11vw;
+    }
+  }
+
+  &__title--yellow {
+    color: $color-primary;
+  }
+
+  &__subtitle {
+    font-size: 7vw;
+    color: white;
+    text-transform: uppercase;
+    font-weight: 400;
+
+    @include xs {
+      font-size: 5vw;
+    }
+
+    @include sm {
+      font-size: 5vw;
+    }
+
+    @include md {
+      font-size: min(3.5vw, 3rem);
+    }
+
+    @include lg {
+      font-size: min(3vw, 3rem);
+    }
+  }
+
+  &__backgroundVideo {
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    object-fit: cover;
+    z-index: -1;
+  }
+
+  &__header {
+    position: static;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    @include lg {
+      position: relative;
+    }
+  }
+
+  &__logoWrapper {
+    @include lg {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+
+  &__buttonsTop {
+    display: none;
+
+    @include lg {
+      gap: $gutter-sm;
+      display: flex;
+    }
+  }
+
+  &__buttonsBottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: $gutter-xl;
+
+    @include lg {
+      display: none;
+    }
+  }
+
+  &__navOpen {
+    display: block;
+
+    @include lg {
+      display: none;
+    }
+  }
+
+  &__navClose {
+    display: block;
+    // Pull the button out of the document flow to pin it to the top right
+    position: absolute;
+    top: $gutter-lg;
+    right: $gutter-md;
+    z-index: 11;
+
+    @include md {
+      top: $gutter-xl;
+      right: $gutter-xl;
+    }
+
+    @include lg {
+      display: none; // Hidden on desktop
+    }
+  }
+
+  &__nav {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100svh;
+    background: $color-primary;
+    flex-direction: column;
+    justify-content: center;
+    gap: $gutter-md;
+    z-index: 10;
+
+    box-sizing: border-box;
+    padding: $gutter-lg $gutter-md;
+
+    transform: translateY(-100%);
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+
+    &.is-open {
+      transform: translateY(0);
+    }
+
+    a {
+      color: white;
+      font-size: $font-title-sm;
+      font-weight: 600;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: opacity 0.2s ease, color 0.2s ease;
+      position: relative;
+      display: inline-block;
+      width: fit-content;
+      max-width: 100%;
+      padding-bottom: 6px;
+
+      &::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 3px;
+        background-color: currentColor;
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.25s ease;
+      }
+
+      // Remove bottom margin from the last link so it centers perfectly
+      &:last-of-type {
+        margin-bottom: 0;
+      }
+
+      &:hover {
+        opacity: 0.8;
+      }
+
+      &:hover::after,
+      &:focus-visible::after,
+      &:active::after {
+        transform: scaleX(1);
+      }
+
+      // 💻 DESKTOP LINK STYLES
+      @include lg {
+        font-size: 1.125rem; // Normal desktop size
+        margin-bottom: 0; // Remove vertical spacing
+        margin-left: $gutter-lg; // Add horizontal spacing
+        color: white; // Text color over your video background
+
+        &:hover {
+          color: $color-primary;
+          opacity: 1;
+        }
+      }
+    }
+
+    // 💻 DESKTOP NAV RESET
+    @include lg {
+      position: static;
+      width: auto;
+      height: auto;
+      background: transparent;
+      flex-direction: row;
+      justify-content: flex-end;
+      align-items: center;
+
+      // Kill the mobile animation
+      transform: translateY(0);
+      transition: none;
+    }
+  }
+}
