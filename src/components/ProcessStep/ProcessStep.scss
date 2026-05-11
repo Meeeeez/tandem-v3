@@ -1,0 +1,101 @@
+@use "../../definitions" as *;
+
+.ProcessStep {
+  position: relative;
+
+  &__stepLabel {
+    font-size: $font-xs;
+    display: flex;
+    align-items: baseline;
+    gap: $gutter-sm;
+    font-family: "RobotoCondensed", sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+  }
+
+  &__stepBullet,
+  &__stepIndex {
+    color: $color-font-dark;
+  }
+
+  &__stepBullet {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background-color: $color-font-dark;
+    flex: 0 0 4px;
+    transform: translateY(-1px);
+  }
+
+  &__stepTotal {
+    color: $color-primary;
+  }
+
+  &__header {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    background-color: $color-background;
+    backdrop-filter: blur(10px);
+    padding: $gutter-md $gutter-md;
+    border-bottom: 1px solid rgba($color-font-dark, 0.12);
+    color: $color-font-dark;
+
+    @include md {
+      padding: $gutter-md $gutter-xl;
+    }
+  }
+
+  &__title {
+    margin: 0;
+  }
+
+  &__description {
+    margin: $gutter-sm 0 0 0;
+    max-width: 60ch;
+    opacity: 0.9;
+  }
+
+  &__body {
+    padding: 0 $gutter-md;
+
+    @include md {
+      padding: 0 $gutter-xl;
+    }
+  }
+
+  &__media {
+    position: relative;
+    height: 80svh;
+    margin-left: -$gutter-md;
+    margin-right: -$gutter-md;
+    border-radius: 0;
+    overflow: hidden;
+    background: rgba($color-font-dark, 0.06);
+
+    @include md {
+      margin-left: -$gutter-xl;
+      margin-right: -$gutter-xl;
+    }
+  }
+
+  &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  &__overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: flex-end;
+    color: $color-white;
+    font-size: $font-lg;
+    line-height: 140%;
+    padding: $gutter-md;
+    background: rgba(0, 0, 0, 0.3);
+  }
+}
+

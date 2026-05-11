@@ -1,7 +1,7 @@
 @use "../../definitions" as *;
 
 .FlightCard {
-  color: white;
+  color: $color-white;
   height: 70svh;
   position: relative;
   padding: $gutter-md;
@@ -78,7 +78,7 @@
     top: 10px;
     right: -30px;
     background-color: $color-secondary;
-    color: white;
+    color: $color-white;
     padding: $gutter-sm $gutter-xl;
     font-weight: bold;
     z-index: 1;

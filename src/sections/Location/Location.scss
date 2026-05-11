@@ -1,20 +1,6 @@
 @use "../../definitions" as *;
 
-.Process {
-  background: $color-background;
-  color: $color-font-dark;
-  padding: 0;
-
-  &__header {
-    padding: $gutter-xl $gutter-md;
-    margin: 0;
-    border-bottom: 1px solid rgba($color-font-dark, 0.12);
-
-    @include md {
-      padding: $gutter-xl;
-    }
-  }
-
+.Location {
   &__overline {
     font-size: $font-xs;
     font-family: "RobotoCondensed", sans-serif;
@@ -35,9 +21,21 @@
     transform: translateY(-1px);
   }
 
-  &__steps {
+  &__map {
+    height: 70svh;
+    padding: $gutter-md;
+    border-radius: $rounded-md;
+    background-image: url("/img/map.png");
+    background-size: cover;
     display: flex;
     flex-direction: column;
+    justify-content: flex-end;
+    gap: $gutter-md;
+  }
+
+  &__box {
+    background-color: $color-background;
+    padding: $gutter-md;
+    border-radius: $rounded-md;
   }
 }
-

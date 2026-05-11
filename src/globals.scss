@@ -36,11 +36,16 @@ h6 {
 
 h2 {
   font-size: $font-title-md;
-  font-family: 'Londrina Solid', sans-serif;
 }
 
 h3 {
   font-size: $font-title-sm;
+  font-family: 'RobotoCondensed', sans-serif;
+  font-weight: 900;
+}
+
+h4 {
+  font-size: $font-title-xs;
   font-family: 'RobotoCondensed', sans-serif;
   font-weight: 900;
 }
@@ -52,7 +57,7 @@ button {
   align-items: center;
   justify-content: center;
   gap: $gutter-sm;
-  background: white;
+  background: $color-white;
   padding: $gutter-md $gutter-lg;
   border: none;
   cursor: pointer;
@@ -69,7 +74,7 @@ button {
 
   // Icon Button Hover Effect
   &.animate-fill:hover svg>path {
-    fill: white;
+    fill: $color-white;
   }
 }
 
@@ -99,7 +104,7 @@ p {
   }
 
   &:hover {
-    color: white;
+    color: $color-white;
   }
 
   &:hover::before {

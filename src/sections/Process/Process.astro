@@ -1,0 +1,73 @@
+---
+import "./Process.scss";
+import ProcessStep from "../../components/ProcessStep/ProcessStep.astro";
+---
+
+<section class="Process" id="process">
+  <div class="Process__header">
+    <p class="Process__overline">
+      <span class="Process__overlineDot" aria-hidden="true"></span>
+      <span>PROCESS</span>
+    </p>
+    <h3 class="Process__sectionTitle">How it works</h3>
+    <p class="Process__sectionDescription">
+      From sports fields and local councils to large acreage farms,
+      construction sites, and environmental projects; Droneland
+      delivers precision aerial and ground-based data across
+      Australia’s most diverse landscapes. We help every industry
+      see, plan, and perform better.
+    </p>
+  </div>
+  <div class="Process__steps">
+    <ProcessStep
+      stepIndex={1}
+      stepTotal={5}
+      title="First Contact"
+      description="Send a message and we’ll pick a day based on weather and your preferences."
+      imageSrc="/img/1.jpg"
+      imageAlt="Contacting the pilot"
+      overlayText="We confirm availability, meeting point, and the best time window for safe conditions."
+    />
+
+    <ProcessStep
+      stepIndex={2}
+      stepTotal={5}
+      title="Meet your Pilot"
+      description="We meet, check conditions, and drive or hike to the take-off area together."
+      imageSrc="/img/2.jpg"
+      imageAlt="Meeting point"
+      overlayText="You’ll get a quick briefing on what to expect and how we’ll communicate during the flight."
+    />
+
+    <ProcessStep
+      stepIndex={3}
+      stepTotal={5}
+      title="Prepare for take-off"
+      description="Harness on, safety checks, and a simple run-up for a smooth launch."
+      imageSrc="/img/3.jpg"
+      imageAlt="Preparing for takeoff"
+      overlayText="We double-check equipment, wind, and your comfort—then it’s a few steps and we’re airborne."
+    />
+
+    <ProcessStep
+      stepIndex={4}
+      stepTotal={5}
+      title="Fly!"
+      description="Enjoy the view. Want it calm or more dynamic? We adjust to your comfort."
+      imageSrc="/img/4.jpg"
+      imageAlt="Flying"
+      overlayText="We glide, climb in smooth air when possible, and capture photos/video if you want."
+    />
+
+    <ProcessStep
+      stepIndex={5}
+      stepTotal={5}
+      title="Land"
+      description="A gentle approach and a few steps—then we’re back on the ground."
+      imageSrc="/process/landing.jpg"
+      imageAlt="Landing"
+      overlayText="We wrap up, answer questions, and help you get back to your next stop."
+    />
+  </div>
+</section>
+

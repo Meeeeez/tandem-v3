@@ -1,6 +1,9 @@
 $color-primary: #0136FD;
+$color-primary-light: #0e6bfe;
+$color-primary-lightest: #29d4ff;
 $color-secondary: #FFCE08;
 $color-font-dark: #333;
+$color-font-light: #AAA;
 $color-white: #FFFCF3;
 $color-background: $color-white;
 
@@ -19,7 +22,7 @@ $md: 768px;
 $lg: 1024px;
 $xl: 1280px;
 
-$font-xs: 0.75rem;
+$font-xs: 0.70rem;
 $font-sm: 0.875rem;
 $font-base: 1rem;
 $font-lg: 1.125rem;
@@ -28,6 +31,7 @@ $font-xl: 1.25rem;
 $font-title-lg: 10rem;
 $font-title-md: 4rem;
 $font-title-sm: 3rem;
+$font-title-xs: 2.25rem;
 
 @mixin xs {
   @media (min-width: #{$xs}) {
