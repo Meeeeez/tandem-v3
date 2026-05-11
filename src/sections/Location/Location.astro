@@ -3,28 +3,114 @@ import "./Location.scss";
 ---
 
 <section class="Location" id="location">
-  <p class="Location__overline">
-    <span class="Location__overlineDot" aria-hidden="true"></span>
-    <span>LOCATION</span>
-  </p>
-  <h3 class="Location__title">
-    where we fly
-  </h3>
-  <p class="Location__description">
-    Meet in the Dolomites for take-off sites with reliable conditions and
-    unforgettable views. We share the exact meeting point and parking after you
-    book, and we only fly when the weather is right for a safe, smooth tandem.
-  </p>
+  <div class="Location__map" id="location-map"></div>
 
-  <div class="Location__map">
-    <div class="Location__box">
-        <h4>Plose</h4>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.</p>
-        <p>adipisicing elit. Quisquam, quos.</p>
+  <div class="Location__panel">
+    <div class="Location__card">
+      <h4 class="Location__title">where we fly</h4>
+      <p class="Location__description">
+        Meet in the Dolomites for take-off sites with reliable conditions and
+        unforgettable views. We share the exact meeting point after you book,
+        and we only fly when the weather is right.
+      </p>
+      <div class="Location__spots">
+        <div class="Location__spot">
+          <span class="Location__spotNum">01</span>
+          <div>
+            <p class="Location__spotName">Plose</p>
+            <p class="Location__spotDesc">
+              Above Brixen at 2,500 m — panoramic views over the Eisack valley
+              with reliable thermal conditions year-round.
+            </p>
+          </div>
+        </div>
+        <div class="Location__spot">
+          <span class="Location__spotNum">02</span>
+          <div>
+            <p class="Location__spotName">Funes</p>
+            <p class="Location__spotDesc">
+              In the heart of Val di Funes amid the Geisler peaks — one of the
+              most scenic valleys in the entire Alps.
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
-    <div style="display: flex; gap: 1rem">
-        <div style="background-color: red; width: 100%">sdf</div>
-        <div style="background-color: red; width: 100%">sdf</div>
+
+    <div class="Location__meetingPoints">
+      <a
+        class="Location__meetingCard"
+        href="https://www.google.com/maps?q=46.7133,11.7150"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <span class="Location__meetingName">Plose</span>
+      </a>
+      <a
+        class="Location__meetingCard"
+        href="https://www.google.com/maps?q=46.6090,11.6352"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <span class="Location__meetingName">Funes</span>
+      </a>
     </div>
   </div>
 </section>
+
+<script is:inline>
+  (function () {
+    function initMap() {
+      if (typeof L === "undefined" || document.getElementById("location-map")._leaflet_id) return;
+
+      var map = L.map("location-map", {
+        center: [46.665, 11.685],
+        zoom: 11,
+        zoomControl: false,
+        scrollWheelZoom: false,
+        dragging: false,
+        touchZoom: false,
+        doubleClickZoom: false,
+        boxZoom: false,
+        keyboard: false,
+      });
+
+      L.tileLayer(
+        "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+        { attribution: "Tiles &copy; Esri", maxZoom: 19 }
+      ).addTo(map);
+
+      var markerStyle = {
+        radius: 8,
+        color: "#ffffff",
+        weight: 2,
+        fillColor: "#0136FD",
+        fillOpacity: 1,
+      };
+
+      L.circleMarker([46.7133, 11.715], markerStyle)
+        .addTo(map)
+        .bindTooltip("Plose", {
+          permanent: true,
+          direction: "top",
+          offset: [0, -10],
+          className: "location-tooltip",
+        });
+
+      L.circleMarker([46.609, 11.635], markerStyle)
+        .addTo(map)
+        .bindTooltip("Funes", {
+          permanent: true,
+          direction: "top",
+          offset: [0, -10],
+          className: "location-tooltip",
+        });
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initMap);
+    } else {
+      initMap();
+    }
+  })();
+</script>

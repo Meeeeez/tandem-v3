@@ -1,0 +1,69 @@
+---
+import "./Reviews.scss";
+
+const reviews = [
+  {
+    rating: 5,
+    quote:
+      "Absolutely the highlight of our trip. Luca made us feel safe from the first second, and the views over the Geisler peaks were unreal.",
+    name: "Sarah K.",
+    origin: "Berlin, DE",
+  },
+  {
+    rating: 5,
+    quote:
+      "First time flying and now I want to do it every weekend. Smooth take-off, gentle landing, great photos at the end.",
+    name: "Marco D.",
+    origin: "Milan, IT",
+  },
+  {
+    rating: 5,
+    quote:
+      "Booked the Thermal flight — 30 minutes felt like 5. Professional, friendly, and the location speaks for itself.",
+    name: "James P.",
+    origin: "London, UK",
+  },
+  {
+    rating: 5,
+    quote:
+      "We gave this as a birthday gift and got tears of joy. Communication was perfect from the first message to landing.",
+    name: "Anna & Tom",
+    origin: "Vienna, AT",
+  },
+];
+---
+
+<section class="Reviews" id="reviews">
+  <header class="Reviews__header">
+    <p class="Reviews__overline">
+      <span class="Reviews__overlineDot" aria-hidden="true"></span>
+      <span>REVIEWS</span>
+    </p>
+    <h3 class="Reviews__title">
+      what our <span class="Reviews__titleHighlight">flyers</span> say
+    </h3>
+    <div class="Reviews__summary">
+      <div class="Reviews__summaryStars" aria-hidden="true">★★★★★</div>
+      <p class="Reviews__summaryText">
+        <b>4.97 / 5</b> from 240+ verified guests on Google &amp; TripAdvisor
+      </p>
+    </div>
+  </header>
+
+  <div class="Reviews__grid">
+    {reviews.map((review) => (
+      <article class="Reviews__card">
+        <div class="Reviews__stars" aria-label={`${review.rating} out of 5 stars`}>
+          {Array.from({ length: review.rating }).map(() => (
+            <span aria-hidden="true">★</span>
+          ))}
+        </div>
+        <blockquote class="Reviews__quote">{review.quote}</blockquote>
+        <footer class="Reviews__author">
+          <span class="Reviews__authorName">{review.name}</span>
+          <span class="Reviews__authorOrigin">{review.origin}</span>
+        </footer>
+      </article>
+    ))}
+  </div>
+</section>

@@ -1,6 +1,57 @@
 @use "../../definitions" as *;
 
 .Location {
+  padding: 0 !important;
+  margin-top: 0 !important;
+
+  @include lg {
+    display: grid;
+    grid-template-rows: minmax(70svh, auto);
+    grid-template-columns: 1fr;
+  }
+
+  &__map {
+    width: 100%;
+    height: 55svh;
+
+    @include lg {
+      grid-area: 1 / 1;
+      height: auto;
+      align-self: stretch;
+      z-index: 0; // creates stacking context — isolates Leaflet's internal z-indexes
+    }
+  }
+
+  &__panel {
+    padding: $gutter-lg $gutter-md;
+    display: flex;
+    flex-direction: column;
+    gap: $gutter-md;
+
+    @include lg {
+      grid-area: 1 / 1;
+      justify-self: end;
+      align-self: center;
+      margin: $gutter-xl;
+      padding: 0;
+      width: clamp(300px, 31%, 420px);
+      z-index: 1;
+    }
+  }
+
+  &__card {
+    background-color: $color-background;
+    border-radius: $rounded-md;
+    display: flex;
+    flex-direction: column;
+    gap: $gutter-md;
+
+    @include lg {
+      padding: $gutter-xl $gutter-lg;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.18);
+    }
+  }
+
   &__overline {
     font-size: $font-xs;
     font-family: "RobotoCondensed", sans-serif;
@@ -9,7 +60,7 @@
     display: flex;
     align-items: baseline;
     gap: $gutter-sm;
-    margin: 0 0 $gutter-sm 0;
+    margin: 0;
   }
 
   &__overlineDot {
@@ -21,21 +72,109 @@
     transform: translateY(-1px);
   }
 
-  &__map {
-    height: 70svh;
-    padding: $gutter-md;
-    border-radius: $rounded-md;
-    background-image: url("/img/map.png");
-    background-size: cover;
+  &__title {
+    margin: 0;
+  }
+
+  &__description {
+    line-height: 1.6;
+    margin: 0;
+    color: $color-font-light;
+  }
+
+  &__spots {
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    gap: $gutter-md;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    padding-top: $gutter-md;
+  }
+
+  &__spot {
+    display: flex;
+    gap: $gutter-md;
+    align-items: flex-start;
+  }
+
+  &__spotNum {
+    font-family: "RobotoCondensed", sans-serif;
+    font-weight: 700;
+    color: $color-primary;
+    min-width: 20px;
+    padding-top: $gutter-xs;
+    letter-spacing: 0.04em;
+  }
+
+  &__spotName {
+    font-family: "RobotoCondensed", sans-serif;
+    font-weight: 900;
+    font-size: $font-xl;
+    text-transform: uppercase;
+    margin: 0 0 $gutter-sm;
+    letter-spacing: 0.02em;
+  }
+
+  &__spotDesc {
+    color: $color-font-light;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  &__meetingPoints {
+    display: flex;
     gap: $gutter-md;
   }
 
-  &__box {
+  &__meetingCard {
+    flex: 1;
     background-color: $color-background;
-    padding: $gutter-md;
-    border-radius: $rounded-md;
+    border-radius: $rounded-sm;
+    padding: $gutter-md $gutter-lg;
+    text-decoration: none;
+    color: $color-font-dark;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease;
+
+    @include lg {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    }
+
+    &:hover {
+      background-color: $color-primary;
+      color: $color-white;
+
+      .Location__meetingLabel {
+        color: rgba(255, 255, 255, 0.7);
+      }
+    }
+  }
+
+  &__meetingName {
+    font-family: "RobotoCondensed", sans-serif;
+    font-weight: 900;
+    font-size: $font-xl;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+}
+
+.location-tooltip {
+  background-color: $color-primary;
+  border: none;
+  color: white;
+  font-family: "RobotoCondensed", sans-serif;
+  font-weight: 700;
+  font-size: $font-xs;
+  letter-spacing: 0.06em;
+  padding: 4px 8px;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+
+  &.leaflet-tooltip-top::before {
+    border-top-color: $color-primary;
   }
 }

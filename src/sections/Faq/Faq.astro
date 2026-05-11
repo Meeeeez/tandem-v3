@@ -1,0 +1,76 @@
+---
+import "./Faq.scss";
+
+const faqs = [
+  {
+    question: "Do I need any experience?",
+    answer:
+      "Not at all. The pilot handles everything — take-off, flight, landing. Your only job is to enjoy the view. We'll give you a short briefing on the few seconds of running needed to launch.",
+  },
+  {
+    question: "Is it safe?",
+    answer:
+      "Tandem paragliding is one of the safer ways to fly. All equipment is inspected regularly, our pilots are certified, and we only fly when conditions are good. If the weather isn't right, we reschedule — no exceptions.",
+  },
+  {
+    question: "What should I wear?",
+    answer:
+      "Long pants, closed shoes (sneakers or light hiking shoes), and a light jacket. It can be cooler in the air than on the ground. We provide the helmet and harness.",
+  },
+  {
+    question: "How long is the actual flight?",
+    answer:
+      "The Glide is roughly 15 minutes of airtime, Thermal around 30, and Adventure up to 60 minutes depending on the day's conditions. Plan around 2 hours total including the drive up and briefing.",
+  },
+  {
+    question: "Are there weight or age limits?",
+    answer:
+      "We typically fly guests between 30 and 110 kg. Kids from 5 years old are welcome with parental consent. If you're unsure, just message us — we'll find a way.",
+  },
+  {
+    question: "What happens if the weather is bad?",
+    answer:
+      "We watch the forecast closely and confirm 24 hours in advance. If we can't fly, you can reschedule for any other day or get a full refund — no questions asked.",
+  },
+  {
+    question: "Can I get photos and video?",
+    answer:
+      "Yes! We bring a GoPro and take photos and video during the flight. You receive everything afterwards via a private link, free of charge.",
+  },
+];
+---
+
+<section class="Faq" id="faq">
+  <header class="Faq__header">
+    <p class="Faq__overline">
+      <span class="Faq__overlineDot" aria-hidden="true"></span>
+      <span>FAQ</span>
+    </p>
+    <h3 class="Faq__title">
+      good to <span class="Faq__titleHighlight">know</span>
+    </h3>
+    <p class="Faq__description">
+      The most common questions before a first flight. Don't see yours?
+      Send us a WhatsApp — we usually reply within an hour.
+    </p>
+  </header>
+
+  <ul class="Faq__list">
+    {faqs.map((faq) => (
+      <li class="Faq__item">
+        <details class="Faq__details">
+          <summary class="Faq__summary">
+            <span class="Faq__question">{faq.question}</span>
+            <span class="Faq__icon" aria-hidden="true">
+              <span class="Faq__iconBar Faq__iconBar--h"></span>
+              <span class="Faq__iconBar Faq__iconBar--v"></span>
+            </span>
+          </summary>
+          <div class="Faq__answer">
+            <p>{faq.answer}</p>
+          </div>
+        </details>
+      </li>
+    ))}
+  </ul>
+</section>

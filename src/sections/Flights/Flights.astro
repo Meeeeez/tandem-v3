@@ -5,16 +5,10 @@ import FlightCard from "../../components/FlightCard/FlightCard.astro";
 ---
 
 <section class="Flights">
-  <p class="Flights__overline">
-    <span class="Flights__overlineDot" aria-hidden="true"></span>
-    <span>FLIGHTS</span>
-  </p>
   <h3 class="Flights__title">
-    pick a <span class="Flights__titleHighlight">flight</span>
+    choose <br class="Flights__titleBreakLine"> your <span class="Flights__titleHighlight">adventure</span>
   </h3>
   <p class="Flights__description">
-    Core Cities are the UK’s major urban centres, <b>places that drive regional economies, shape national growth</b>, and anchor investment, jobs, and innovation.
-    <br /><br />
     If Bradford matched Core City averages across key metrics, <b>productivity would rise to £37.80 per hour</b>, the business base would grow to nearly 20,000, and the working‑age population would increase.
   </p>
 
@@ -30,7 +24,6 @@ import FlightCard from "../../components/FlightCard/FlightCard.astro";
       description="We will use rising air to fly longer and higher."
       price="150 €"
       duration="45 min"
-      isMarked
     />
     <FlightCard
       title="Adventure"

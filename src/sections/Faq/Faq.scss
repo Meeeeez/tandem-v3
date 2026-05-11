@@ -1,0 +1,147 @@
+@use "../../definitions" as *;
+
+.Faq {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $gutter-lg;
+
+  @include md {
+    grid-template-columns: 1fr 1.4fr;
+    gap: $gutter-xl;
+  }
+
+  &__header {
+    max-width: 40ch;
+
+    @include md {
+      position: sticky;
+      top: $gutter-md;
+      align-self: flex-start;
+    }
+  }
+
+  &__overline {
+    font-size: $font-xs;
+    font-family: "RobotoCondensed", sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    display: flex;
+    align-items: baseline;
+    gap: $gutter-sm;
+    margin: 0 0 $gutter-sm 0;
+  }
+
+  &__overlineDot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background-color: $color-font-dark;
+    flex: 0 0 4px;
+    transform: translateY(-1px);
+  }
+
+  &__title {
+    margin: 0 0 $gutter-md 0;
+  }
+
+  &__titleHighlight {
+    color: $color-primary;
+  }
+
+  &__description {
+    margin: 0;
+    opacity: 0.85;
+  }
+
+  &__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-top: 1px solid rgba($color-font-dark, 0.12);
+  }
+
+  &__item {
+    border-bottom: 1px solid rgba($color-font-dark, 0.12);
+  }
+
+  &__details {
+    &[open] {
+      .Faq__iconBar--v {
+        transform: rotate(90deg);
+        opacity: 0;
+      }
+
+      .Faq__summary {
+        color: $color-primary;
+      }
+    }
+  }
+
+  &__summary {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $gutter-md;
+    padding: $gutter-md 0;
+    font-family: "RobotoCondensed", sans-serif;
+    font-weight: 600;
+    font-size: $font-lg;
+    color: $color-font-dark;
+    transition: color 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    &:hover {
+      color: $color-primary;
+    }
+  }
+
+  &__question {
+    flex-grow: 1;
+  }
+
+  &__icon {
+    position: relative;
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+
+  &__iconBar {
+    position: absolute;
+    background-color: currentColor;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+    border-radius: 2px;
+
+    &--h {
+      top: 50%;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      transform: translateY(-50%);
+    }
+
+    &--v {
+      left: 50%;
+      top: 0;
+      width: 2px;
+      height: 100%;
+      transform: translateX(-50%);
+    }
+  }
+
+  &__answer {
+    padding: 0 0 $gutter-md 0;
+
+    p {
+      margin: 0;
+      max-width: 65ch;
+      opacity: 0.9;
+    }
+  }
+}

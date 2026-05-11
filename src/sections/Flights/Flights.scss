@@ -24,6 +24,17 @@
       @include md {
         width: calc(100vw - $gutter-xl * 3);
       }
+
+      @include lg {
+        flex: 1;
+        width: auto;
+        min-width: 0;
+      }
+    }
+
+    @include lg {
+      overflow-x: visible;
+      scroll-snap-type: none;
     }
   }
 
@@ -52,6 +63,10 @@
     justify-content: space-between;
     align-items: center;
     margin-top: $gutter-lg;
+
+    @include lg {
+      display: none;
+    }
   }
 
   &__controlButton {
@@ -74,6 +89,23 @@
     gap: 8px; // Space between the dots
     align-items: center;
     justify-content: center;
+  }
+
+  &__titleBreakLine {
+    display: none;
+    @include sm {
+      display: inline-block;
+    }
+  }
+
+  &__titleHighlight {
+    color: $color-primary;
+  }
+
+  &__description {
+    @include lg {
+      max-width: $md;
+    }
   }
 
   &__dot {

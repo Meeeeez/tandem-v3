@@ -19,6 +19,10 @@ section {
   &:not(:first-of-type) {
     margin-top: $gutter-md;
   }
+
+  &:not(:first-of-type):not(:last-of-type) {
+    margin: $gutter-xl 0;
+  }
 }
 
 h1,
@@ -35,7 +39,7 @@ h6 {
 }
 
 h2 {
-  font-size: $font-title-md;
+  font-size: $font-title-sm;
 }
 
 h3 {
