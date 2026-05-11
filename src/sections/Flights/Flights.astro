@@ -18,18 +18,24 @@ import FlightCard from "../../components/FlightCard/FlightCard.astro";
       description="A relaxed flight from the top of the mountain back to the valley."
       price="120 €"
       duration="30 min"
+      image="/img/1.jpg",
+      videoSrc = "/bg.mp4"
     />
     <FlightCard
       title="Thermal"
       description="We will use rising air to fly longer and higher."
       price="150 €"
       duration="45 min"
+      image="/img/2.jpg",
+      videoSrc = "/bg.mp4"
     />
     <FlightCard
       title="Adventure"
       description="A long journey across the beautiful dolomite peaks..."
       price="210 €"
       duration="90 min"
+      image="/img/3.jpg"
+      videoSrc = "/bg.mp4"
     />
   </div>
 
@@ -112,5 +118,25 @@ import FlightCard from "../../components/FlightCard/FlightCard.astro";
     nextBtn?.addEventListener("click", () => {
       scrollToIndex(activeIndex + 1);
     });
+
+    const prefersHover =
+      window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+    if (prefersHover) {
+      document.querySelectorAll(".FlightCard").forEach((card) => {
+        const video = card.querySelector<HTMLVideoElement>(
+          ".FlightCard__backgroundVideo",
+        );
+        if (!video) return;
+
+        card.addEventListener("mouseenter", () => {
+          void video.play().catch(() => {});
+        });
+        card.addEventListener("mouseleave", () => {
+          video.pause();
+          video.currentTime = 0;
+        });
+      });
+    }
   });
 </script>

@@ -1,17 +1,35 @@
 ---
 import "./FlightCard.scss";
-const { title, description, price, duration, isMarked } = Astro.props;
+
+const {
+  title,
+  description,
+  price,
+  duration,
+  isMarked,
+  image,
+  videoSrc
+} = Astro.props;
 ---
 
 <div class="FlightCard">
   {isMarked && <div class="FlightCard__marker">Popular</div>}
-  <video
-    class="FlightCard__backgroundVideo"
-    src="/bg.mp4"
-    autoplay
-    muted
-    loop
-    playsinline></video>
+  <div class="FlightCard__media" aria-hidden="true">
+    <img
+      class="FlightCard__backgroundImage"
+      src={image}
+      alt=""
+      loading="lazy"
+      decoding="async"
+    />
+    <video
+      class="FlightCard__backgroundVideo"
+      src={videoSrc}
+      muted
+      loop
+      playsinline
+      preload="metadata"></video>
+  </div>
   <div class="FlightCard__content">
     <p>{duration} Airtime</p>
     <h2 class="FlightCard__title">{title}</h2>

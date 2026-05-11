@@ -3,178 +3,321 @@
 .Location {
   padding: 0 !important;
   margin-top: 0 !important;
+  position: relative;
+  height: 100svh;
+  min-height: 580px;
+  overflow: hidden;
+  background: #0a1118;
+  color: $color-white;
 
-  @include lg {
-    display: grid;
-    grid-template-rows: minmax(70svh, auto);
-    grid-template-columns: 1fr;
+  // ───── MAP ─────
+  &__map {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    // Slight de-saturation so the white type and pins read cleanly.
+    // Active state (no card hovered) keeps full saturation around the focused pin.
   }
 
-  &__map {
-    width: 100%;
-    height: 55svh;
+  // Subtle vignette + bottom darken so cards sit on a calm field
+  &__scrim {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background:
+      radial-gradient(120% 80% at 50% 30%, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.35) 100%),
+      linear-gradient(to bottom, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0) 22%, rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, 0.7) 100%);
+  }
 
-    @include lg {
-      grid-area: 1 / 1;
-      height: auto;
-      align-self: stretch;
-      z-index: 0; // creates stacking context — isolates Leaflet's internal z-indexes
+  // ───── HEADER ─────
+  &__header {
+    position: absolute;
+    top: $gutter-md;
+    left: $gutter-md;
+    right: $gutter-md;
+    z-index: 3;
+    pointer-events: none;
+
+    @include md {
+      top: $gutter-xl;
+      left: $gutter-xl;
+      right: $gutter-xl;
     }
   }
 
-  &__panel {
-    padding: $gutter-lg $gutter-md;
-    display: flex;
-    flex-direction: column;
-    gap: $gutter-md;
+  &__title {
+    color: $color-white;
+  }
 
-    @include lg {
-      grid-area: 1 / 1;
-      justify-self: end;
-      align-self: center;
-      margin: $gutter-xl;
+  // ───── CARD ROW ─────
+  // Mobile: horizontal snap-scroll carousel that pages between spots.
+  // Desktop (md+): row with the active card flex-growing to take more space.
+  &__cards {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 3;
+    display: flex;
+    flex-direction: row;
+    gap: $gutter-md;
+    overflow-x: auto;
+    overflow-y: visible;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    padding: $gutter-md;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    -webkit-overflow-scrolling: touch;
+
+    &::-webkit-scrollbar { display: none; }
+
+    @include md {
+      left: $gutter-xl;
+      right: $gutter-xl;
+      bottom: $gutter-xl;
       padding: 0;
-      width: clamp(300px, 31%, 420px);
-      z-index: 1;
+      gap: $gutter-md;
+      align-items: stretch;
+      overflow: visible;
+      scroll-snap-type: none;
     }
   }
 
   &__card {
-    background-color: $color-background;
+    // Reset of the global <button> styles
+    appearance: none;
+    text-align: left;
+    background: rgba(10, 17, 24, 0.55);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 252, 243, 0.16);
     border-radius: $rounded-md;
+    padding: $gutter-md;
+    cursor: pointer;
+    color: $color-white;
     display: flex;
     flex-direction: column;
-    gap: $gutter-md;
-
-    @include lg {
-      padding: $gutter-xl $gutter-lg;
-      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.18);
-    }
-  }
-
-  &__overline {
-    font-size: $font-xs;
-    font-family: "RobotoCondensed", sans-serif;
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    display: flex;
-    align-items: baseline;
     gap: $gutter-sm;
-    margin: 0;
-  }
-
-  &__overlineDot {
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background-color: $color-font-dark;
-    flex: 0 0 4px;
-    transform: translateY(-1px);
-  }
-
-  &__title {
-    margin: 0;
-  }
-
-  &__description {
-    line-height: 1.6;
-    margin: 0;
-    color: $color-font-light;
-  }
-
-  &__spots {
-    display: flex;
-    flex-direction: column;
-    gap: $gutter-md;
-    border-top: 1px solid rgba(0, 0, 0, 0.08);
-    padding-top: $gutter-md;
-  }
-
-  &__spot {
-    display: flex;
-    gap: $gutter-md;
-    align-items: flex-start;
-  }
-
-  &__spotNum {
-    font-family: "RobotoCondensed", sans-serif;
-    font-weight: 700;
-    color: $color-primary;
-    min-width: 20px;
-    padding-top: $gutter-xs;
-    letter-spacing: 0.04em;
-  }
-
-  &__spotName {
-    font-family: "RobotoCondensed", sans-serif;
-    font-weight: 900;
-    font-size: $font-xl;
-    text-transform: uppercase;
-    margin: 0 0 $gutter-sm;
-    letter-spacing: 0.02em;
-  }
-
-  &__spotDesc {
-    color: $color-font-light;
-    margin: 0;
-    line-height: 1.5;
-  }
-
-  &__meetingPoints {
-    display: flex;
-    gap: $gutter-md;
-  }
-
-  &__meetingCard {
-    flex: 1;
-    background-color: $color-background;
-    border-radius: $rounded-sm;
-    padding: $gutter-md $gutter-lg;
-    text-decoration: none;
-    color: $color-font-dark;
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
+    font-family: "Roboto", sans-serif;
+    font-size: $font-base;
+    text-transform: none;
+    -webkit-tap-highlight-color: transparent;
+    // Mobile carousel sizing
+    flex: 0 0 84%;
+    scroll-snap-align: center;
+    min-height: 240px;
     transition:
-      background-color 0.2s ease,
-      color 0.2s ease;
+      flex 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+      background-color 0.3s ease,
+      color 0.3s ease,
+      border-color 0.3s ease,
+      box-shadow 0.3s ease;
 
-    @include lg {
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    @include md {
+      flex: 1 1 0;
+      padding: $gutter-lg;
+      min-height: 200px;
+      scroll-snap-align: unset;
     }
 
     &:hover {
-      background-color: $color-primary;
       color: $color-white;
+    }
 
-      .Location__meetingLabel {
-        color: rgba(255, 255, 255, 0.7);
+    &[data-active="true"] {
+      background: $color-white;
+      color: $color-font-dark;
+      border-color: transparent;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+
+      @include md {
+        flex: 1.7 1 0;
+      }
+
+      .Location__cardCta {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
+      }
+
+      .Location__cardNum {
+        background: $color-primary;
+        color: $color-white;
+      }
+
+      .Location__cardMeta {
+        color: $color-font-light;
+      }
+
+      .Location__cardDesc {
+        color: $color-font-light;
       }
     }
   }
 
-  &__meetingName {
+  &__cardHead {
+    display: flex;
+    align-items: center;
+    gap: $gutter-sm;
+  }
+
+  &__cardNum {
     font-family: "RobotoCondensed", sans-serif;
-    font-weight: 900;
-    font-size: $font-xl;
+    font-weight: 700;
+    font-size: $font-xs;
+    letter-spacing: 0.04em;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 252, 243, 0.18);
+    color: $color-white;
+    flex: 0 0 26px;
+    transition: background-color 0.25s ease, color 0.25s ease;
+  }
+
+  &__cardName {
+    font-family: "Londrina Solid", sans-serif;
+    font-weight: 400;
+    font-size: clamp(1.6rem, 3vw, 2.25rem);
     text-transform: uppercase;
-    letter-spacing: 0.02em;
+    margin: 0;
+    line-height: 1;
+    letter-spacing: 0.01em;
+  }
+
+  &__cardMeta {
+    font-family: "RobotoCondensed", sans-serif;
+    font-weight: 600;
+    font-size: $font-xs;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255, 252, 243, 0.75);
+    display: flex;
+    gap: $gutter-sm;
+    align-items: center;
+
+    > span {
+      white-space: nowrap;
+    }
+  }
+
+  &__cardMetaDot {
+    opacity: 0.5;
+  }
+
+  &__cardDesc {
+    margin: 0;
+    font-size: $font-sm;
+    line-height: 1.55;
+    color: rgba(255, 252, 243, 0.85);
+    flex: 1;
+    transition: color 0.3s ease;
+  }
+
+  // CTA is always rendered so its space is reserved — fades in on active
+  // state. This prevents the vertical layout shift when hovering cards.
+  &__cardCta {
+    display: inline-flex;
+    align-items: center;
+    gap: $gutter-sm;
+    align-self: flex-start;
+    margin-top: auto;
+    padding: 10px 14px 10px 12px;
+    background: $color-primary;
+    color: $color-white;
+    border-radius: $rounded-full;
+    text-decoration: none;
+    font-family: "RobotoCondensed", sans-serif;
+    font-weight: 700;
+    font-size: $font-xs;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(4px);
+    transition:
+      opacity 0.25s ease,
+      transform 0.25s ease,
+      background-color 0.2s ease;
+
+    &:hover {
+      background: $color-primary-light;
+    }
   }
 }
 
-.location-tooltip {
-  background-color: $color-primary;
-  border: none;
-  color: white;
+// ───── LEAFLET PIN STYLES ─────
+// Leaflet injects markers into the .leaflet-marker-pane outside the .Location
+// root in some cases, so these are scoped globally but namespaced.
+.Location__pin {
+  background: transparent !important;
+  border: none !important;
+}
+
+.Location__pinDot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #0136FD;
+  border: 2.5px solid #FFFCF3;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-family: "RobotoCondensed", sans-serif;
   font-weight: 700;
-  font-size: $font-xs;
-  letter-spacing: 0.06em;
-  padding: 4px 8px;
-  border-radius: 4px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  font-size: 13px;
+  color: #FFFCF3;
+  letter-spacing: 0;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
 
-  &.leaflet-tooltip-top::before {
-    border-top-color: $color-primary;
+  &::before {
+    content: attr(data-num);
   }
+}
+
+.Location__pinLabel {
+  position: absolute;
+  top: -28px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: "RobotoCondensed", sans-serif;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #FFFCF3;
+  background: rgba(10, 17, 24, 0.75);
+  padding: 3px 7px;
+  border-radius: 4px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.Location__pin[data-active="true"] .Location__pinDot,
+.leaflet-marker-icon[data-active="true"] .Location__pinDot {
+  width: 40px;
+  height: 40px;
+  background: #FFCE08;
+  border-color: #FFFCF3;
+  color: #0a1118;
+  font-size: 16px;
+  box-shadow: 0 6px 18px rgba(255, 206, 8, 0.45), 0 0 0 6px rgba(255, 206, 8, 0.18);
+}
+
+.Location__pin[data-active="true"] .Location__pinLabel,
+.leaflet-marker-icon[data-active="true"] .Location__pinLabel {
+  opacity: 1;
+  top: -34px;
 }
