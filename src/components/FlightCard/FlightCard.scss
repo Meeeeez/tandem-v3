@@ -22,6 +22,7 @@
   &__title {
     font-weight: 400;
     margin-bottom: $gutter-md;
+    font-size: $font-title-sm;
   }
 
   &__bottom {
@@ -51,6 +52,7 @@
 
   &__button {
     border-radius: $rounded-sm;
+    font-size: $font-lg;
     margin-top: 1rem;
     width: 100%;
   }

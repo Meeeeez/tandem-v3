@@ -1,211 +1,40 @@
 ---
 import "./Location.scss";
-
-const spots = [
-  {
-    id: "plose",
-    num: "01",
-    name: "Plose",
-    elevation: "2,500 m",
-    drop: "1,650 m",
-    description:
-      "Our home mountain above Brixen at 2,500 m. A wide grassy ramp facing the Eisack valley with reliable thermals and panoramic views of the Geisler peaks.",
-    short: "Wide grassy ramp at 2,500 m. Long flights over Brixen.",
-    lat: 46.7133,
-    lng: 11.7150,
-    mapsUrl: "https://www.google.com/maps?q=46.7133,11.7150",
-    meetingPoint: "Plose cable car — valley station, St. Andrä",
-  },
-  {
-    id: "funes",
-    num: "02",
-    name: "Funes",
-    elevation: "2,200 m",
-    drop: "1,350 m",
-    description:
-      "In the heart of Val di Funes amid the Geisler peaks — one of the most scenic valleys in the entire Alps. Best at golden hour.",
-    short: "Iconic Odle peaks. The postcard flight.",
-    lat: 46.6090,
-    lng: 11.6352,
-    mapsUrl: "https://www.google.com/maps?q=46.6090,11.6352",
-    meetingPoint: "Santa Maddalena village square",
-  }
-];
+const { props } = Astro.props;
 ---
 
-<section class="Location" id="location" data-spots={JSON.stringify(spots)}>
-  <div class="Location__map" id="location-map"></div>
-
-  <div class="Location__header">
-    <h3 class="Location__title">Three launches.<br />One sky.</h3>
-  </div>
-
-  <div class="Location__cards" role="tablist">
-    {
-      spots.map((s, i) => (
-        <button
-          class="Location__card"
-          data-spot={s.id}
-          data-active={i === 0 ? "true" : "false"}
-          role="tab"
-          aria-selected={i === 0 ? "true" : "false"}
-          type="button"
-        >
-          <div class="Location__cardHead">
-            <span class="Location__cardNum">{s.num}</span>
-            <h3 class="Location__cardName">{s.name}</h3>
-          </div>
-
-          <div class="Location__cardMeta">
-            <span>{s.elevation}</span>
-            <span class="Location__cardMetaDot">·</span>
-            <span>{s.drop} drop</span>
-          </div>
-
-          <p class="Location__cardDesc">{s.description}</p>
-
-          <a
-            class="Location__cardCta"
-            href={s.mapsUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            data-stop="true"
-          >
-            <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
-              <path
-                d="M12 22s-8-7.5-8-13a8 8 0 1 1 16 0c0 5.5-8 13-8 13z"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2.4"
-                stroke-linejoin="round"
-              />
-              <circle cx="12" cy="9" r="2.4" fill="none" stroke="currentColor" stroke-width="2.4" />
-            </svg>
-            Meeting point
-            <svg viewBox="0 0 24 24" width="12" height="12" aria-hidden="true">
-              <path
-                d="M5 12h14M13 5l7 7-7 7"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2.6"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-          </a>
-        </button>
-      ))
-    }
+<section class="Location">
+    <h3 class="Location__title">
+    where do you <br class="Flights__titleBreakLine"> want to fly from
+  </h3>
+  <p class="Location__description">
+    If Bradford matched Core City averages across key metrics, <b>productivity would rise to £37.80 per hour</b>, the business base would grow to nearly 20,000, and the working‑age population would increase.
+  </p>
+  <div class="Location__details">
+    <div class="Location__detailsTopRow">
+      <div class="Location__textSection Location__box">
+        <span class="Location__cardBadge">Selected &bull; Plose</span>
+        <h4 class="Location__cardTitle">Plose</h4>
+        <p class="Location__cardSub">Our home mountain in South Tyrol. Reliable thermals, clean alpine air, and a panorama of the Dolomites that never gets old.</p>
+        <ul class="Location__cardData">
+          <li><span>Elevation</span><span>2,486 M</span></li>
+          <li><span>Wind</span><span>NW &bull; 15 km/h</span></li>
+          <li><span>Level</span><span>All levels</span></li>
+        </ul>
+        <a class="Location__cardButton" href="https://maps.app.goo.gl/plose" target="_blank" rel="noopener">Meeting Point ↗</a>
+      </div>
+      <video class="Location__imagery Location__box" src="/vid/plose_slow.mp4" autoplay playsinline muted loop></video>
+    </div>
+    <div id="map" class="Location__map Location__box"></div>
   </div>
 </section>
 
-<script is:inline>
-  (function () {
-    function initLocation() {
-      var section = document.getElementById("location");
-      if (!section) return;
-      var mapEl = document.getElementById("location-map");
-      if (typeof L === "undefined" || !mapEl || mapEl._leaflet_id) return;
-
-      var spots = JSON.parse(section.getAttribute("data-spots") || "[]");
-      if (!spots.length) return;
-
-      var bounds = L.latLngBounds(spots.map(function (s) { return [s.lat, s.lng]; }));
-
-      var map = L.map(mapEl, {
-        zoomControl: false,
-        scrollWheelZoom: false,
-        dragging: false,
-        touchZoom: false,
-        doubleClickZoom: false,
-        boxZoom: false,
-        keyboard: false,
-        attributionControl: false,
-      }).fitBounds(bounds, {
-        paddingTopLeft: [40, 180],
-        paddingBottomRight: [40, 320],
-      });
-
-      L.tileLayer(
-        "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
-        { attribution: "Tiles &copy; Esri", maxZoom: 19 }
-      ).addTo(map);
-
-      var markers = {};
-      spots.forEach(function (s, i) {
-        var icon = L.divIcon({
-          className: "Location__pin",
-          html:
-            '<span class="Location__pinDot" data-num="' + (i + 1) + '">' +
-            '<span class="Location__pinLabel">' + s.name + '</span>' +
-            '</span>',
-          iconSize: [44, 44],
-          iconAnchor: [22, 22],
-        });
-        var m = L.marker([s.lat, s.lng], { icon: icon, riseOnHover: true }).addTo(map);
-        m.on("click", function () { setActive(s.id, true); });
-        markers[s.id] = m;
-      });
-
-      var cards = section.querySelectorAll(".Location__card");
-      cards.forEach(function (c) {
-        c.addEventListener("click", function (e) {
-          if (e.target.closest("[data-stop]")) return;
-          setActive(c.getAttribute("data-spot"), true);
-        });
-        c.addEventListener("mouseenter", function () {
-          setActive(c.getAttribute("data-spot"), false);
-        });
-      });
-
-      var activeId = spots[0].id;
-      function setActive(id, fly) {
-        if (id === activeId && !fly) return;
-        activeId = id;
-        cards.forEach(function (c) {
-          var match = c.getAttribute("data-spot") === id;
-          c.setAttribute("data-active", match ? "true" : "false");
-          c.setAttribute("aria-selected", match ? "true" : "false");
-        });
-        Object.keys(markers).forEach(function (k) {
-          var el = markers[k].getElement();
-          if (el) el.setAttribute("data-active", k === id ? "true" : "false");
-        });
-        if (fly) {
-          var s = spots.find(function (x) { return x.id === id; });
-          if (s) map.flyTo([s.lat, s.lng], Math.max(map.getZoom(), 12), { duration: 0.8 });
-        }
-      }
-
-      // Mobile carousel: when a card scroll-snaps into the center,
-      // activate it. Disabled on desktop where cards aren't a scroll container.
-      var cardsRow = section.querySelector(".Location__cards");
-      if (cardsRow && "IntersectionObserver" in window) {
-        var io = new IntersectionObserver(
-          function (entries) {
-            // Only react when the row itself is actually scrollable
-            // (i.e. mobile — desktop has overflow:visible).
-            if (cardsRow.scrollWidth <= cardsRow.clientWidth + 1) return;
-            entries.forEach(function (entry) {
-              if (entry.isIntersecting && entry.intersectionRatio > 0.7) {
-                var id = entry.target.getAttribute("data-spot");
-                if (id) setActive(id, false);
-              }
-            });
-          },
-          { root: cardsRow, threshold: [0.7, 0.9] }
-        );
-        cards.forEach(function (c) { io.observe(c); });
-      }
-
-      // Initialize pin active state on first render
-      requestAnimationFrame(function () { setActive(activeId, false); });
-    }
-
-    if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", initLocation);
-    } else {
-      initLocation();
-    }
-  })();
+<script>
+  import L from "leaflet";
+  import 'leaflet/dist/leaflet.css';
+  const map = L.map('map').setView([51.505, -0.09], 13);
+  L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="https://www.esri.com">Esri</a>, Maxar, Earthstar Geographics'
+  }).addTo(map);
 </script>

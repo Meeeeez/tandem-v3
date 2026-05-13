@@ -5,6 +5,7 @@ import FlightCard from "../../components/FlightCard/FlightCard.astro";
 ---
 
 <section class="Flights">
+  <div class="container">
   <h3 class="Flights__title">
     choose <br class="Flights__titleBreakLine"> your <span class="Flights__titleHighlight">adventure</span>
   </h3>
@@ -19,7 +20,7 @@ import FlightCard from "../../components/FlightCard/FlightCard.astro";
       price="120 €"
       duration="30 min"
       image="/img/1.jpg",
-      videoSrc = "/bg.mp4"
+      videoSrc = "/vid/bg.mp4"
     />
     <FlightCard
       title="Thermal"
@@ -27,7 +28,7 @@ import FlightCard from "../../components/FlightCard/FlightCard.astro";
       price="150 €"
       duration="45 min"
       image="/img/2.jpg",
-      videoSrc = "/bg.mp4"
+      videoSrc = "/vid/bg.mp4"
     />
     <FlightCard
       title="Adventure"
@@ -35,7 +36,7 @@ import FlightCard from "../../components/FlightCard/FlightCard.astro";
       price="210 €"
       duration="90 min"
       image="/img/3.jpg"
-      videoSrc = "/bg.mp4"
+      videoSrc = "/vid/bg.mp4"
     />
   </div>
 
@@ -48,6 +49,8 @@ import FlightCard from "../../components/FlightCard/FlightCard.astro";
       <ArrowIcon />
     </button>
   </div>
+  </div>
+
 </section>
 
 <script>

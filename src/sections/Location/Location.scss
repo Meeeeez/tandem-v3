@@ -1,323 +1,140 @@
 @use "../../definitions" as *;
 
 .Location {
-  padding: 0 !important;
-  margin-top: 0 !important;
-  position: relative;
-  height: 100svh;
-  min-height: 580px;
-  overflow: hidden;
-  background: #0a1118;
+  background-color: $color-background-dark;
   color: $color-white;
 
-  // ───── MAP ─────
-  &__map {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    // Slight de-saturation so the white type and pins read cleanly.
-    // Active state (no card hovered) keeps full saturation around the focused pin.
+  &__titleHighlight {
+    color: $color-primary;
   }
 
-  // Subtle vignette + bottom darken so cards sit on a calm field
-  &__scrim {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    pointer-events: none;
-    background:
-      radial-gradient(120% 80% at 50% 30%, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.35) 100%),
-      linear-gradient(to bottom, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0) 22%, rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, 0.7) 100%);
-  }
-
-  // ───── HEADER ─────
-  &__header {
-    position: absolute;
-    top: $gutter-md;
-    left: $gutter-md;
-    right: $gutter-md;
-    z-index: 3;
-    pointer-events: none;
-
-    @include md {
-      top: $gutter-xl;
-      left: $gutter-xl;
-      right: $gutter-xl;
+  &__titleBreakLine {
+    display: none;
+    @include sm {
+      display: inline-block;
     }
   }
 
-  &__title {
-    color: $color-white;
+  &__description {
+    color: $color-font-light;
+    @include lg {
+      max-width: $md;
+    }
   }
 
-  // ───── CARD ROW ─────
-  // Mobile: horizontal snap-scroll carousel that pages between spots.
-  // Desktop (md+): row with the active card flex-growing to take more space.
-  &__cards {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    z-index: 3;
+  &__details {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     gap: $gutter-md;
-    overflow-x: auto;
-    overflow-y: visible;
-    scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
-    padding: $gutter-md;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    -webkit-overflow-scrolling: touch;
+  }
 
-    &::-webkit-scrollbar { display: none; }
-
+  &__detailsTopRow {
+    display: flex;
+    gap: $gutter-md;
+    flex-direction: column;
     @include md {
-      left: $gutter-xl;
-      right: $gutter-xl;
-      bottom: $gutter-xl;
-      padding: 0;
-      gap: $gutter-md;
-      align-items: stretch;
-      overflow: visible;
-      scroll-snap-type: none;
+      flex-direction: row;
     }
   }
 
-  &__card {
-    // Reset of the global <button> styles
-    appearance: none;
-    text-align: left;
-    background: rgba(10, 17, 24, 0.55);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 252, 243, 0.16);
-    border-radius: $rounded-md;
-    padding: $gutter-md;
-    cursor: pointer;
-    color: $color-white;
+  &__textSection {
+    background-color: $color-white;
+    color: $color-font-dark;
+    padding: $gutter-xl;
+    display: flex;
+    flex-direction: column;
+    gap: $gutter-lg;
+  }
+
+  &__cardBadge {
+    align-self: flex-start;
+    border: 1.5px solid $color-font-dark;
+    border-radius: $rounded-full;
+    padding: $gutter-xs $gutter-ml;
+    font-size: $font-xs;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  &__cardTitle {
+    font-size: $font-title-sm;
+    margin: 0;
+    @include sm {
+      font-size: $font-title-md;
+    }
+  }
+
+  &__cardSub {
+    margin: 0;
+    opacity: 0.55;
+    font-size: $font-sm;
+    line-height: 1.6;
+    flex: 1;
+  }
+
+  &__cardData {
+    list-style: none;
+    padding: 0;
+    margin: 0;
     display: flex;
     flex-direction: column;
     gap: $gutter-sm;
-    font-family: "Roboto", sans-serif;
-    font-size: $font-base;
-    text-transform: none;
-    -webkit-tap-highlight-color: transparent;
-    // Mobile carousel sizing
-    flex: 0 0 84%;
-    scroll-snap-align: center;
-    min-height: 240px;
-    transition:
-      flex 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
-      background-color 0.3s ease,
-      color 0.3s ease,
-      border-color 0.3s ease,
-      box-shadow 0.3s ease;
+    border-top: 1px solid rgba(0, 0, 0, 0.12);
+    padding-top: $gutter-lg;
 
-    @include md {
-      flex: 1 1 0;
-      padding: $gutter-lg;
-      min-height: 200px;
-      scroll-snap-align: unset;
-    }
+    li {
+      display: flex;
+      justify-content: space-between;
+      font-size: $font-sm;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
 
-    &:hover {
-      color: $color-white;
-    }
-
-    &[data-active="true"] {
-      background: $color-white;
-      color: $color-font-dark;
-      border-color: transparent;
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
-
-      @include md {
-        flex: 1.7 1 0;
+      span:first-child {
+        opacity: 0.45;
       }
 
-      .Location__cardCta {
-        opacity: 1;
-        pointer-events: auto;
-        transform: translateY(0);
-      }
-
-      .Location__cardNum {
-        background: $color-primary;
-        color: $color-white;
-      }
-
-      .Location__cardMeta {
-        color: $color-font-light;
-      }
-
-      .Location__cardDesc {
-        color: $color-font-light;
+      span:last-child {
+        font-family: 'Roboto Mono', 'Courier New', monospace;
+        font-weight: 600;
       }
     }
   }
 
-  &__cardHead {
+  &__cardButton {
     display: flex;
-    align-items: center;
-    gap: $gutter-sm;
-  }
-
-  &__cardNum {
-    font-family: "RobotoCondensed", sans-serif;
-    font-weight: 700;
-    font-size: $font-xs;
-    letter-spacing: 0.04em;
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    display: inline-flex;
     align-items: center;
     justify-content: center;
-    background: rgba(255, 252, 243, 0.18);
-    color: $color-white;
-    flex: 0 0 26px;
-    transition: background-color 0.25s ease, color 0.25s ease;
-  }
-
-  &__cardName {
-    font-family: "Londrina Solid", sans-serif;
-    font-weight: 400;
-    font-size: clamp(1.6rem, 3vw, 2.25rem);
-    text-transform: uppercase;
-    margin: 0;
-    line-height: 1;
-    letter-spacing: 0.01em;
-  }
-
-  &__cardMeta {
-    font-family: "RobotoCondensed", sans-serif;
-    font-weight: 600;
-    font-size: $font-xs;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: rgba(255, 252, 243, 0.75);
-    display: flex;
-    gap: $gutter-sm;
-    align-items: center;
-
-    > span {
-      white-space: nowrap;
-    }
-  }
-
-  &__cardMetaDot {
-    opacity: 0.5;
-  }
-
-  &__cardDesc {
-    margin: 0;
-    font-size: $font-sm;
-    line-height: 1.55;
-    color: rgba(255, 252, 243, 0.85);
-    flex: 1;
-    transition: color 0.3s ease;
-  }
-
-  // CTA is always rendered so its space is reserved — fades in on active
-  // state. This prevents the vertical layout shift when hovering cards.
-  &__cardCta {
-    display: inline-flex;
-    align-items: center;
-    gap: $gutter-sm;
-    align-self: flex-start;
-    margin-top: auto;
-    padding: 10px 14px 10px 12px;
-    background: $color-primary;
+    background-color: $color-font-dark;
     color: $color-white;
     border-radius: $rounded-full;
-    text-decoration: none;
-    font-family: "RobotoCondensed", sans-serif;
-    font-weight: 700;
-    font-size: $font-xs;
-    letter-spacing: 0.12em;
+    padding: $gutter-ml $gutter-xl;
+    font-size: $font-sm;
+    font-weight: 600;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    opacity: 0;
-    pointer-events: none;
-    transform: translateY(4px);
-    transition:
-      opacity 0.25s ease,
-      transform 0.25s ease,
-      background-color 0.2s ease;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
 
     &:hover {
-      background: $color-primary-light;
+      background-color: $color-primary;
     }
   }
-}
 
-// ───── LEAFLET PIN STYLES ─────
-// Leaflet injects markers into the .leaflet-marker-pane outside the .Location
-// root in some cases, so these are scoped globally but namespaced.
-.Location__pin {
-  background: transparent !important;
-  border: none !important;
-}
-
-.Location__pinDot {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: #0136FD;
-  border: 2.5px solid #FFFCF3;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-  transform: translate(-50%, -50%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: "RobotoCondensed", sans-serif;
-  font-weight: 700;
-  font-size: 13px;
-  color: #FFFCF3;
-  letter-spacing: 0;
-  cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
-
-  &::before {
-    content: attr(data-num);
+  &__imagery {
+    object-fit: cover;
+    background-color: green;
   }
-}
 
-.Location__pinLabel {
-  position: absolute;
-  top: -28px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-family: "RobotoCondensed", sans-serif;
-  font-weight: 700;
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: #FFFCF3;
-  background: rgba(10, 17, 24, 0.75);
-  padding: 3px 7px;
-  border-radius: 4px;
-  white-space: nowrap;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.25s ease;
-}
+  &__map {
+    height: 60vh;
+    background-color: violet;
+  }
 
-.Location__pin[data-active="true"] .Location__pinDot,
-.leaflet-marker-icon[data-active="true"] .Location__pinDot {
-  width: 40px;
-  height: 40px;
-  background: #FFCE08;
-  border-color: #FFFCF3;
-  color: #0a1118;
-  font-size: 16px;
-  box-shadow: 0 6px 18px rgba(255, 206, 8, 0.45), 0 0 0 6px rgba(255, 206, 8, 0.18);
-}
-
-.Location__pin[data-active="true"] .Location__pinLabel,
-.leaflet-marker-icon[data-active="true"] .Location__pinLabel {
-  opacity: 1;
-  top: -34px;
+  &__box {
+    @include md {
+      width: 100%;
+    }
+    border-radius: $rounded-md;
+  }
 }
