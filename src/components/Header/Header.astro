@@ -1,0 +1,12 @@
+---
+import './Header.scss'
+const { title, titleHighlighted, description, onBackground } = Astro.props;
+---
+
+<div class:list={["Header", { "Header--on-blue": onBackground === "primary" }]}>
+    <h3 class="Header__title">
+        <Fragment set:html={title} />
+        <span class="Header__titleHighlight" set:html={titleHighlighted} />
+    </h3>
+    <p class="Header__description" set:html={description} />
+</div>

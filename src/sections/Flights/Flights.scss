@@ -91,23 +91,6 @@
     justify-content: center;
   }
 
-  &__titleBreakLine {
-    display: none;
-    @include sm {
-      display: inline-block;
-    }
-  }
-
-  &__titleHighlight {
-    color: $color-primary;
-  }
-
-  &__description {
-    @include lg {
-      max-width: $md;
-    }
-  }
-
   &__dot {
     width: 8px;
     height: 8px;

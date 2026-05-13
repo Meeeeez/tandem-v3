@@ -1,0 +1,30 @@
+@use "../../definitions" as *;
+
+.Header {
+  &__title > br {
+    display: none;
+    @include sm {
+      display: inline-block;
+    }
+  }
+
+  &__description {
+    @include lg {
+      max-width: $md;
+    }
+  }
+
+  &__titleHighlight {
+    color: $color-primary;
+  }
+
+  &--on-blue {
+    .Header__titleHighlight {
+      color: $color-secondary;
+    }
+
+    .Header__description {
+      color: $color-font-light;
+    }
+  }
+}

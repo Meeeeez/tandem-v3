@@ -1,11 +1,11 @@
 @use "../../definitions" as *;
 
 .Location {
-  background-color: $color-background-dark;
+  background-color: $color-primary;
   color: $color-white;
 
   &__titleHighlight {
-    color: $color-primary;
+    color: $color-secondary;
   }
 
   &__titleBreakLine {
@@ -132,7 +132,7 @@
   }
 
   &__map {
-    height: 60vh;
+    height: 75vh;
     background-color: violet;
   }
 

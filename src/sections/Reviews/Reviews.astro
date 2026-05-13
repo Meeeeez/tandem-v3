@@ -1,4 +1,5 @@
 ---
+import Header from "../../components/Header/Header.astro";
 import "./Reviews.scss";
 
 const reviews = [
@@ -34,36 +35,12 @@ const reviews = [
 ---
 
 <section class="Reviews" id="reviews">
-  <header class="Reviews__header">
-    <p class="Reviews__overline">
-      <span class="Reviews__overlineDot" aria-hidden="true"></span>
-      <span>REVIEWS</span>
-    </p>
-    <h3 class="Reviews__title">
-      what our <span class="Reviews__titleHighlight">flyers</span> say
-    </h3>
-    <div class="Reviews__summary">
-      <div class="Reviews__summaryStars" aria-hidden="true">★★★★★</div>
-      <p class="Reviews__summaryText">
-        <b>4.97 / 5</b> from 240+ verified guests on Google &amp; TripAdvisor
-      </p>
-    </div>
-  </header>
-
-  <div class="Reviews__grid">
-    {reviews.map((review) => (
-      <article class="Reviews__card">
-        <div class="Reviews__stars" aria-label={`${review.rating} out of 5 stars`}>
-          {Array.from({ length: review.rating }).map(() => (
-            <span aria-hidden="true">★</span>
-          ))}
-        </div>
-        <blockquote class="Reviews__quote">{review.quote}</blockquote>
-        <footer class="Reviews__author">
-          <span class="Reviews__authorName">{review.name}</span>
-          <span class="Reviews__authorOrigin">{review.origin}</span>
-        </footer>
-      </article>
-    ))}
+  <div class="container">
+    <Header
+      title="choose <br>your"
+      titleHighlighted="adventure"
+      description="If Bradford matched Core City averages across key metrics, <b>productivity would rise to £37.80 per hour</b>, the business base would grow to nearly 20,000, and the working‑age population would increase."
+      onBackground="white"
+    />
   </div>
 </section>
