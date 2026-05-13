@@ -1,9 +1,9 @@
 ---
 import './Header.scss'
-const { title, titleHighlighted, description, onBackground } = Astro.props;
+const { title, titleHighlighted, description, onPrimaryBackground } = Astro.props;
 ---
 
-<header class:list={["Header", { "Header--on-blue": onBackground === "primary" }]}>
+<header class:list={["Header", { "Header--on-blue": !!onPrimaryBackground }]}>
     <h3 class="Header__title">
         <Fragment set:html={title} />
         <span class="Header__titleHighlight" set:html={titleHighlighted} />
