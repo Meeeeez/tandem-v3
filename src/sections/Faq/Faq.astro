@@ -48,28 +48,25 @@ const faqs = [
     description="The most common questions before a first flight. Don't see yours? Send us a WhatsApp — we usually reply within an hour."
   />
 
-  <div>
-    <Header title="&nbsp;" />
-    <ul class="Faq__list">
-      {
-        faqs.map((faq, i) => (
-          <li class="Faq__item">
-            <details class="Faq__details">
-              <summary class="Faq__summary">
-                <span class="Faq__number">{i + 1 < 10 ? `0${i + 1}` : `${i + 1}`}</span>
-                <h5 class="Faq__question">{faq.question}</h5>
-                <span class="Faq__icon" aria-hidden="true">
-                  <span class="Faq__iconBar Faq__iconBar--h" />
-                  <span class="Faq__iconBar Faq__iconBar--v" />
-                </span>
-              </summary>
-              <div class="Faq__answer">
-                <p>{faq.answer}</p>
-              </div>
-            </details>
-          </li>
-        ))
-      }
-    </ul>
-  </div>
+  <ul class="Faq__list">
+    {
+      faqs.map((faq, i) => (
+        <li class="Faq__item">
+          <details class="Faq__details">
+            <summary class="Faq__summary">
+              <span class="Faq__number">{i + 1 < 10 ? `0${i + 1}` : `${i + 1}`}</span>
+              <h5 class="Faq__question">{faq.question}</h5>
+              <span class="Faq__icon" aria-hidden="true">
+                <span class="Faq__iconBar Faq__iconBar--h" />
+                <span class="Faq__iconBar Faq__iconBar--v" />
+              </span>
+            </summary>
+            <div class="Faq__answer">
+              <p>{faq.answer}</p>
+            </div>
+          </details>
+        </li>
+      ))
+    }
+  </ul>
 </section>
