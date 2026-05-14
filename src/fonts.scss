@@ -1,20 +1,4 @@
 @font-face {
-  font-family: 'Monologue';
-  src: url('/tandem-v3/fonts/Monologue.woff2') format('woff2');
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Inter';
-  /* Using 'woff2-variations' is the modern standard for variable fonts */
-  src: url('/tandem-v3/fonts/InterVariable.ttf') format('woff2-variations'),
-    url('/tandem-v3/fonts/InterVariable.ttf') format('truetype');
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
   font-family: 'Londrina Solid';
   src: url('/tandem-v3/fonts/LondrinaSolid.ttf') format('truetype');
   font-weight: 400;
