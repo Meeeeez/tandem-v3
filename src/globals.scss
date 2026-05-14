@@ -13,7 +13,7 @@ section {
   padding: $gutter-lg $gutter-md;
 
   @include md {
-    padding: $gutter-xl;
+    padding: $gutter-xxl $gutter-xl;
   }
 }
 
@@ -44,6 +44,12 @@ h4 {
   font-size: $font-title-xs;
   font-family: 'RobotoCondensed', sans-serif;
   font-weight: 900;
+}
+
+h5 {
+  font-size: $font-xl;
+  font-family: 'RobotoCondensed', sans-serif;
+  font-weight: 800;
 }
 
 // Base Button Styles

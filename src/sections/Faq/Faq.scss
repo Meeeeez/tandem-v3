@@ -10,49 +10,6 @@
     gap: $gutter-xl;
   }
 
-  &__header {
-    max-width: 40ch;
-
-    @include md {
-      position: sticky;
-      top: $gutter-md;
-      align-self: flex-start;
-    }
-  }
-
-  &__overline {
-    font-size: $font-xs;
-    font-family: "RobotoCondensed", sans-serif;
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    display: flex;
-    align-items: baseline;
-    gap: $gutter-sm;
-    margin: 0 0 $gutter-sm 0;
-  }
-
-  &__overlineDot {
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background-color: $color-font-dark;
-    flex: 0 0 4px;
-    transform: translateY(-1px);
-  }
-
-  &__title {
-    margin: 0 0 $gutter-md 0;
-  }
-
-  &__titleHighlight {
-    color: $color-primary;
-  }
-
-  &__description {
-    margin: 0;
-    opacity: 0.85;
-  }
-
   &__list {
     list-style: none;
     padding: 0;
@@ -61,7 +18,9 @@
   }
 
   &__item {
-    border-bottom: 1px solid rgba($color-font-dark, 0.12);
+    &:not(:last-child) {
+      border-bottom: 1px solid rgba($color-font-dark, 0.12);
+    }
   }
 
   &__details {
@@ -83,7 +42,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: $gutter-md;
+    gap: $gutter-lg;
     padding: $gutter-md 0;
     font-family: "RobotoCondensed", sans-serif;
     font-weight: 600;
@@ -135,8 +94,14 @@
     }
   }
 
+  &__number {
+    color: $color-secondary;
+    font-family: "Londrina Solid", sans-serif;
+    font-size: $font-xl;
+  }
+
   &__answer {
-    padding: 0 0 $gutter-md 0;
+    padding: 0 0 $gutter-md 2.7rem;
 
     p {
       margin: 0;

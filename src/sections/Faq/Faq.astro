@@ -1,4 +1,5 @@
 ---
+import Header from "../../components/Header/Header.astro";
 import "./Faq.scss";
 
 const faqs = [
@@ -41,36 +42,34 @@ const faqs = [
 ---
 
 <section class="Faq" id="faq">
-  <header class="Faq__header">
-    <p class="Faq__overline">
-      <span class="Faq__overlineDot" aria-hidden="true"></span>
-      <span>FAQ</span>
-    </p>
-    <h3 class="Faq__title">
-      good to <span class="Faq__titleHighlight">know</span>
-    </h3>
-    <p class="Faq__description">
-      The most common questions before a first flight. Don't see yours?
-      Send us a WhatsApp — we usually reply within an hour.
-    </p>
-  </header>
+  <Header
+    title="good to "
+    titleHighlighted="know"
+    description="The most common questions before a first flight. Don't see yours? Send us a WhatsApp — we usually reply within an hour."
+  />
 
-  <ul class="Faq__list">
-    {faqs.map((faq) => (
-      <li class="Faq__item">
-        <details class="Faq__details">
-          <summary class="Faq__summary">
-            <span class="Faq__question">{faq.question}</span>
-            <span class="Faq__icon" aria-hidden="true">
-              <span class="Faq__iconBar Faq__iconBar--h"></span>
-              <span class="Faq__iconBar Faq__iconBar--v"></span>
-            </span>
-          </summary>
-          <div class="Faq__answer">
-            <p>{faq.answer}</p>
-          </div>
-        </details>
-      </li>
-    ))}
-  </ul>
+  <div>
+    <Header title="&nbsp;" />
+    <ul class="Faq__list">
+      {
+        faqs.map((faq, i) => (
+          <li class="Faq__item">
+            <details class="Faq__details">
+              <summary class="Faq__summary">
+                <span class="Faq__number">{i + 1 < 10 ? `0${i + 1}` : `${i + 1}`}</span>
+                <h5 class="Faq__question">{faq.question}</h5>
+                <span class="Faq__icon" aria-hidden="true">
+                  <span class="Faq__iconBar Faq__iconBar--h" />
+                  <span class="Faq__iconBar Faq__iconBar--v" />
+                </span>
+              </summary>
+              <div class="Faq__answer">
+                <p>{faq.answer}</p>
+              </div>
+            </details>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
 </section>
