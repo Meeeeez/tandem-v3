@@ -1,5 +1,150 @@
 @use "../../definitions" as *;
 
 .Reviews {
-  
+  &__scrollContainer {
+    display: flex;
+    gap: $gutter-md;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    width: 100%;
+    padding: $gutter-xs 0;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    &>* {
+      // Snap to start so each “page” shows whole cards only (no half cards at edges).
+      scroll-snap-align: center;
+      scroll-snap-stop: always;
+      flex-shrink: 0;
+      min-width: 0;
+      box-sizing: border-box;
+      // 1 column — fills track width
+      flex: 0 0 100%;
+
+      @include sm {
+        flex: 0 0 calc((100% - #{$gutter-md}) / 2);
+      }
+
+      @include md {
+        flex: 0 0 calc((100% - #{$gutter-md * 2}) / 3);
+      }
+
+      @include lg {
+        flex: 1 1 0;
+        min-width: 0;
+      }
+    }
+
+    @include lg {
+      overflow-x: visible;
+      scroll-snap-type: none;
+    }
+  }
+
+  &__controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: $gutter-lg;
+
+    @include lg {
+      display: none;
+    }
+  }
+
+  &__controlButton {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: $gutter-sm;
+
+    &--prev {
+      transform: rotate(180deg);
+    }
+  }
+
+  &__pagination {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #d1d5db;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+
+    &:hover {
+      background-color: #9ca3af;
+    }
+
+    &--active {
+      background-color: $color-primary;
+      transform: scale(1.2);
+
+      &:hover {
+        background-color: $color-primary;
+      }
+    }
+  }
+
+  &__highlight {
+    background-color: $color-primary;
+    padding: $gutter-xl;
+    border-radius: $gutter-md;
+    margin: $gutter-xl 0;
+  }
+
+  &__highlightText {
+    color: $color-white;
+    font-family: "Londrina Solid", sans-serif;
+    text-transform: uppercase;
+    font-weight: 500;
+    letter-spacing: 0.025em;
+  }
+
+  &__highlightBottomRow {
+    color: $color-secondary;
+    margin-top: $gutter-md;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    @include sm {
+      flex-direction: row;
+      align-items: center;
+      gap: $gutter-md;
+    }
+  }
+
+  &__highlightBottomRow>p {
+    margin: 0;
+  }
+
+  &__highlightBottomRow::before {
+    content: "";
+    width: 32px;
+    height: 1px;
+    background: $color-secondary;
+    margin-bottom: $gutter-md;
+    @include sm {
+      margin-bottom: 0;
+    }
+  }
+
+  &__highlightDetails {
+    opacity: 0.75;
+  }
 }

@@ -1,0 +1,80 @@
+@use "../../definitions" as *;
+
+.ReviewCard {
+  background-color: $color-white;
+  color: $color-font-dark;
+  border-radius: $rounded-md;
+  padding: $gutter-xl;
+  display: flex;
+  flex-direction: column;
+  min-height: 16rem;
+  box-shadow: $shadow;
+  border: 1px solid rgba($color-font-dark, 0.08);
+
+  &__stars {
+    display: flex;
+    gap: 2px;
+    margin-bottom: $gutter-md;
+  }
+
+  &__star {
+    font-size: $font-lg;
+    line-height: 1;
+    color: rgba($color-font-dark, 0.2);
+
+    &--filled {
+      color: $color-secondary;
+    }
+  }
+
+  &__quote {
+    margin: 0;
+    flex: 1;
+
+    p {
+      margin: 0;
+      font-size: $font-base;
+      line-height: 160%;
+      font-family: "Roboto", sans-serif;
+      font-weight: 400;
+    }
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    gap: $gutter-md;
+    margin-top: $gutter-lg;
+    padding-top: $gutter-md;
+    border-top: 1px solid rgba($color-font-dark, 0.1);
+  }
+
+  &__name {
+    margin: 0 0 $gutter-xs 0;
+    font-family: "RobotoCondensed", sans-serif;
+    font-weight: 700;
+    font-size: $font-sm;
+    text-transform: uppercase;
+  }
+
+  &__flightMeta {
+    margin: 0;
+    font-size: $font-sm;
+    color: rgba($color-font-dark, 0.65);
+  }
+
+  &__image {
+    width: 3rem;
+    height: 3rem;
+    aspect-ratio: 1 / 1;
+    background-color: $color-primary;
+    color: $color-secondary;
+    border-radius: $rounded-full;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    font-family: "Londrina Solid", sans-serif;
+    font-size: $font-xl;
+  }
+}

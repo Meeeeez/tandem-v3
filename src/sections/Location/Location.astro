@@ -28,7 +28,8 @@ const { props } = Astro.props;
     center: [46.662051,11.687441],
     zoom: 11,
     minZoom: 11,
-    maxZoom: 17
+    maxZoom: 17,
+    scrollWheelZoom: false
   });
   L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}').addTo(map);
 </script>

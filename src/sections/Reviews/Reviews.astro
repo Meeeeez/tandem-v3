@@ -1,5 +1,7 @@
 ---
 import Header from "../../components/Header/Header.astro";
+import ArrowIcon from "../../assets/icons/arrow.svg";
+import ReviewCard from "../../components/ReviewCard/ReviewCard.astro";
 import "./Reviews.scss";
 
 const reviews = [
@@ -8,28 +10,32 @@ const reviews = [
     quote:
       "Absolutely the highlight of our trip. Luca made us feel safe from the first second, and the views over the Geisler peaks were unreal.",
     name: "Sarah K.",
-    origin: "Berlin, DE",
+    flightType: "Adventure",
+    flightDate: "June 2025",
   },
   {
     rating: 5,
     quote:
       "First time flying and now I want to do it every weekend. Smooth take-off, gentle landing, great photos at the end.",
     name: "Marco D.",
-    origin: "Milan, IT",
+    flightType: "Glide",
+    flightDate: "May 2025",
   },
   {
     rating: 5,
     quote:
       "Booked the Thermal flight — 30 minutes felt like 5. Professional, friendly, and the location speaks for itself.",
     name: "James P.",
-    origin: "London, UK",
+    flightType: "Thermal",
+    flightDate: "August 2025",
   },
   {
     rating: 5,
     quote:
       "We gave this as a birthday gift and got tears of joy. Communication was perfect from the first message to landing.",
     name: "Anna & Tom",
-    origin: "Vienna, AT",
+    flightType: "Thermal",
+    flightDate: "July 2025",
   },
 ];
 ---
@@ -37,9 +43,118 @@ const reviews = [
 <section class="Reviews" id="reviews">
   <div class="container">
     <Header
-      title="choose <br>your"
-      titleHighlighted="adventure"
+      title="Five stars <br>on every"
+      titleHighlighted="platform"
       description="If Bradford matched Core City averages across key metrics, <b>productivity would rise to £37.80 per hour</b>, the business base would grow to nearly 20,000, and the working‑age population would increase."
     />
+    <div class="Reviews__highlight">
+      <h4 class="Reviews__highlightText">“We flew over the Sella in golden light and I could see the whole valley below. The photos are unreal — they were on my phone before I even unbuckled.”</h4>
+      <div class="Reviews__highlightBottomRow">
+        <p class="Reviews__highlightName">Hannah Messner</p>
+        <p class="Reviews__highlightDetails">Thermal • August 2025</p>
+      </div>
+    </div>
+
+    <div class="Reviews__scrollContainer">
+      {
+        reviews.map((review) => (
+          <ReviewCard
+            rating={review.rating}
+            quote={review.quote}
+            name={review.name}
+            flightType={review.flightType}
+            flightDate={review.flightDate}
+          />
+        ))
+      }
+    </div>
+
+    <div class="Reviews__controls">
+      <button class="Reviews__controlButton Reviews__controlButton--prev" type="button">
+        <ArrowIcon />
+      </button>
+      <div class="Reviews__pagination"></div>
+      <button class="Reviews__controlButton Reviews__controlButton--next" type="button">
+        <ArrowIcon />
+      </button>
+    </div>
   </div>
 </section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const section = document.querySelector("#reviews");
+    const container = section?.querySelector(".Reviews__scrollContainer");
+    const pagination = section?.querySelector(".Reviews__pagination");
+    const cards = container?.querySelectorAll(":scope > *");
+    const prevBtn = section?.querySelector(".Reviews__controlButton--prev");
+    const nextBtn = section?.querySelector(".Reviews__controlButton--next");
+
+    if (!container || !pagination) return;
+    if (!cards || cards.length === 0) return;
+
+    cards.forEach((_, index) => {
+      const dot = document.createElement("button");
+      dot.type = "button";
+      dot.classList.add("Reviews__dot");
+      dot.setAttribute("aria-label", `Go to review ${index + 1}`);
+      dot.addEventListener("click", () => scrollToIndex(index));
+      pagination.appendChild(dot);
+    });
+
+    const dots = pagination.querySelectorAll(".Reviews__dot");
+    let activeIndex = 0;
+
+    const scrollToIndex = (index: number) => {
+      const clamped = Math.max(0, Math.min(index, cards.length - 1));
+      activeIndex = clamped;
+      cards[clamped]?.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+        inline: "start",
+      });
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries.filter(
+          (e) => e.isIntersecting && e.intersectionRatio >= 0.5,
+        );
+        if (!visible.length) return;
+
+        const rootLeft = container.getBoundingClientRect().left;
+        visible.sort(
+          (a, b) =>
+            a.target.getBoundingClientRect().left -
+            b.target.getBoundingClientRect().left,
+        );
+        const primary =
+          visible.find(
+            (e) => e.target.getBoundingClientRect().left >= rootLeft - 1,
+          ) ?? visible[0];
+
+        activeIndex = Array.from(cards ?? []).indexOf(primary.target);
+        dots.forEach((dot, index) => {
+          dot.classList.toggle(
+            "Reviews__dot--active",
+            index === activeIndex,
+          );
+        });
+      },
+      {
+        root: container,
+        threshold: [0, 0.25, 0.5, 0.75, 1],
+      },
+    );
+
+    cards.forEach((card) => observer.observe(card));
+
+    prevBtn?.addEventListener("click", () => {
+      scrollToIndex(activeIndex - 1);
+    });
+
+    nextBtn?.addEventListener("click", () => {
+      scrollToIndex(activeIndex + 1);
+    });
+  });
+</script>

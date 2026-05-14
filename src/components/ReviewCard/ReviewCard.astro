@@ -1,0 +1,51 @@
+---
+import "./ReviewCard.scss";
+
+const { rating, quote, name, flightType, flightDate } = Astro.props;
+const fullStars = Math.min(5, Math.max(0, Number(rating) || 0));
+
+const nameParts = String(name ?? "")
+  .replace("&", " ")
+  .trim()
+  .split(/\s+/)
+  .filter((w) => w.length > 0 && w !== "&");
+const initialA = (nameParts[0]?.charAt(0) ?? "?").toUpperCase();
+const initialBRaw =
+  nameParts.length > 1
+    ? nameParts[nameParts.length - 1]?.charAt(0) ?? ""
+    : nameParts[0]?.charAt(1) ?? "";
+const initialB = initialBRaw.toUpperCase();
+---
+
+<article class="ReviewCard">
+  <div class="ReviewCard__stars" aria-label={`${fullStars} out of 5 stars`}>
+    {
+      Array.from({ length: 5 }).map((_, i) => (
+        <span
+          class:list={[
+            "ReviewCard__star",
+            { "ReviewCard__star--filled": i < fullStars },
+          ]}
+          aria-hidden="true"
+        >
+          ★
+        </span>
+      ))
+    }
+  </div>
+  <blockquote class="ReviewCard__quote">
+    <p>“{quote}”</p>
+  </blockquote>
+  <div class="ReviewCard__footer">
+    <div class="ReviewCard__image">
+      <span>{initialA}</span>
+      <span>{initialB}</span>
+    </div>
+    <div>
+      <p class="ReviewCard__name">{name}</p>
+      <p class="ReviewCard__flightMeta">
+        {flightType} • {flightDate}
+      </p>
+    </div>
+  </div>
+</article>

@@ -121,19 +121,9 @@
     }
   }
 
-  &__imagery {
-    object-fit: cover;
-    background-color: green;
-    height: 40vh;
-
-    @include md {
-      height: auto;
-    }
-  }
-
   &__map {
     height: 75vh;
-    background-color: violet;
+    background-color: wheat;
   }
 
   &__box {

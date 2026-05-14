@@ -70,7 +70,7 @@ button {
 
   // Icon Button Hover Effect
   &.animate-fill:hover svg>path {
-    fill: $color-white;
+    fill: $color-secondary;
   }
 }
 
@@ -105,7 +105,7 @@ p {
   }
 
   &:hover {
-    color: $color-white;
+    color: $color-secondary;
   }
 
   &:hover::before {
