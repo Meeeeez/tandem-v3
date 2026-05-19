@@ -1,0 +1,20 @@
+---
+  import './ContactCard.scss';
+  import ArrowIcon from "../../assets/icons/arrow.svg";
+  const { title, subtitle, href } = Astro.props;
+---
+
+<a class="ContactCard" href={href}>
+  <div class="ContactCard__left">
+    <div class="ContactCard__icon">
+      <slot name="icon" />
+    </div>
+    <div>
+      <p class="ContactCard__subtitle">{subtitle}</p>
+      <p class="ContactCard__title">{title}</p>
+    </div>
+  </div>
+  <div class="ContactCard__link">
+    <ArrowIcon />
+  </div>
+</a>

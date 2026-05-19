@@ -1,0 +1,117 @@
+---
+import './ContactForm.scss';
+const flights = [
+  "Glide · 30 min",
+  "Thermal · 45 min",
+  "Adventure · 90 min",
+  "Not sure yet",
+];
+---
+
+<form class="ContactForm" data-contact-form novalidate>
+  <div class="ContactForm__body">
+    <p class="ContactForm__eyebrow">or write to us</p>
+    <h4 class="ContactForm__title">Send us a message</h4>
+
+    <div class="ContactForm__field">
+      <label class="ContactForm__label" for="cf-name">Your name</label>
+      <input
+        class="ContactForm__input"
+        id="cf-name"
+        name="name"
+        type="text"
+        required
+        placeholder="Alex"
+      />
+    </div>
+
+    <div class="ContactForm__row">
+      <div class="ContactForm__field">
+        <label class="ContactForm__label" for="cf-email">Email</label>
+        <input
+          class="ContactForm__input"
+          id="cf-email"
+          name="email"
+          type="email"
+          required
+          placeholder="alex@email.com"
+        />
+      </div>
+
+      <div class="ContactForm__field">
+        <label class="ContactForm__label" for="cf-flight">Flight</label>
+        <select
+          class="ContactForm__input ContactForm__input--select"
+          id="cf-flight"
+          name="flight"
+          required
+          defaultValue=""
+        >
+          <option value="" disabled selected>Pick one</option>
+          {flights.map((f) => <option value={f}>{f}</option>)}
+        </select>
+      </div>
+    </div>
+
+    <div class="ContactForm__field">
+      <label class="ContactForm__label" for="cf-msg">Message</label>
+      <textarea
+        class="ContactForm__input ContactForm__input--textarea"
+        id="cf-msg"
+        name="message"
+        rows="3"
+        placeholder="Two of us, hoping to fly the weekend of June 14–15…"
+      ></textarea>
+    </div>
+
+    <div class="ContactForm__submit">
+      <button class="ContactForm__button" type="submit">
+        <svg
+          class="ContactForm__buttonIcon"
+          width="16"
+          height="17"
+          viewBox="0 0 16 17"
+          fill="none"
+          aria-hidden="true"
+        >
+          <path
+            d="M12.175 9.5H0V7.5H12.175L6.575 1.9L8 0.5L16 8.5L8 16.5L6.575 15.1L12.175 9.5Z"
+            fill="currentColor"
+          />
+        </svg>
+        Send message
+      </button>
+      <p class="ContactForm__fineprint">
+        No commitment — we&rsquo;ll suggest a date and you decide.
+      </p>
+    </div>
+  </div>
+
+  <div class="ContactForm__sent" data-contact-form-sent>
+    <div class="ContactForm__sentMark" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="4 12 10 18 20 6" />
+      </svg>
+    </div>
+    <h4 class="ContactForm__title">Message sent.</h4>
+    <p class="ContactForm__sentText">
+      We&rsquo;ll get back to you within the hour. In the meantime, you can
+      also reach us on WhatsApp.
+    </p>
+  </div>
+</form>
+
+<script>
+  const forms = document.querySelectorAll<HTMLFormElement>("[data-contact-form]");
+  forms.forEach((form) => {
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+      form.classList.add("ContactForm--sent");
+      // TODO: wire to real endpoint (fetch / formspree / mailto fallback)
+    });
+  });
+</script>

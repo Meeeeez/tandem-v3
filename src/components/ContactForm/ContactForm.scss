@@ -1,0 +1,201 @@
+@use "../../definitions.scss" as *;
+
+.ContactForm {
+  position: relative;
+  background: $color-white;
+  color: $color-font-dark;
+  border-radius: $rounded-md;
+  padding: $gutter-lg;
+  box-shadow: $shadow;
+
+  @include md {
+    padding: $gutter-xl;
+  }
+
+  // -- swap body <-> sent state -------------------------------------------
+  &__body { display: flex; flex-direction: column; gap: $gutter-md; }
+  &__sent {
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: $gutter-md;
+    padding: $gutter-md 0;
+  }
+
+  &--sent {
+    .ContactForm__body { display: none; }
+    .ContactForm__sent { display: flex; }
+  }
+
+  // -- header --------------------------------------------------------------
+  &__eyebrow {
+    margin: 0;
+    font-family: var(--font-condensed, "RobotoCondensed", sans-serif);
+    font-weight: 600;
+    font-size: $font-xs;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgba($color-font-dark, 0.65);
+  }
+
+  &__title {
+    font-family: var(--font-display, "Londrina Solid", sans-serif);
+    font-size: $font-title-xs;
+    text-transform: uppercase;
+    font-weight: 400;
+    line-height: 1;
+    margin: 0 0 $gutter-sm;
+    color: #111;
+
+    @include sm { font-size: $font-title-sm; }
+  }
+
+  // -- layout helpers ------------------------------------------------------
+  &__row {
+    display: grid;
+    gap: $gutter-md;
+    grid-template-columns: 1fr;
+
+    @include xs {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  &__label {
+    font-family: var(--font-condensed, "RobotoCondensed", sans-serif);
+    font-weight: 600;
+    font-size: $font-xs;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba($color-font-dark, 0.65);
+  }
+
+  // -- inputs --------------------------------------------------------------
+  &__input {
+    font-family: var(--font-sans, "Roboto", system-ui, sans-serif);
+    font-size: $font-base;
+    color: #111;
+    background: transparent;
+    border: 0;
+    border-bottom: 1.5px solid rgba($color-font-dark, 0.2);
+    padding: 10px 0;
+    outline: none;
+    border-radius: 0;
+    width: 100%;
+    appearance: none;
+    -webkit-appearance: none;
+    transition: border-color 0.2s ease;
+
+    &::placeholder { color: rgba($color-font-dark, 0.35); }
+
+    &:focus { border-bottom-color: $color-primary; }
+
+    &--select {
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'><path d='M1 1L6 6L11 1' stroke='%23033508' stroke-width='1.8' stroke-linecap='round'/></svg>");
+      background-repeat: no-repeat;
+      background-position: right 4px center;
+      padding-right: 24px;
+      cursor: pointer;
+    }
+
+    &--textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    &:invalid:not(:placeholder-shown) {
+      border-bottom-color: rgba(#b00020, 0.7);
+    }
+  }
+
+  // -- submit --------------------------------------------------------------
+  &__submit {
+    margin-top: $gutter-sm;
+    display: flex;
+    align-items: center;
+    gap: $gutter-md;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  &__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: $gutter-sm;
+    background: $color-primary;
+    color: $color-white;
+    border: 0;
+    cursor: pointer;
+    border-radius: $rounded-md;
+    padding: $gutter-md $gutter-lg;
+    font-family: var(--font-sans, "Roboto", system-ui, sans-serif);
+    font-size: $font-xl;
+    font-weight: 600;
+    text-transform: uppercase;
+    -webkit-tap-highlight-color: transparent;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    transition: color 0.25s ease;
+
+    @include lg {
+      padding: $gutter-sm $gutter-lg;
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 150%;
+      aspect-ratio: 1 / 1;
+      background-color: $color-secondary;
+      border-radius: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      transition: transform 0.25s ease;
+      z-index: -1;
+    }
+
+    &:hover {
+      color: $color-primary;
+      &::before { transform: translate(-50%, -50%) scale(1); }
+    }
+  }
+
+  &__buttonIcon { flex-shrink: 0; }
+
+  &__fineprint {
+    margin: 0;
+    font-family: var(--font-condensed, "RobotoCondensed", sans-serif);
+    font-weight: 600;
+    font-size: $font-xs;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: rgba($color-font-dark, 0.65);
+  }
+
+  // -- sent state ----------------------------------------------------------
+  &__sentMark {
+    width: 64px;
+    height: 64px;
+    border-radius: $rounded-full;
+    background: $color-primary;
+    color: $color-white;
+    display: grid;
+    place-items: center;
+  }
+
+  &__sentText {
+    margin: 0;
+    line-height: 1.5;
+    font-size: $font-base;
+    color: $color-font-dark;
+  }
+}

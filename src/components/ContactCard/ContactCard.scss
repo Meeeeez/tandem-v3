@@ -1,0 +1,69 @@
+@use "../../definitions" as *;
+
+.ContactCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $gutter-md;
+  padding: $gutter-lg;
+  background-color: rgba($color-white, 0.05);
+  border: 1px solid rgba($color-white, 0.1);
+  border-radius: $rounded-md;
+  transition: all 0.2s;
+  color: $color-white;
+  text-decoration: none;
+
+  &__title {
+    font-size: $font-xxl;
+    font-weight: 500;
+    font-family: 'Londrina Solid', sans-serif;
+    margin: 0;
+    line-height: 1;
+    letter-spacing: 0.05em;
+  }
+
+  &__subtitle {
+    font-size: $font-xs;
+    font-weight: 500;
+    margin: 0;
+    margin-bottom: $gutter-sm;
+    line-height: 1;
+    text-transform: uppercase;
+    color: $color-font-light;
+    font-family: 'RobotoCondensed', sans-serif;
+    letter-spacing: 0.2em;
+  }
+
+  &__icon {
+    background-color: $color-secondary;
+    padding: calc($gutter-sm * 1.5);
+    border-radius: $rounded-sm;
+  }
+
+  &__left {
+    display: flex;
+    align-items: center;
+    gap: $gutter-md;
+  }
+
+  &:hover {
+    box-shadow: $shadow-white;
+    background-color: rgba($color-white, 0.08);
+    border: 1px solid rgba($color-white, 0.15);
+    .ContactCard__link {
+      transform: rotate(-45deg);
+    }
+  }
+
+  &__link {
+    background-color: $color-white;
+    border-radius: $rounded-full;
+    height: 48px;
+    width: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.1s;
+    color: $color-primary;
+  }
+}

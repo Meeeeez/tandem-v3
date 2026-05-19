@@ -21,6 +21,10 @@
     margin-bottom: $gutter-sm;
     text-wrap: nowrap;
 
+    &--highlight {
+      color: $color-secondary;
+    }
+
     @include xs {
       font-size: 17vw;
     }

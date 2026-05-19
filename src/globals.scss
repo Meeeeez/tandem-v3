@@ -10,7 +10,7 @@ body {
 }
 
 section {
-  padding: $gutter-lg $gutter-md;
+  padding: $gutter-xxl $gutter-md;
 
   @include md {
     padding: $gutter-xxl $gutter-xl;

@@ -4,122 +4,12 @@
   background-color: $color-primary;
   color: $color-white;
 
-  &__titleHighlight {
-    color: $color-secondary;
-  }
-
-  &__titleBreakLine {
-    display: none;
-    @include sm {
-      display: inline-block;
-    }
-  }
-
-  &__description {
-    color: $color-font-light;
-    @include lg {
-      max-width: $md;
-    }
-  }
-
   &__details {
     display: flex;
     flex-direction: column;
     gap: $gutter-md;
   }
 
-  &__detailsTopRow {
-    display: flex;
-    gap: $gutter-md;
-    flex-direction: column;
-    @include md {
-      flex-direction: row;
-    }
-  }
-
-  &__textSection {
-    background-color: $color-white;
-    color: $color-font-dark;
-    padding: $gutter-xl;
-    display: flex;
-    flex-direction: column;
-    gap: $gutter-lg;
-  }
-
-  &__cardBadge {
-    align-self: flex-start;
-    border: 1.5px solid $color-font-dark;
-    border-radius: $rounded-full;
-    padding: $gutter-xs $gutter-ml;
-    font-size: $font-xs;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
-
-  &__cardTitle {
-    font-size: $font-title-sm;
-    margin: 0;
-    @include sm {
-      font-size: $font-title-md;
-    }
-  }
-
-  &__cardSub {
-    margin: 0;
-    opacity: 0.55;
-    font-size: $font-sm;
-    line-height: 1.6;
-    flex: 1;
-  }
-
-  &__cardData {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: $gutter-sm;
-    border-top: 1px solid rgba(0, 0, 0, 0.12);
-    padding-top: $gutter-lg;
-
-    li {
-      display: flex;
-      justify-content: space-between;
-      font-size: $font-sm;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-
-      span:first-child {
-        opacity: 0.45;
-      }
-
-      span:last-child {
-        font-family: 'Roboto Mono', 'Courier New', monospace;
-        font-weight: 600;
-      }
-    }
-  }
-
-  &__cardButton {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: $color-font-dark;
-    color: $color-white;
-    border-radius: $rounded-full;
-    padding: $gutter-ml $gutter-xl;
-    font-size: $font-sm;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    text-decoration: none;
-    transition: background-color 0.2s ease;
-
-    &:hover {
-      background-color: $color-primary;
-    }
-  }
 
   &__map {
     height: 75vh;
