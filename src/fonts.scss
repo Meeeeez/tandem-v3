@@ -1,31 +1,39 @@
 @font-face {
   font-family: 'Londrina Solid';
-  src: url('/tandem-v3/fonts/LondrinaSolid.ttf') format('truetype');
+  src:
+    url('/tandem-v3/fonts/woff2/LondrinaSolid-Regular.woff2') format('woff2'),
+    url('/tandem-v3/fonts/ttf/LondrinaSolid.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
   font-family: 'Londrina Solid';
-  src: url('/tandem-v3/fonts/LondrinaSolid-Light.ttf') format('truetype');
+  src:
+    url('/tandem-v3/fonts/woff2/LondrinaSolid-Light.woff2') format('woff2'),
+    url('/tandem-v3/fonts/ttf/LondrinaSolid-Light.ttf') format('truetype');
   font-weight: 300;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
   font-family: 'RobotoCondensed';
-  src: url('/tandem-v3/fonts/RobotoCondensedVariable.ttf') format('truetype');
+  src:
+    url('/tandem-v3/fonts/woff2/RobotoCondensedVariable.woff2') format('woff2'),
+    url('/tandem-v3/fonts/ttf/RobotoCondensedVariable.ttf') format('truetype');
   font-weight: 100 900;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
   font-family: 'Roboto';
-  src: url('/tandem-v3/fonts/RobotoVariable.ttf') format('truetype');
+  src:
+    url('/tandem-v3/fonts/woff2/RobotoVariable.woff2') format('woff2'),
+    url('/tandem-v3/fonts/ttf/RobotoVariable.ttf') format('truetype');
   font-weight: 100 900;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
