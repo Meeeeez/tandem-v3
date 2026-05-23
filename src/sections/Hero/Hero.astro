@@ -8,10 +8,15 @@ import WhatsappIcon from "../../components/WhatsappIcon/WhatsappIcon.astro";
   <video
     class="Hero__backgroundVideo"
     src="/tandem-v3/vid/vid.mp4"
+    poster="/tandem-v3/img/hero.webp"
+    preload="none"
     autoplay
     muted
     loop
-    playsinline></video>
+    playsinline>
+    <source src="/tandem-v3/vid/vid.webm" type="video/webm">
+    <source src="/tandem-v3/vid/vid.mp4" type="video/mp4">
+  </video>
   <header class="Hero__header">
     <div class="Hero__buttonsTop">
       <button class="animate-fill">
