@@ -1,78 +1,55 @@
 ---
-import Header from "../../components/Header/Header.astro";
-import "./Faq.scss";
-
-const faqs = [
+import './Faq.scss';
+import Header from '../../components/Header/Header.astro';
+const items = [
   {
-    question: "Do I need any experience?",
-    answer:
-      "Not at all. The pilot handles everything — take-off, flight, landing. Your only job is to enjoy the view. We'll give you a short briefing on the few seconds of running needed to launch.",
+    q: "Is it safe?",
+    a: "Tandem paragliding has one of the lowest incident rates in adventure sports. Every pilot here holds a current FIVL T2 license, all wings are EN-certified and re-packed every 100 flights, and we only fly in good conditions. If the weather isn't right, we don't fly — full stop.",
   },
   {
-    question: "Is it safe?",
-    answer:
-      "Tandem paragliding is one of the safer ways to fly. All equipment is inspected regularly, our pilots are certified, and we only fly when conditions are good. If the weather isn't right, we reschedule — no exceptions.",
+    q: "Do I need experience?",
+    a: "None. Most of our passengers have never been in a paraglider before. Your pilot handles everything — the launch, the steering, the landing. You just take a few running steps and then sit back.",
   },
   {
-    question: "What should I wear?",
-    answer:
-      "Long pants, closed shoes (sneakers or light hiking shoes), and a light jacket. It can be cooler in the air than on the ground. We provide the helmet and harness.",
+    q: "Weight & age limits?",
+    a: "We fly passengers from 25 kg to 110 kg. Minimum age is 5 with a parent's consent — there's no upper age limit; our oldest passenger was 84. Let us know about any mobility considerations when you book.",
   },
   {
-    question: "How long is the actual flight?",
-    answer:
-      "The Glide is roughly 15 minutes of airtime, Thermal around 30, and Adventure up to 60 minutes depending on the day's conditions. Plan around 2 hours total including the drive up and briefing.",
+    q: "What if the weather's bad?",
+    a: "We confirm a 24h weather window the evening before your flight. If it's no-go on the day, we reschedule — or refund in full if you can't make another date. No deposit lost, no questions.",
   },
   {
-    question: "Are there weight or age limits?",
-    answer:
-      "We typically fly guests between 30 and 110 kg. Kids from 5 years old are welcome with parental consent. If you're unsure, just message us — we'll find a way.",
+    q: "What should I wear?",
+    a: "Comfortable trousers, closed shoes (trainers are perfect — no sandals), a light jacket. It's 5–10°C cooler at launch than in the valley, even in summer. Sunglasses are useful. We provide the helmet and harness.",
   },
   {
-    question: "What happens if the weather is bad?",
-    answer:
-      "We watch the forecast closely and confirm 24 hours in advance. If we can't fly, you can reschedule for any other day or get a full refund — no questions asked.",
-  },
-  {
-    question: "Can I get photos and video?",
-    answer:
-      "Yes! We bring a GoPro and take photos and video during the flight. You receive everything afterwards via a private link, free of charge.",
+    q: "Will I get photos and video?",
+    a: "Yes. Your pilot carries a GoPro on a long pole and films the whole flight. Photos and a short edit land on your phone via WhatsApp within an hour of landing — included with Thermal and Adventure flights, +20 € on Glide.",
   },
 ];
 ---
 
-<section id="faq">
+<section class="Faq" id="faq">
   <div class="container">
-    <div class="Faq">
     <Header
-      title="good to "
-      titleHighlighted="know"
-      description="The most common questions before a first flight. Don't see yours? Send us a WhatsApp — we usually reply within an hour."
+      title="Questions you <br>"
+      titleHighlighted="might have"
+      description="Six questions we hear before almost every booking. If yours isn’t here, WhatsApp us — replies are usually within the hour."
     />
 
-    <ul class="Faq__list">
-      {
-        faqs.map((faq, i) => (
-          <li class="Faq__item">
-            <details class="Faq__details">
-              <summary class="Faq__summary">
-                <span class="Faq__number">
-                  {i + 1 < 10 ? `0${i + 1}` : `${i + 1}`}
-                </span>
-                <h5 class="Faq__question">{faq.question}</h5>
-                <span class="Faq__icon" aria-hidden="true">
-                  <span class="Faq__iconBar Faq__iconBar--h" />
-                  <span class="Faq__iconBar Faq__iconBar--v" />
-                </span>
-              </summary>
-              <div class="Faq__answer">
-                <p>{faq.answer}</p>
-              </div>
-            </details>
-          </li>
-        ))
-      }
-    </ul>
+    <div class="Faq__list">
+      {items.map((item, i) => (
+        <details class="Faq__item" name="faq" open={i === 0}>
+          <summary class="Faq__question">
+            <span class="Faq__number">{String(i + 1).padStart(2, "0")}</span>
+            <span class="Faq__questionText">{item.q}</span>
+            <span class="Faq__toggle" aria-hidden="true"></span>
+          </summary>
+          <div class="Faq__answer">
+            <p class="Faq__answerText">{item.a}</p>
+          </div>
+        </details>
+      ))}
     </div>
   </div>
 </section>

@@ -8,7 +8,10 @@
     overscroll-behavior-x: contain;
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
-    width: 100%;
+    width: calc(100%);
+    padding: 0 $gutter-md;
+    margin-left: -$gutter-md;
+    margin-right: -$gutter-md;
 
     &::-webkit-scrollbar {
       display: none;

@@ -117,6 +117,10 @@
   }
 
   &__highlightBottomRow {
+    text-transform: uppercase;
+    font-family: "RobotoCondensed", sans-serif;
+    font-size: $font-sm;
+    font-weight: 600;
     color: $color-secondary;
     margin-top: $gutter-md;
     display: flex;

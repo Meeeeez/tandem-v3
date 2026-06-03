@@ -9,7 +9,7 @@
   }
 
   &__description {
-    @include lg {
+    @include md {
       max-width: $md;
     }
   }

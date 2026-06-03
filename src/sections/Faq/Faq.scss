@@ -1,112 +1,101 @@
 @use "../../definitions" as *;
 
 .Faq {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: $gutter-lg;
-
-  @include md {
-    grid-template-columns: 1fr 1.4fr;
-    gap: $gutter-xl;
-  }
-
   &__list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    border-top: 1px solid rgba($color-font-dark, 0.12);
+    border-top: 1px solid rgba($color-font-dark, 0.15);
   }
 
   &__item {
-    &:not(:last-child) {
-      border-bottom: 1px solid rgba($color-font-dark, 0.12);
-    }
-  }
+    border-bottom: 1px solid rgba($color-font-dark, 0.15);
 
-  &__details {
     &[open] {
-      .Faq__iconBar--v {
-        transform: rotate(90deg);
-        opacity: 0;
+      .Faq__question { color: $color-primary; }
+
+      .Faq__toggle {
+        background: $color-primary;
+        border-color: $color-primary;
+        color: $color-white;
+
+        &::after { transform: rotate(90deg); opacity: 0; }
       }
 
-      .Faq__summary {
-        color: $color-primary;
-      }
-    }
-  }
-
-  &__summary {
-    list-style: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: $gutter-lg;
-    padding: $gutter-lg 0;
-    font-family: "RobotoCondensed", sans-serif;
-    font-weight: 600;
-    font-size: $font-lg;
-    color: $color-font-dark;
-    transition: color 0.2s ease;
-    -webkit-tap-highlight-color: transparent;
-
-    &::-webkit-details-marker {
-      display: none;
-    }
-
-    &:hover {
-      color: $color-primary;
+      .Faq__answer { grid-template-rows: 1fr; }
     }
   }
 
   &__question {
-    flex-grow: 1;
-  }
+    list-style: none;
+    cursor: pointer;
+    padding: $gutter-md 0;
+    display: flex;
+    align-items: center;
+    gap: $gutter-md;
+    font-family: 'RobotoCondensed', sans-serif;
+    font-weight: 700;
+    font-size: $font-xl;
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+    color: #111;
+    transition: color 0.2s ease;
 
-  &__icon {
-    position: relative;
-    width: 18px;
-    height: 18px;
-    flex-shrink: 0;
-  }
-
-  &__iconBar {
-    position: absolute;
-    background-color: currentColor;
-    transition: transform 0.25s ease, opacity 0.25s ease;
-    border-radius: 2px;
-
-    &--h {
-      top: 50%;
-      left: 0;
-      width: 100%;
-      height: 2px;
-      transform: translateY(-50%);
-    }
-
-    &--v {
-      left: 50%;
-      top: 0;
-      width: 2px;
-      height: 100%;
-      transform: translateX(-50%);
-    }
+    &::-webkit-details-marker { display: none; }
+    &:hover { color: $color-primary; }
   }
 
   &__number {
-    color: $color-secondary;
-    font-family: "Londrina Solid", sans-serif;
+    flex-shrink: 0;
+    width: 60px;
+    font-family: var(--font-display, "Londrina Solid", sans-serif);
     font-size: $font-xl;
+    color: $color-primary;
+    font-weight: 400;
+
+    @media (max-width: #{$sm - 1px}) {
+      width: 40px;
+      font-size: $font-lg;
+    }
+  }
+
+  &__questionText {
+    flex: 1;
+    text-wrap: balance;
+  }
+
+  &__toggle {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    border-radius: $rounded-full;
+    background: $color-white;
+    border: 1px solid rgba($color-font-dark, 0.2);
+    display: grid;
+    place-items: center;
+    position: relative;
+    transition: background 0.2s ease, border-color 0.2s ease;
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      background: currentColor;
+      border-radius: 1px;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+    &::before { width: 12px; height: 2px; }
+    &::after  { width: 2px;  height: 12px; }
   }
 
   &__answer {
-    padding: 0 0 $gutter-md 2.7rem;
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.3s ease;
+  }
 
-    p {
-      margin: 0;
-      max-width: 65ch;
-      opacity: 0.9;
-    }
+  &__answerText {
+    overflow: hidden;
+    margin: 0;
+    padding-right: $gutter-xl;
+    padding-bottom: $gutter-lg;
+    color: $color-font-dark;
   }
 }

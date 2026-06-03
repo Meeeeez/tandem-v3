@@ -2,13 +2,17 @@
 
 .FlightCard {
   color: $color-white;
-  height: 75svh;
   position: relative;
   padding: $gutter-md;
   overflow: hidden;
   border-radius: $rounded-md;
   display: flex;
   align-items: flex-end;
+
+  height: 60vh;
+  @include md {
+    height: 75vh;
+  }
 
   &__content {
     width: 100%;
