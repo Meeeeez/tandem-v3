@@ -31,17 +31,23 @@ h6 {
 }
 
 h2 {
-  font-size: $font-title-sm;
+  font-size: $font-title-md;
+  @include md {
+    font-size: $font-title-lg;
+  }
 }
 
 h3 {
-  font-size: $font-title-sm;
   font-family: 'RobotoCondensed', sans-serif;
   font-weight: 900;
+  font-size: $font-title-md;
+  @include md {
+    font-size: $font-title-lg;
+  }
 }
 
 h4 {
-  font-size: $font-title-xs;
+  font-size: $font-title-sm;
   font-family: 'RobotoCondensed', sans-serif;
   font-weight: 900;
 }
@@ -130,7 +136,7 @@ p {
 }
 
 .big {
-  font-size: $font-title-sm;
+  font-size: $font-title-lg;
   font-family: 'Londrina Solid', sans-serif;
   line-height: 1;
   text-wrap: nowrap;

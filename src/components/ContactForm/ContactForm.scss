@@ -40,14 +40,14 @@
 
   &__title {
     font-family: var(--font-display, "Londrina Solid", sans-serif);
-    font-size: $font-title-xs;
+    font-size: $font-title-sm;
     text-transform: uppercase;
     font-weight: 400;
     line-height: 1;
     margin: 0 0 $gutter-sm;
     color: #111;
 
-    @include sm { font-size: $font-title-sm; }
+    @include sm { font-size: $font-title-lg; }
   }
 
   // -- layout helpers ------------------------------------------------------

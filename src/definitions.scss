@@ -39,10 +39,9 @@ $font-lg: 1.125rem;
 $font-xl: 1.25rem;
 $font-xxl: 1.5rem;
 
-$font-title-lg: 10rem;
-$font-title-md: 4rem;
-$font-title-sm: 3rem;
-$font-title-xs: 2rem;
+$font-title-lg: 3rem;
+$font-title-md: 2.5rem;	
+$font-title-sm: 2rem;
 
 @mixin xs {
   @media (min-width: #{$xs}) {
