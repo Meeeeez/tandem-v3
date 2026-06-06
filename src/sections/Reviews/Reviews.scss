@@ -9,7 +9,9 @@
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
     width: 100%;
-    padding: $gutter-xs 0;
+    padding: 0 $gutter-md;
+    margin-left: -$gutter-md;
+    margin-right: -$gutter-md;
 
     &::-webkit-scrollbar {
       display: none;
