@@ -1,6 +1,14 @@
 @use "./definitions" as *;
 @use "./fonts" as *;
 
+:root {
+  --color-primary: #{$color-primary};
+  --color-secondary: #{$color-secondary};
+  --color-white: #{$color-white};
+  --color-font-dark: #{$color-font-dark};
+  --color-font-light: #{$color-font-light};
+}
+
 body {
   font-family: 'Roboto', sans-serif;
   scroll-behavior: smooth;

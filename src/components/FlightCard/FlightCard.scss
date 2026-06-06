@@ -9,9 +9,9 @@
   display: flex;
   align-items: flex-end;
 
-  height: 60vh;
+  height: 60svh;
   @include md {
-    height: 75vh;
+    height: 75svh;
   }
 
   &__content {

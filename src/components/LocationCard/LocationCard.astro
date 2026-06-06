@@ -1,0 +1,88 @@
+---
+import ArrowIcon from "../../assets/icons/arrow.svg";
+import "./LocationCard.scss";
+
+interface Props {
+  name: string;
+  meta?: string;
+  imageUrls: string[];
+  coordinates: [number, number];
+  index: number;
+}
+
+const { name, meta, imageUrls, coordinates, index } = Astro.props;
+const hasMultipleImages = imageUrls.length > 1;
+---
+
+<article
+  class="LocationCard"
+  data-location-index={index}
+  data-lat={coordinates[0]}
+  data-lng={coordinates[1]}
+  hidden
+>
+  <div class="LocationCard__media" aria-hidden="true">
+    <div class="LocationCard__slider">
+      {
+        imageUrls.map((url, slideIndex) => (
+          <div class="LocationCard__slide">
+            <img
+              src={url}
+              alt=""
+              loading={slideIndex === 0 ? "eager" : "lazy"}
+              decoding="async"
+            />
+          </div>
+        ))
+      }
+    </div>
+    <div class="LocationCard__gradient"></div>
+  </div>
+
+  <button type="button" class="LocationCard__close" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+
+  <div class="LocationCard__footer">
+    <div class="LocationCard__info">
+      {meta && <p class="LocationCard__meta">{meta}</p>}
+      <h3 class="LocationCard__title">{name}</h3>
+    </div>
+
+    {
+      hasMultipleImages && (
+        <div class="LocationCard__controls">
+          <button
+            type="button"
+            class="LocationCard__controlButton LocationCard__controlButton--prev"
+            aria-label="Previous image"
+          >
+            <ArrowIcon />
+          </button>
+          <div class="LocationCard__pagination">
+            {
+              imageUrls.map((_, dotIndex) => (
+                <button
+                  type="button"
+                  class:list={[
+                    "LocationCard__dot",
+                    { "LocationCard__dot--active": dotIndex === 0 },
+                  ]}
+                  aria-label={`Go to image ${dotIndex + 1}`}
+                  data-slide-index={dotIndex}
+                />
+              ))
+            }
+          </div>
+          <button
+            type="button"
+            class="LocationCard__controlButton LocationCard__controlButton--next"
+            aria-label="Next image"
+          >
+            <ArrowIcon />
+          </button>
+        </div>
+      )
+    }
+  </div>
+</article>

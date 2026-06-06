@@ -10,19 +10,100 @@
     gap: $gutter-md;
   }
 
+  &__mapWrapper {
+    position: relative;
+    border-radius: $rounded-md;
+    overflow: hidden;
+    height: 65svh;
+
+    @include md {
+      height: 75svh;
+    }
+  }
 
   &__map {
-    height: 60vh;
-    @include md {
-      height: 75vh;
-    }
+    height: 100%;
+    border-radius: $rounded-md;
+
     background-color: $color-secondary;
   }
 
-  &__box {
+  &__popup {
+    position: absolute;
+    inset: 0;
+    z-index: 500;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    padding: $gutter-md;
+    box-sizing: border-box;
+    container-type: size;
+    pointer-events: none;
+    opacity: 0;
+    overflow: hidden;
+    transition: opacity 0.25s ease;
+
     @include md {
-      width: 100%;
+      left: auto;
+      width: min(20rem, 42%);
+      padding: $gutter-lg;
+      justify-content: stretch;
+      align-items: stretch;
     }
-    border-radius: $rounded-md;
+
+    &--visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .LocationCard {
+      flex-shrink: 1;
+      min-height: 0;
+      min-width: 0;
+
+      @include md {
+        flex: 1;
+        height: 100%;
+      }
+    }
+  }
+}
+
+.leaflet-marker-icon.Location__markerIcon {
+  background: transparent !important;
+  border: none !important;
+  transition: z-index 0s;
+
+  span {
+    display: block;
+    width: 18px;
+    height: 18px;
+    border-radius: $rounded-full;
+    background-color: var(--color-secondary);
+    border: 2px solid color-mix(in srgb, var(--color-white) 85%, transparent);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+    opacity: 0.75;
+    transform: scale(1);
+    transition:
+      transform 0.2s ease,
+      background-color 0.2s ease,
+      border-color 0.2s ease,
+      box-shadow 0.2s ease,
+      opacity 0.2s ease;
+  }
+
+  &.Location__markerIcon--active {
+    z-index: 1000 !important;
+  }
+
+  &.Location__markerIcon--active span {
+    opacity: 1;
+    transform: scale(1.55);
+    background-color: var(--color-white);
+    border: 3px solid var(--color-secondary);
+    box-shadow:
+      0 0 0 4px color-mix(in srgb, var(--color-secondary) 45%, transparent),
+      0 2px 8px rgba(0, 0, 0, 0.35);
   }
 }

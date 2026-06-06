@@ -1,7 +1,21 @@
 ---
 import Header from "../../components/Header/Header.astro";
+import LocationCard from "../../components/LocationCard/LocationCard.astro";
 import "./Location.scss";
-const { props } = Astro.props;
+
+interface LocationData {
+  name: string;
+  meta?: string;
+  coordinates: [number, number];
+  imageUrls: string[];
+  googleMapsLink?: string;
+}
+
+interface Props {
+  locations?: LocationData[];
+}
+
+const { locations = [] } = Astro.props;
 ---
 
 <section class="Location">
@@ -13,45 +27,37 @@ const { props } = Astro.props;
       onPrimaryBackground
     />
     <div class="Location__details">
-      <div id="map" class="Location__map Location__box"></div>
+      <div class="Location__mapWrapper">
+        <div class="Location__map"></div>
+
+        <aside
+          class="Location__popup"
+          aria-hidden="true"
+          aria-live="polite"
+        >
+          {
+            locations.map((location, index) => (
+              <LocationCard {...location} index={index} />
+            ))
+          }
+        </aside>
+      </div>
     </div>
   </div>
 </section>
 
 <script>
-  import L from "leaflet";
-  import 'leaflet/dist/leaflet.css';
+  import { initLocationMap } from "./LocationMap.ts";
 
-  const map = L.map('map', {
-    maxBounds: L.latLngBounds(
-      [46.380, 11.150], // SW
-      [46.944, 12.225]  // NE
-    ),
-    maxBoundsViscosity: 0.75,
-    center: [46.662051,11.687441],
-    zoom: 11,
-    minZoom: 11,
-    maxZoom: 17,
-    scrollWheelZoom: false
-  });
-  L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}').addTo(map);
+  const initAllLocationMaps = () => {
+    document
+      .querySelectorAll<HTMLElement>(".Location__mapWrapper")
+      .forEach((wrapper) => initLocationMap(wrapper));
+  };
 
-  const container = map.getContainer();
-
-  container.style.touchAction = 'pan-y';
-
-  container.addEventListener('touchstart', (e) => {
-    if (e.touches.length >= 2) {
-      map.dragging.enable();
-      container.style.touchAction = 'none'; // let Leaflet handle pinch
-    } else {
-      map.dragging.disable();
-      container.style.touchAction = 'pan-y'; // let browser scroll the page
-    }
-  }, { passive: true }); // passive: true is critical here
-
-  container.addEventListener('touchend', () => {
-    map.dragging.disable();
-    container.style.touchAction = 'pan-y';
-  }, { passive: true });
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initAllLocationMaps);
+  } else {
+    initAllLocationMaps();
+  }
 </script>

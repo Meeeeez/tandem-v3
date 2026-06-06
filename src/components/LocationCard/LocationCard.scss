@@ -1,0 +1,184 @@
+@use "../../definitions" as *;
+
+.LocationCard {
+  position: relative;
+  overflow: hidden;
+  border-radius: $rounded-md;
+  color: $color-white;
+  min-height: 0;
+  width: min(100cqw, calc(100cqh * 3 / 4));
+  height: min(100cqh, calc(100cqw * 4 / 3));
+  max-width: 100%;
+  max-height: 100%;
+  margin-inline: auto;
+  aspect-ratio: 3 / 4;
+
+  @include md {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    margin-inline: 0;
+    aspect-ratio: auto;
+  }
+
+  &__media {
+    position: absolute;
+    inset: 0;
+  }
+
+  &__slider {
+    display: flex;
+    height: 100%;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  &__slide {
+    flex: 0 0 100%;
+    height: 100%;
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+  }
+
+  &__gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.88) 0%,
+      rgba(0, 0, 0, 0.45) 38%,
+      transparent 68%
+    );
+    pointer-events: none;
+  }
+
+  &__close {
+    position: absolute;
+    top: $gutter-md;
+    right: $gutter-md;
+    z-index: 2;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border: none;
+    border-radius: $rounded-full;
+    background-color: rgba($color-white, 0.15);
+    color: $color-white;
+    backdrop-filter: blur(4px);
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    font-size: 1.75rem;
+    line-height: 1;
+
+    span {
+      transform: translateY(-1px);
+    }
+
+    &:hover {
+      background-color: rgba($color-white, 0.28);
+    }
+  }
+
+  &__footer {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: $gutter-md;
+    padding: $gutter-lg;
+  }
+
+  &__info {
+    min-width: 0;
+  }
+
+  &__meta {
+    margin: 0 0 $gutter-xs;
+    font-family: "RobotoCondensed", sans-serif;
+    font-size: $font-xs;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba($color-white, 0.85);
+  }
+
+  &__meta:empty {
+    display: none;
+  }
+
+  &__title {
+    margin: 0;
+    font-family: "Londrina Solid", sans-serif;
+    font-size: $font-title-md;
+    font-weight: 400;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  &__controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__controlButton {
+    background: transparent;
+    border: none;
+    color: $color-white;
+    padding: $gutter-sm;
+    width: auto;
+    font-size: $font-base;
+    cursor: pointer;
+
+    &--prev {
+      transform: rotate(180deg);
+    }
+
+    svg path {
+      fill: currentColor;
+    }
+  }
+
+  &__pagination {
+    display: flex;
+    gap: $gutter-sm;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: rgba($color-white, 0.4);
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition:
+      background-color 0.25s ease,
+      transform 0.25s ease;
+
+    &--active {
+      background-color: $color-secondary;
+      transform: scale(1.2);
+    }
+  }
+}

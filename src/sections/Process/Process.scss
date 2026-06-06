@@ -15,26 +15,6 @@
     }
   }
 
-  &__overline {
-    font-size: $font-xs;
-    font-family: "RobotoCondensed", sans-serif;
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    display: flex;
-    align-items: baseline;
-    gap: $gutter-sm;
-    margin: 0 0 $gutter-sm 0;
-  }
-
-  &__overlineDot {
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background-color: $color-font-dark;
-    flex: 0 0 4px;
-    transform: translateY(-1px);
-  }
-
   &__steps {
     display: flex;
     flex-direction: column;

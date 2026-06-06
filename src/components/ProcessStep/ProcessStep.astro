@@ -2,8 +2,6 @@
 import "./ProcessStep.scss";
 
 type Props = {
-  stepIndex: number;
-  stepTotal: number;
   title: string;
   description: string;
   imageSrc: string;
@@ -11,19 +9,11 @@ type Props = {
   overlayText?: string;
 };
 
-const { stepIndex, stepTotal, title, description, imageSrc, imageAlt, overlayText } = Astro.props as Props;
-
-const indexLabel = String(stepIndex).padStart(2, "0");
-const totalLabel = String(stepTotal).padStart(2, "0");
+const { title, description, imageSrc, imageAlt, overlayText } = Astro.props as Props;
 ---
 
 <article class="ProcessStep">
   <header class="ProcessStep__header">
-    <p class="ProcessStep__stepLabel" aria-hidden="true">
-      <span class="ProcessStep__stepBullet"></span>
-      <span class="ProcessStep__stepIndex">{indexLabel}</span>
-      <span class="ProcessStep__stepTotal">/ {totalLabel}</span>
-    </p>
     <h4 class="ProcessStep__title">{title}</h4>
     <p class="ProcessStep__description">{description}</p>
   </header>
