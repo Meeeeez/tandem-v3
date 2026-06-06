@@ -1,8 +1,34 @@
 @use "../../definitions" as *;
 
 .Faq {
+  &__layout {
+    display: flex;
+    flex-direction: column;
+    gap: $gutter-xl;
+
+    @include lg {
+      flex-direction: row;
+      gap: $gutter-xxl;
+      align-items: flex-start;
+    }
+  }
+
+  &__header {
+    @include lg {
+      flex: 1 1 0;
+      min-width: 0;
+
+      .Header__description {
+        max-width: none;
+      }
+    }
+  }
+
   &__list {
-    border-top: 1px solid rgba($color-font-dark, 0.15);
+    @include lg {
+      flex: 1.25 1 0;
+      min-width: 0;
+    }
   }
 
   &__item {

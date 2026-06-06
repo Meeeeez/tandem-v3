@@ -31,13 +31,16 @@ const items = [
 
 <section class="Faq" id="faq">
   <div class="container">
-    <Header
-      title="Questions you <br>"
-      titleHighlighted="might have"
-      description="Six questions we hear before almost every booking. If yours isn’t here, WhatsApp us — replies are usually within the hour."
-    />
+    <div class="Faq__layout">
+      <div class="Faq__header">
+        <Header
+          title="Questions you <br>"
+          titleHighlighted="might have"
+          description="Six questions we hear before almost every booking. If yours isn’t here, WhatsApp us — replies are usually within the hour."
+        />
+      </div>
 
-    <div class="Faq__list">
+      <div class="Faq__list">
       {items.map((item, i) => (
         <details class="Faq__item" name="faq" open={i === 0}>
           <summary class="Faq__question">
@@ -50,6 +53,7 @@ const items = [
           </div>
         </details>
       ))}
+      </div>
     </div>
   </div>
 </section>

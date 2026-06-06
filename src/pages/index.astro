@@ -7,14 +7,28 @@ import Location from "../sections/Location/Location.astro";
 import Reviews from "../sections/Reviews/Reviews.astro";
 import Faq from "../sections/Faq/Faq.astro";
 import Footer from "../sections/Footer/Footer.astro";
-import Social from "../sections/Social/Social.astro";
 import Contact from "../sections/Contact/Contact.astro";
 ---
 
 <Layout>
 	<Hero />
 	<Flights />
-	<Location />
+	<Location
+		locations={[
+			{
+				name: "Villnöss",
+				meta: "Launch · Val di Funes",
+				coordinates: [46.645, 11.749],
+				imageUrls: ["/tandem-v3/img/1.jpg", "/tandem-v3/img/2.jpg"],
+			},
+			{
+				name: "Plose",
+				meta: "Launch · 2,050 m",
+				coordinates: [46.704, 11.686],
+				imageUrls: ["/tandem-v3/img/2.jpg", "/tandem-v3/img/3.jpg"],
+			},
+		]}
+	/>
 	<Reviews />
 
 	<!-- <Process /> -->
