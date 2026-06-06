@@ -44,7 +44,6 @@ const items = [
       {items.map((item, i) => (
         <details class="Faq__item" name="faq" open={i === 0}>
           <summary class="Faq__question">
-            <span class="Faq__number">{String(i + 1).padStart(2, "0")}</span>
             <span class="Faq__questionText">{item.q}</span>
             <span class="Faq__toggle" aria-hidden="true"></span>
           </summary>

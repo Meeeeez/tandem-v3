@@ -68,20 +68,6 @@
     &:hover { color: $color-primary; }
   }
 
-  &__number {
-    flex-shrink: 0;
-    width: 60px;
-    font-family: var(--font-display, "Londrina Solid", sans-serif);
-    font-size: $font-xl;
-    color: $color-primary;
-    font-weight: 400;
-
-    @media (max-width: #{$sm - 1px}) {
-      width: 40px;
-      font-size: $font-lg;
-    }
-  }
-
   &__questionText {
     flex: 1;
     text-wrap: balance;
