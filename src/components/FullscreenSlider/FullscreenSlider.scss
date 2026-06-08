@@ -1,0 +1,213 @@
+@use "../../definitions" as *;
+
+.FullscreenSlider {
+  color: $color-white;
+
+  &__viewport {
+    position: relative;
+    overflow: hidden;
+    border-radius: $rounded-md;
+    height: 65svh;
+
+    @include md {
+      height: 75svh;
+    }
+  }
+
+  &__track {
+    display: flex;
+    height: 100%;
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    pointer-events: none;
+  }
+
+  &__slide {
+    position: relative;
+    flex: 0 0 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: $gutter-xl $gutter-lg calc(48px + $gutter-xl + 6px);
+    box-sizing: border-box;
+
+    @include md {
+      padding: $gutter-xxl $gutter-xl calc($gutter-xxl + $gutter-lg);
+    }
+    overflow: hidden;
+    background-color: $color-primary;
+  }
+
+  &__media {
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    border-radius: inherit;
+
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-color: rgba(0, 0, 0, 0.45);
+      z-index: 1;
+    }
+  }
+
+  &__image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &__content {
+    z-index: 1;
+    width: 100%;
+    max-width: 36rem;
+    pointer-events: auto;
+
+    @include md {
+      padding-right: calc(48px * 2 + #{$gutter-md});
+    }
+  }
+
+  &__step {
+    margin: 0 0 $gutter-sm;
+    font-family: "RobotoCondensed", sans-serif;
+    font-size: $font-xs;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: baseline;
+    gap: $gutter-sm;
+    flex-wrap: wrap;
+  }
+
+  &__stepIndex {
+    color: $color-secondary;
+  }
+
+  &__stepDivider {
+    color: $color-font-light;
+    margin-right: $gutter-xs;
+  }
+
+  &__stepLabel {
+    color: $color-font-light;
+    opacity: 0.85;
+
+    &::before {
+      content: "";
+      display: inline-block;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background-color: $color-secondary;
+      margin-right: $gutter-sm;
+      vertical-align: middle;
+      transform: translateY(-1px);
+    }
+  }
+
+  &__title {
+    margin: 0;
+    font-family: "Londrina Solid", sans-serif;
+    font-weight: 400;
+    font-size: $font-title-lg;
+    line-height: 1;
+    text-transform: uppercase;
+    color: $color-white;
+  }
+
+  &__description {
+    margin: $gutter-md 0 0;
+    width: 100%;
+    max-width: none;
+    font-size: $font-base;
+    line-height: 150%;
+    color: $color-font-light;
+
+    @include md {
+      max-width: 42ch;
+    }
+  }
+
+  &__nav {
+    position: absolute;
+    z-index: 4;
+    pointer-events: auto;
+    display: flex;
+    gap: $gutter-md;
+    right: $gutter-lg;
+    bottom: calc(6px + $gutter-lg);
+    justify-content: flex-end;
+
+    @include md {
+      right: $gutter-xl;
+      bottom: calc(6px + $gutter-xxl + $gutter-md);
+    }
+  }
+
+  &__navButton {
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    border: 1px solid rgba($color-white, 0.85);
+    border-radius: $rounded-full;
+    background: transparent;
+    color: $color-white;
+    box-shadow: inset $shadow-white;
+    transition: border-color 0.2s ease, color 0.2s ease, opacity 0.2s ease, box-shadow 0.2s ease;
+
+    svg {
+      width: 0.9rem;
+    }
+
+    &:hover:not(:disabled) {
+      border-color: $color-secondary;
+      color: $color-secondary;
+    }
+
+    &:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    &--prev {
+      transform: rotate(180deg);
+    }
+  }
+
+  &__progress {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    height: 6px;
+    z-index: 4;
+    pointer-events: auto;
+  }
+
+  &__progressSegment {
+    flex: 1;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    background-color: rgba($color-white, 0.12);
+    cursor: pointer;
+    transition: background-color 0.35s ease;
+
+    &--active {
+      background-color: $color-secondary;
+    }
+
+    &:hover:not(&--active) {
+      background-color: rgba($color-white, 0.22);
+    }
+  }
+}

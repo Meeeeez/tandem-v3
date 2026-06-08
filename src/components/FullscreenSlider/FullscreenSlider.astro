@@ -1,0 +1,212 @@
+---
+import "./FullscreenSlider.scss";
+import ArrowIcon from "../../assets/icons/arrow.svg";
+
+export type Slide = {
+  subtitle: string;
+  title: string;
+  description?: string;
+  imageSrc?: string;
+  imageAlt?: string;
+};
+
+type Props = {
+  slides: Slide[];
+  id?: string;
+};
+
+const { slides, id = "fullscreen-slider" } = Astro.props as Props;
+const slideTotal = slides.length;
+const padIndex = (index: number) => String(index).padStart(2, "0");
+---
+
+<div
+  class="FullscreenSlider"
+  id={id}
+  data-slide-total={slideTotal}
+  tabindex="0"
+  aria-roledescription="carousel"
+  aria-label="Flight process"
+>
+  <div class="FullscreenSlider__viewport">
+    <div class="FullscreenSlider__track">
+      {
+        slides.map((slide, index) => (
+          <article
+            class="FullscreenSlider__slide"
+            data-slide-index={index}
+            aria-hidden={index !== 0 ? "true" : "false"}
+          >
+            {slide.imageSrc && (
+              <div class="FullscreenSlider__media" aria-hidden="true">
+                <img
+                  class="FullscreenSlider__image"
+                  src={slide.imageSrc}
+                  alt={slide.imageAlt ?? ""}
+                  loading={index === 0 ? "eager" : "lazy"}
+                />
+              </div>
+            )}
+
+            <div class="FullscreenSlider__content">
+              <p class="FullscreenSlider__step">
+                <span class="FullscreenSlider__stepIndex">{padIndex(index + 1)}</span>
+                <span class="FullscreenSlider__stepDivider"> / {padIndex(slideTotal)}</span>
+                <span class="FullscreenSlider__stepLabel">{slide.subtitle}</span>
+              </p>
+              <h3 class="FullscreenSlider__title">{slide.title}</h3>
+              {slide.description && (
+                <p class="FullscreenSlider__description">{slide.description}</p>
+              )}
+            </div>
+          </article>
+        ))
+      }
+    </div>
+
+    <div class="FullscreenSlider__nav">
+      <button
+        class="FullscreenSlider__navButton FullscreenSlider__navButton--prev"
+        type="button"
+        aria-label="Previous slide"
+      >
+        <ArrowIcon />
+      </button>
+      <button
+        class="FullscreenSlider__navButton FullscreenSlider__navButton--next"
+        type="button"
+        aria-label="Next slide"
+      >
+        <ArrowIcon />
+      </button>
+    </div>
+
+    <div class="FullscreenSlider__progress" role="tablist" aria-label="Slide progress">
+      {
+        slides.map((_, index) => (
+          <button
+            class:list={[
+              "FullscreenSlider__progressSegment",
+              { "FullscreenSlider__progressSegment--active": index === 0 },
+            ]}
+            type="button"
+            data-progress-index={index}
+            role="tab"
+            aria-label={`Go to slide ${index + 1}`}
+            aria-selected={index === 0 ? "true" : "false"}
+          />
+        ))
+      }
+    </div>
+  </div>
+</div>
+
+<script>
+  const initFullscreenSliders = () => {
+    const sliders = document.querySelectorAll<HTMLElement>(".FullscreenSlider");
+
+    sliders.forEach((slider) => {
+      if (slider.dataset.initialized === "true") return;
+      slider.dataset.initialized = "true";
+
+      const track = slider.querySelector<HTMLElement>(".FullscreenSlider__track");
+      const slideEls = slider.querySelectorAll<HTMLElement>(".FullscreenSlider__slide");
+      const progressSegments = slider.querySelectorAll<HTMLElement>(
+        ".FullscreenSlider__progressSegment",
+      );
+      const prevBtn = slider.querySelector<HTMLButtonElement>(
+        ".FullscreenSlider__navButton--prev",
+      );
+      const nextBtn = slider.querySelector<HTMLButtonElement>(
+        ".FullscreenSlider__navButton--next",
+      );
+
+      if (!track || slideEls.length === 0) return;
+
+      let activeIndex = 0;
+      const total = slideEls.length;
+
+      const goToSlide = (index: number) => {
+        const clamped = Math.max(0, Math.min(index, total - 1));
+        activeIndex = clamped;
+
+        track.style.transform = `translateX(-${clamped * 100}%)`;
+
+        slideEls.forEach((slide, i) => {
+          slide.setAttribute("aria-hidden", i === clamped ? "false" : "true");
+        });
+
+        progressSegments.forEach((segment, i) => {
+          segment.classList.toggle(
+            "FullscreenSlider__progressSegment--active",
+            i === clamped,
+          );
+          segment.setAttribute("aria-selected", i === clamped ? "true" : "false");
+        });
+
+        prevBtn?.toggleAttribute("disabled", clamped === 0);
+        nextBtn?.toggleAttribute("disabled", clamped === total - 1);
+      };
+
+      slider.addEventListener("click", (event) => {
+        const target = event.target as HTMLElement;
+
+        if (target.closest(".FullscreenSlider__navButton--prev")) {
+          event.preventDefault();
+          goToSlide(activeIndex - 1);
+          return;
+        }
+
+        if (target.closest(".FullscreenSlider__navButton--next")) {
+          event.preventDefault();
+          goToSlide(activeIndex + 1);
+          return;
+        }
+
+        const segment = target.closest<HTMLElement>(
+          ".FullscreenSlider__progressSegment",
+        );
+        if (segment) {
+          const index = Number(segment.dataset.progressIndex);
+          if (!Number.isNaN(index)) goToSlide(index);
+        }
+      });
+
+      slider.addEventListener("keydown", (event) => {
+        if (event.key === "ArrowLeft") goToSlide(activeIndex - 1);
+        if (event.key === "ArrowRight") goToSlide(activeIndex + 1);
+      });
+
+      let touchStartX = 0;
+
+      slider.addEventListener(
+        "touchstart",
+        (event) => {
+          touchStartX = event.touches[0]?.clientX ?? 0;
+        },
+        { passive: true },
+      );
+
+      slider.addEventListener(
+        "touchend",
+        (event) => {
+          const touchEndX = event.changedTouches[0]?.clientX ?? 0;
+          const delta = touchStartX - touchEndX;
+
+          if (Math.abs(delta) < 50) return;
+          if (delta > 0) goToSlide(activeIndex + 1);
+          else goToSlide(activeIndex - 1);
+        },
+        { passive: true },
+      );
+
+      goToSlide(0);
+    });
+  };
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initFullscreenSliders);
+  } else {
+    initFullscreenSliders();
+  }
+</script>
