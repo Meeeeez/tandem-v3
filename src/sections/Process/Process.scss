@@ -1,10 +1,6 @@
 @use "../../definitions" as *;
 
 .Process {
-  background-color: $color-primary;
-  color: $color-white;
-
-  .Header {
-    margin-bottom: $gutter-xl;
-  }
+  padding: 0;
+  background-color: #000;
 }

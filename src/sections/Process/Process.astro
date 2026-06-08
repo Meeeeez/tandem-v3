@@ -48,13 +48,13 @@ const slides = [
 ---
 
 <section class="Process" id="process">
-  <div class="container">
+  <FullscreenSlider slides={slides}>
     <Header
+      slot="header"
       title="How your"
       titleHighlighted="flight works"
       description="Five simple steps from your first message to landing back on the ground — here's what a typical tandem day looks like."
       onPrimaryBackground
     />
-    <FullscreenSlider slides={slides} />
-  </div>
+  </FullscreenSlider>
 </section>

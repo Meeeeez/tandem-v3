@@ -29,6 +29,10 @@ const padIndex = (index: number) => String(index).padStart(2, "0");
   aria-label="Flight process"
 >
   <div class="FullscreenSlider__viewport">
+    <div class="FullscreenSlider__header">
+      <slot name="header" />
+    </div>
+
     <div class="FullscreenSlider__track">
       {
         slides.map((slide, index) => (
