@@ -7,14 +7,15 @@ import WhatsappIcon from "../../components/WhatsappIcon/WhatsappIcon.astro";
 <section class="Hero">
   <video
     class="Hero__backgroundVideo"
-    src="/tandem-v3/vid/vid.mp4"
+    src="/tandem-v3/vid/hero.mp4"
     poster="/tandem-v3/img/hero.webp"
     autoplay
     muted
     loop
-    playsinline>
-    <source src="/tandem-v3/vid/vid.webm" type="video/webm">
-    <source src="/tandem-v3/vid/vid.mp4" type="video/mp4">
+    playsinline
+  >
+    <source src="/tandem-v3/vid/hero.webm" type="video/webm" />
+    <source src="/tandem-v3/vid/hero.mp4" type="video/mp4" />
   </video>
   <header class="Hero__header">
     <div class="Hero__buttonsTop">
@@ -54,7 +55,9 @@ import WhatsappIcon from "../../components/WhatsappIcon/WhatsappIcon.astro";
   </header>
 
   <div>
-    <h1 class="Hero__title">Let’s <span class="Hero__title--highlight">Fly</span></h1>
+    <h1 class="Hero__title">
+      Let’s <span class="Hero__title--highlight">Fly</span>
+    </h1>
     <h2 class="Hero__subtitle">Paragliding in the Dolomites</h2>
     <div class="Hero__buttonsBottom">
       <button class="Hero__ctaButton animate-fill">
