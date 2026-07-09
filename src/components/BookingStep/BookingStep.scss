@@ -1,0 +1,163 @@
+@use "../../definitions" as *;
+
+.BookingStep {
+  display: none;
+  flex-direction: column;
+  min-height: 0;
+  min-width: 0;
+  padding: 0;
+
+  .BookingSteps:not(.BookingSteps--initialized) &:first-child {
+    display: flex;
+  }
+
+  &.is-active {
+    display: flex;
+  }
+
+  &__title,
+  &__desc,
+  &__content > *,
+  &__actions {
+    will-change: transform, opacity;
+  }
+
+  &__animate--forward {
+    animation: booking-step-from-top 0.5s cubic-bezier(0.25, 1, 0.5, 1) both;
+  }
+
+  &__animate--back {
+    animation: booking-step-from-bottom 0.5s cubic-bezier(0.25, 1, 0.5, 1) both;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &__animate--forward,
+    &__animate--back {
+      animation: none;
+    }
+  }
+
+  &__title {
+    margin: 0 0 $gutter-md;
+    font-family: "RobotoCondensed", sans-serif;
+    font-weight: 600;
+    text-transform: none;
+    line-height: 1.1;
+    color: #111;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+
+    @include md {
+      font-size: $font-title-md;
+    }
+  }
+
+  &--no-desc &__title {
+    margin-bottom: $gutter-xl;
+  }
+
+  &__title :global(.BookingStep__hl) {
+    color: $color-primary;
+  }
+
+  &__desc {
+    margin: 0 0 $gutter-xl;
+    max-width: 420px;
+    font-size: $font-base;
+    color: rgba($color-font-dark, 0.6);
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: $gutter-md;
+    min-width: 0;
+  }
+
+  &__actions {
+    display: none;
+    align-items: center;
+    gap: $gutter-md;
+    flex-wrap: wrap;
+    margin-top: $gutter-xl;
+    min-width: 0;
+    max-width: 100%;
+
+    @include md {
+      display: flex;
+    }
+  }
+
+  &__ok.animate-fill {
+    padding: $gutter-md $gutter-lg;
+    background: $color-primary;
+    color: $color-white;
+    border-radius: $rounded-sm;
+    font-family: "Londrina Solid", sans-serif;
+    font-size: $font-xl;
+    letter-spacing: 0.06em;
+
+    &::before {
+      background-color: $color-secondary;
+    }
+
+    &:hover {
+      color: $color-primary;
+
+      svg > path {
+        fill: currentColor;
+      }
+    }
+  }
+
+  &__hint {
+    display: inline-flex;
+    align-items: center;
+    gap: $gutter-sm;
+    font-family: "RobotoCondensed", sans-serif;
+    font-weight: 600;
+    font-size: $font-xs;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgba($color-font-dark, 0.45);
+
+    kbd {
+      font-family: inherit;
+      border: 1px solid rgba($color-font-dark, 0.5);
+      color: rgba($color-font-dark, 0.75);
+      border-radius: calc($rounded-sm / 2);
+      padding: 3px 7px;
+    }
+
+    &--muted {
+      text-transform: none;
+      letter-spacing: 0;
+      line-height: 1.4;
+      max-width: 30ch;
+    }
+  }
+}
+
+@keyframes booking-step-from-top {
+  from {
+    opacity: 0;
+    transform: translateY(-1.25rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes booking-step-from-bottom {
+  from {
+    opacity: 0;
+    transform: translateY(1.25rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

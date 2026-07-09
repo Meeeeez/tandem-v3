@@ -1,0 +1,33 @@
+---
+import "./ChoiceCard.scss";
+
+type Props = {
+  id: string;
+  name: string;
+  value: string;
+  title: string;
+  description?: string;
+  checked?: boolean;
+};
+
+const { id, name, value, title, description, checked = false } =
+  Astro.props as Props;
+---
+
+<label class="ChoiceCard" for={id}>
+  <input
+    class="ChoiceCard__input"
+    id={id}
+    type="radio"
+    name={name}
+    value={value}
+    checked={checked}
+  />
+  <span class="ChoiceCard__icon" aria-hidden="true">
+    <slot name="icon" />
+  </span>
+  <span class="ChoiceCard__body">
+    <span class="ChoiceCard__title">{title}</span>
+    {description && <span class="ChoiceCard__desc">{description}</span>}
+  </span>
+</label>

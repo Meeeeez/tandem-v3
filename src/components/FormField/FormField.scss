@@ -1,0 +1,42 @@
+@use "../../definitions" as *;
+
+.FormField {
+  display: flex;
+  flex-direction: column;
+  gap: $gutter-sm;
+
+  &__label {
+    font-size: $font-base;
+    color: rgba($color-font-dark, 0.50);
+  }
+
+  &__control {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    font-family: "Roboto", sans-serif;
+    font-size: $font-lg;
+    color: $color-font-dark;
+    background-color: #fff;
+    border: 1.5px solid rgba($color-primary, 0.25);
+    border-radius: $rounded-sm;
+    padding: $gutter-md $gutter-ml;
+    outline: none;
+    transition: border-color 0.2s ease;
+
+    &::placeholder {
+      color: rgba($color-font-dark, 0.35);
+    }
+
+    &:focus {
+      border-color: $color-primary;
+    }
+
+    &--textarea {
+      resize: vertical;
+      min-height: 140px;
+      line-height: 1.5;
+    }
+  }
+}

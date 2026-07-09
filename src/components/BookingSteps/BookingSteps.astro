@@ -1,0 +1,429 @@
+---
+import "./BookingSteps.scss";
+import ArrowIcon from "../../assets/icons/arrow.svg";
+import ChevronLeftIcon from "../../assets/icons/chevron-left.svg";
+---
+
+<div class="BookingSteps" data-booking-steps>
+  <form class="BookingSteps__form" data-booking-form novalidate>
+    <slot />
+
+    <div class="BookingSteps__nav">
+      <button
+        class="BookingSteps__navBtn BookingSteps__navBtn--prev"
+        type="button"
+        data-prev
+        aria-label="Previous step"
+        disabled
+      >
+        <ChevronLeftIcon />
+      </button>
+      <button
+        class="BookingSteps__navBtn BookingSteps__navBtn--next"
+        type="button"
+        data-next
+        aria-label="Next step"
+      >
+        <ChevronLeftIcon />
+      </button>
+    </div>
+  </form>
+
+  <div class="BookingSteps__mobileNav">
+    <button
+      class="BookingSteps__mobileBack"
+      type="button"
+      data-prev
+      aria-label="Previous step"
+      disabled
+    >
+      <ChevronLeftIcon />
+    </button>
+    <button
+      class="BookingSteps__ok BookingSteps__mobileOk animate-fill"
+      type="button"
+      data-next
+    >
+      OK
+    </button>
+  </div>
+
+  <div class="BookingSteps__done" data-booking-done>
+    <div class="BookingSteps__doneMark" aria-hidden="true">
+      <svg
+        viewBox="0 0 24 24"
+        width="34"
+        height="34"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <polyline points="4 12 10 18 20 6"></polyline>
+      </svg>
+    </div>
+    <h2 class="BookingStep__title">
+      Request sent, <span class="BookingStep__hl" data-summary="nameTitle"
+        >there</span
+      >.
+    </h2>
+    <p class="BookingStep__desc">
+      We&rsquo;ll get back to you within the hour during flying season. In the
+      meantime, you can also reach us on WhatsApp.
+    </p>
+  </div>
+</div>
+
+<script>
+  const initBookingSteps = () => {
+    const stepsRoot = document.querySelector<HTMLElement>("[data-booking-steps]");
+    const booking = stepsRoot?.closest<HTMLElement>(".Booking");
+
+    if (!stepsRoot || !booking) return;
+
+    const form = stepsRoot.querySelector<HTMLFormElement>("[data-booking-form]");
+    const steps = Array.from(
+      stepsRoot.querySelectorAll<HTMLElement>(".BookingStep"),
+    );
+    const stepImages = steps.map((step) =>
+      step.querySelector<HTMLImageElement>("[data-step-image]"),
+    );
+    const media = booking.querySelector<HTMLElement>(".Booking__media");
+    const progressFill = booking.querySelector<HTMLElement>(
+      "[data-progress-fill]",
+    );
+    const prevBtns = Array.from(
+      stepsRoot.querySelectorAll<HTMLButtonElement>("[data-prev]"),
+    );
+    const contactRadios = Array.from(
+      stepsRoot.querySelectorAll<HTMLInputElement>("input[name='contactMethod']"),
+    );
+    const emailWrap = stepsRoot.querySelector<HTMLElement>(
+      "[data-contact-field='email']",
+    );
+    const waWrap = stepsRoot.querySelector<HTMLElement>(
+      "[data-contact-field='whatsapp']",
+    );
+    const contactTitles = Array.from(
+      stepsRoot.querySelectorAll<HTMLElement>("[data-contact-title]"),
+    );
+
+    const total = steps.length;
+    let current = 0;
+
+    const value = (name: string) => {
+      const el = form?.querySelector<HTMLInputElement | HTMLTextAreaElement>(
+        `[name='${name}']`,
+      );
+      return el?.value.trim() ?? "";
+    };
+
+    const setSummary = (key: string, text: string) => {
+      stepsRoot
+        .querySelectorAll<HTMLElement>(`[data-summary='${key}']`)
+        .forEach((el) => (el.textContent = text));
+    };
+
+    const formatDate = (v: string) => {
+      if (!v) return "";
+      const d = new Date(`${v}T00:00:00`);
+      if (Number.isNaN(d.getTime())) return v;
+      return d.toLocaleDateString("en-GB", {
+        day: "numeric",
+        month: "short",
+      });
+    };
+
+    const updateSummary = () => {
+      const name = value("firstName");
+      const method =
+        contactRadios.find((r) => r.checked)?.value ?? "";
+      const contact =
+        method === "email"
+          ? value("email")
+          : method === "whatsapp"
+            ? value("whatsapp")
+            : "";
+      const from = formatDate(value("dateFrom"));
+      const to = formatDate(value("dateTo"));
+      const message = value("message");
+
+      stepsRoot
+        .querySelectorAll<HTMLElement>("[data-summary='nameTitle']")
+        .forEach((el) => (el.textContent = name || "there"));
+
+      const contactLabel = stepsRoot.querySelector<HTMLElement>(
+        "[data-summary-label='contact']",
+      );
+      if (contactLabel)
+        contactLabel.textContent = method === "email" ? "Email" : "WhatsApp";
+
+      setSummary("name", name || "—");
+      setSummary("contact", contact || "—");
+      setSummary(
+        "dates",
+        from && to ? `${from} → ${to}` : from || to || "—",
+      );
+      setSummary("message", message || "No message");
+    };
+
+    const applyContactMethod = (focus = false) => {
+      const selected = contactRadios.find((r) => r.checked);
+      const emailInput =
+        emailWrap?.querySelector<HTMLInputElement>(".FormField__control");
+      const waInput =
+        waWrap?.querySelector<HTMLInputElement>(".FormField__control");
+
+      if (!selected) {
+        if (emailWrap) emailWrap.hidden = true;
+        if (waWrap) waWrap.hidden = true;
+        if (emailInput) emailInput.required = false;
+        if (waInput) waInput.required = false;
+        contactTitles.forEach((title) => {
+          title.hidden = true;
+        });
+        return;
+      }
+
+      const isEmail = selected.value === "email";
+
+      if (emailWrap) emailWrap.hidden = !isEmail;
+      if (waWrap) waWrap.hidden = isEmail;
+      if (emailInput) emailInput.required = isEmail;
+      if (waInput) waInput.required = !isEmail;
+
+      contactTitles.forEach((title) => {
+        title.hidden = title.dataset.contactTitle !== selected.value;
+      });
+
+      if (focus) {
+        window.setTimeout(() => {
+          const activeInput = isEmail ? emailInput : waInput;
+          activeInput?.focus();
+        }, 60);
+      }
+    };
+
+    const validateStep = (index: number) => {
+      const step = steps[index];
+
+      if (step.querySelector("[data-contact-choices]")) {
+        if (!contactRadios.some((r) => r.checked)) {
+          const firstRadio = contactRadios[0];
+          firstRadio?.setCustomValidity("Please select a contact method.");
+          firstRadio?.reportValidity();
+          firstRadio?.setCustomValidity("");
+          return false;
+        }
+        return true;
+      }
+
+      if (step.hasAttribute("data-contact-details")) {
+        const selected = contactRadios.find((r) => r.checked);
+        if (!selected) return false;
+
+        const isEmail = selected.value === "email";
+        const input = isEmail
+          ? emailWrap?.querySelector<HTMLInputElement>(".FormField__control")
+          : waWrap?.querySelector<HTMLInputElement>(".FormField__control");
+
+        if (!input) return false;
+
+        input.setCustomValidity("");
+        if (!input.checkValidity()) {
+          input.reportValidity();
+          return false;
+        }
+        return true;
+      }
+
+      const controls = Array.from(
+        step.querySelectorAll<
+          HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+        >("input, textarea, select"),
+      ).filter((el) => !el.closest("[hidden]"));
+
+      for (const el of controls) {
+        el.setCustomValidity("");
+        if (!el.checkValidity()) {
+          el.reportValidity();
+          return false;
+        }
+      }
+
+      const from = step.querySelector<HTMLInputElement>("[name='dateFrom']");
+      const to = step.querySelector<HTMLInputElement>("[name='dateTo']");
+      if (from && to && from.value && to.value && to.value < from.value) {
+        to.setCustomValidity(
+          "The latest date must be on or after the earliest date.",
+        );
+        to.reportValidity();
+        to.setCustomValidity("");
+        return false;
+      }
+
+      return true;
+    };
+
+    const focusFirstControl = (step: HTMLElement) => {
+      const control = Array.from(
+        step.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>(
+          "input:not([type='radio']), textarea",
+        ),
+      ).find((el) => !el.closest("[hidden]"));
+      window.setTimeout(() => control?.focus(), 60);
+    };
+
+    const STAGGER_MS = 60;
+    const ANIMATE_FORWARD = "BookingStep__animate--forward";
+    const ANIMATE_BACK = "BookingStep__animate--back";
+
+    const getStepBlocks = (step: HTMLElement) => {
+      const blocks: HTMLElement[] = [];
+      const title = step.querySelector<HTMLElement>(".BookingStep__title");
+      const desc = step.querySelector<HTMLElement>(".BookingStep__desc");
+      const content = step.querySelector<HTMLElement>(".BookingStep__content");
+      const actions = step.querySelector<HTMLElement>(".BookingStep__actions");
+
+      if (title) blocks.push(title);
+      if (desc && !desc.hidden) blocks.push(desc);
+      if (content) {
+        Array.from(content.children).forEach((child) => {
+          const el = child as HTMLElement;
+          if (el.hidden) return;
+          blocks.push(el);
+        });
+      }
+      if (actions) blocks.push(actions);
+
+      return blocks;
+    };
+
+    const animateStep = (step: HTMLElement, direction: "forward" | "back") => {
+      const animClass = direction === "forward" ? ANIMATE_FORWARD : ANIMATE_BACK;
+
+      getStepBlocks(step).forEach((block, i) => {
+        block.classList.remove(ANIMATE_FORWARD, ANIMATE_BACK);
+        block.style.animationDelay = `${i * STAGGER_MS}ms`;
+        void block.offsetWidth;
+        block.classList.add(animClass);
+      });
+    };
+
+    const mountStepImages = () => {
+      if (!media) return;
+      let first = true;
+      stepImages.forEach((img) => {
+        if (!img) return;
+        if (first) {
+          img.loading = "eager";
+          first = false;
+        }
+        media.appendChild(img);
+      });
+    };
+
+    const updateStepImage = () => {
+      stepImages.forEach((img) => img?.classList.remove("is-active"));
+      stepImages[current]?.classList.add("is-active");
+      booking.classList.toggle(
+        "Booking--no-step-image",
+        !stepImages[current],
+      );
+    };
+
+    const setStep = (
+      index: number,
+      focus = true,
+      direction?: "forward" | "back",
+    ) => {
+      const prev = current;
+      const next = Math.max(0, Math.min(index, total - 1));
+      const dir =
+        direction ??
+        (next > prev ? "forward" : next < prev ? "back" : "forward");
+
+      current = next;
+
+      steps.forEach((s, i) => s.classList.toggle("is-active", i === current));
+      updateStepImage();
+
+      if (progressFill)
+        progressFill.style.width = `${((current + 1) / total) * 100}%`;
+      prevBtns.forEach((btn) =>
+        btn.toggleAttribute("disabled", current === 0),
+      );
+      stepsRoot.classList.toggle("BookingSteps--first-step", current === 0);
+
+      applyContactMethod(
+        steps[current].hasAttribute("data-contact-details") && focus,
+      );
+      animateStep(steps[current], dir);
+
+      if (current === total - 1) updateSummary();
+      if (focus) focusFirstControl(steps[current]);
+    };
+
+    stepsRoot.addEventListener("click", (event) => {
+      const target = event.target as HTMLElement;
+
+      if (target.closest("[data-next]")) {
+        event.preventDefault();
+        if (current < total - 1) {
+          if (validateStep(current)) setStep(current + 1);
+        } else {
+          form?.requestSubmit();
+        }
+        return;
+      }
+
+      if (target.closest("[data-prev]")) {
+        event.preventDefault();
+        if (current > 0) setStep(current - 1);
+      }
+    });
+
+    form?.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter") return;
+      const target = event.target as HTMLElement;
+      if (target.tagName === "TEXTAREA") return;
+
+      event.preventDefault();
+      if (current < total - 1) {
+        if (validateStep(current)) setStep(current + 1);
+      } else {
+        form.requestSubmit();
+      }
+    });
+
+    contactRadios.forEach((radio) =>
+      radio.addEventListener("change", () => applyContactMethod()),
+    );
+
+    form?.addEventListener("submit", (event) => {
+      event.preventDefault();
+      for (let i = 0; i < total; i += 1) {
+        if (!validateStep(i)) {
+          setStep(i);
+          return;
+        }
+      }
+      updateSummary();
+      if (progressFill) progressFill.style.width = "100%";
+      stepsRoot.classList.add("BookingSteps--done");
+      // TODO: wire to real endpoint (fetch / formspree / mailto fallback)
+    });
+
+    applyContactMethod();
+    mountStepImages();
+    stepsRoot.classList.add("BookingSteps--initialized");
+    setStep(0, false);
+  };
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initBookingSteps);
+  } else {
+    initBookingSteps();
+  }
+</script>

@@ -1,0 +1,188 @@
+---
+import "./Booking.scss";
+import BookingSteps from "../../components/BookingSteps/BookingSteps.astro";
+import BookingStep from "../../components/BookingStep/BookingStep.astro";
+import WhatsappIcon from "../../components/WhatsappIcon/WhatsappIcon.astro";
+import FormField from "../../components/FormField/FormField.astro";
+import ChoiceCard from "../../components/ChoiceCard/ChoiceCard.astro";
+---
+
+<div class="Booking">
+  <div class="Booking__progress" aria-hidden="true">
+    <span class="Booking__progressFill" data-progress-fill></span>
+  </div>
+
+  <aside class="Booking__aside">
+    <div class="Booking__media"></div>
+
+    <a class="Booking__logo" href="/tandem-v3/">
+      <span class="Booking__logoLine">Let&rsquo;s</span>
+      <span class="Booking__logoLine Booking__logoLine--accent">Fly</span>
+    </a>
+
+    <p class="Booking__caption">Tandem Paragliding &middot; Dolomites</p>
+  </aside>
+
+  <div class="Booking__main">
+    <BookingSteps>
+      <BookingStep>
+        <span slot="title">
+          First things first &mdash; what should we <span class="BookingStep__hl"
+            >call you?</span
+          >
+        </span>
+        <FormField
+          id="bk-name"
+          name="firstName"
+          label="First name"
+          placeholder="Alex"
+          required
+          autocomplete="given-name"
+        />
+      </BookingStep>
+
+      <BookingStep
+        image="/tandem-v3/img/2.jpg"
+      >
+        <span slot="title">
+          Where can we <span class="BookingStep__hl">reach you</span> to confirm?
+        </span>
+        <div class="BookingSteps__choices" data-contact-choices>
+          <ChoiceCard
+            id="bk-contact-whatsapp"
+            name="contactMethod"
+            value="whatsapp"
+            title="WhatsApp"
+            description="Quickest — we usually reply within the hour"
+          >
+            <WhatsappIcon slot="icon" />
+          </ChoiceCard>
+          <ChoiceCard
+            id="bk-contact-email"
+            name="contactMethod"
+            value="email"
+            title="Email"
+            description="We'll send your confirmation and details here"
+          >
+            <svg
+              slot="icon"
+              xmlns="http://www.w3.org/2000/svg"
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <rect x="3" y="5" width="18" height="14" rx="2" />
+              <path d="m3 7 9 6 9-6" />
+            </svg>
+          </ChoiceCard>
+        </div>
+      </BookingStep>
+
+      <BookingStep contactDetails>
+        <span slot="title" data-contact-title="email" hidden>
+          What&rsquo;s your <span class="BookingStep__hl">email address</span>?
+        </span>
+        <span slot="title" data-contact-title="whatsapp" hidden>
+          What&rsquo;s your <span class="BookingStep__hl">WhatsApp number</span>?
+        </span>
+        <div data-contact-field="email" hidden>
+          <FormField
+            id="bk-email"
+            name="email"
+            type="email"
+            label="Email address"
+            placeholder="alex@email.com"
+            autocomplete="email"
+          />
+        </div>
+        <div data-contact-field="whatsapp" hidden>
+          <FormField
+            id="bk-whatsapp"
+            name="whatsapp"
+            type="tel"
+            label="WhatsApp number"
+            placeholder="+39 333 123 4567"
+            inputmode="tel"
+          />
+        </div>
+      </BookingStep>
+
+      <BookingStep
+        image="/tandem-v3/img/3.jpg"
+        description="Give us a window rather than a single day — we'll match your flight to the best weather in it."
+      >
+        <span slot="title">
+          When would you like to <span class="BookingStep__hl">fly?</span>
+        </span>
+        <div class="BookingSteps__row">
+          <FormField
+            id="bk-date-from"
+            name="dateFrom"
+            type="date"
+            label="Earliest date"
+            required
+          />
+          <FormField
+            id="bk-date-to"
+            name="dateTo"
+            type="date"
+            label="Latest date"
+            required
+          />
+        </div>
+      </BookingStep>
+
+      <BookingStep description="Group size, rough weights, a birthday or proposal, questions — all welcome, all optional.">
+        <span slot="title">
+          Anything we should <span class="BookingStep__hl">know</span> before we
+          reply?
+        </span>
+        <FormField
+          id="bk-message"
+          name="message"
+          type="textarea"
+          label="Your message"
+          placeholder="Two of us, hoping to fly a weekend in June…"
+          rows={4}
+        />
+      </BookingStep>
+
+      <BookingStep
+        image="/tandem-v3/img/stolen.webp"
+        isLast
+        description="Have a quick look, then send it over. We reply within the hour during flying season."
+        hintMuted="No commitment — we'll suggest a date and you decide."
+      >
+        <span slot="title">
+          That&rsquo;s everything, <span
+            class="BookingStep__hl"
+            data-summary="nameTitle">there</span
+          >.
+        </span>
+        <dl class="BookingSteps__summary">
+          <div class="BookingSteps__summaryRow">
+            <dt>Name</dt>
+            <dd data-summary="name">&mdash;</dd>
+          </div>
+          <div class="BookingSteps__summaryRow">
+            <dt data-summary-label="contact">Email</dt>
+            <dd data-summary="contact">&mdash;</dd>
+          </div>
+          <div class="BookingSteps__summaryRow">
+            <dt>Dates</dt>
+            <dd data-summary="dates">&mdash;</dd>
+          </div>
+          <div class="BookingSteps__summaryRow">
+            <dt>Message</dt>
+            <dd data-summary="message">No message</dd>
+          </div>
+        </dl>
+      </BookingStep>
+    </BookingSteps>
+  </div>
+</div>

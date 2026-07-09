@@ -1,0 +1,67 @@
+---
+import "./BookingStep.scss";
+import ArrowIcon from "../../assets/icons/arrow.svg";
+
+type Props = {
+  contactDetails?: boolean;
+  description?: string;
+  image?: string;
+  isLast?: boolean;
+  hintMuted?: string;
+};
+
+const {
+  contactDetails = false,
+  description,
+  image,
+  isLast = false,
+  hintMuted,
+} = Astro.props as Props;
+---
+
+<section
+  class:list={["BookingStep", { "BookingStep--no-desc": !description }]}
+  data-contact-details={contactDetails || undefined}
+>
+  {
+    image && (
+      <img
+        class="Booking__image"
+        src={image}
+        alt=""
+        data-step-image
+        loading="lazy"
+      />
+    )
+  }
+  <h5 class="BookingStep__title">
+    <slot name="title" />
+  </h5>
+  {description && <p class="BookingStep__desc">{description}</p>}
+  <div class="BookingStep__content">
+    <slot />
+  </div>
+  <div class="BookingStep__actions">
+    {
+      isLast ? (
+        <>
+          <button class="BookingStep__ok animate-fill" type="submit">
+            Send request <ArrowIcon />
+          </button>
+          {hintMuted && (
+            <span class="BookingStep__hint BookingStep__hint--muted">
+              {hintMuted}
+            </span>
+          )}
+        </>
+      ) : (
+        <>
+          <button class="BookingStep__ok animate-fill" type="button" data-next>
+            OK <ArrowIcon />
+          </button>
+          <span class="BookingStep__hint">Press <kbd>Enter &crarr;</kbd></span>
+        </>
+      )
+    }
+  </div>
+</section>

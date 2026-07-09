@@ -1,0 +1,76 @@
+@use "../../definitions" as *;
+
+.ChoiceCard {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: $gutter-md;
+  min-width: 0;
+  max-width: 100%;
+  padding: $gutter-md;
+  border-radius: $rounded-md;
+  border: 1.5px solid rgba($color-font-dark, 0.12);
+  background: rgba($color-font-dark, 0.03);
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &__input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  &__icon {
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: $rounded-sm;
+    background: $color-white;
+    color: $color-font-dark;
+
+    svg {
+      width: 22px;
+      height: 22px;
+    }
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: $gutter-xs;
+    min-width: 0;
+  }
+
+  &__title {
+    font-family: "RobotoCondensed", sans-serif;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-size: $font-base;
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  &__desc {
+    font-size: $font-sm;
+    line-height: 1.4;
+    color: rgba($color-font-dark, 0.6);
+  }
+
+  &:hover {
+    border-color: rgba($color-primary, 0.4);
+  }
+
+  &:has(.ChoiceCard__input:checked) {
+    border-color: $color-secondary;
+    background: rgba($color-secondary, 0.12);
+  }
+
+  &:has(.ChoiceCard__input:checked) .ChoiceCard__icon {
+    background: $color-secondary;
+    color: $color-primary;
+  }
+}

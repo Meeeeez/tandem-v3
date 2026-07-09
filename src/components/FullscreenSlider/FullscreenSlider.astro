@@ -3,7 +3,6 @@ import "./FullscreenSlider.scss";
 import ArrowIcon from "../../assets/icons/arrow.svg";
 
 export type Slide = {
-  subtitle: string;
   title: string;
   description?: string;
   imageSrc?: string;
@@ -56,7 +55,6 @@ const padIndex = (index: number) => String(index).padStart(2, "0");
               <p class="FullscreenSlider__step">
                 <span class="FullscreenSlider__stepIndex">{padIndex(index + 1)}</span>
                 <span class="FullscreenSlider__stepDivider"> / {padIndex(slideTotal)}</span>
-                <span class="FullscreenSlider__stepLabel">{slide.subtitle}</span>
               </p>
               <h3 class="FullscreenSlider__title">{slide.title}</h3>
               {slide.description && (

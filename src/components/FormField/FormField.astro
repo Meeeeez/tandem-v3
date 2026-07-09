@@ -1,0 +1,60 @@
+---
+import "./FormField.scss";
+
+type Props = {
+  id: string;
+  name: string;
+  label: string;
+  type?: "text" | "email" | "tel" | "date" | "textarea";
+  placeholder?: string;
+  required?: boolean;
+  value?: string;
+  rows?: number;
+  min?: string;
+  inputmode?: "text" | "tel" | "email" | "numeric";
+  autocomplete?: string;
+};
+
+const {
+  id,
+  name,
+  label,
+  type = "text",
+  placeholder,
+  required = false,
+  value,
+  rows = 4,
+  min,
+  inputmode,
+  autocomplete,
+} = Astro.props as Props;
+---
+
+<div class="FormField">
+  <label class="FormField__label" for={id}>{label}</label>
+  {
+    type === "textarea" ? (
+      <textarea
+        class="FormField__control FormField__control--textarea"
+        id={id}
+        name={name}
+        rows={rows}
+        placeholder={placeholder}
+        required={required}
+      >{value}</textarea>
+    ) : (
+      <input
+        class="FormField__control"
+        id={id}
+        name={name}
+        type={type}
+        placeholder={placeholder}
+        required={required}
+        value={value}
+        min={min}
+        inputmode={inputmode}
+        autocomplete={autocomplete}
+      />
+    )
+  }
+</div>

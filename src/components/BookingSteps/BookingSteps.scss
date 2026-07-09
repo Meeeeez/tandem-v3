@@ -1,0 +1,244 @@
+@use "../../definitions" as *;
+
+.BookingSteps {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+
+  &__form,
+  &__done {
+    width: 100%;
+    max-width: 42rem;
+    max-height: 100%;
+    margin: 0;
+    padding: $gutter-lg $gutter-xl $gutter-xxl;
+    box-sizing: border-box;
+    overflow: hidden;
+
+    @include md {
+      margin: auto;
+      padding: $gutter-xxl $gutter-xl;
+    }
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+    min-width: 0;
+    overflow-y: auto;
+
+    @include md {
+      flex: initial;
+      overflow: hidden;
+    }
+  }
+
+  &__row {
+    display: grid;
+    gap: $gutter-md;
+    grid-template-columns: 1fr;
+    min-width: 0;
+
+    @include xs {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    }
+  }
+
+  &__choices {
+    display: grid;
+    gap: $gutter-md;
+    grid-template-columns: minmax(0, 1fr);
+    margin-bottom: $gutter-lg;
+    min-width: 0;
+  }
+
+  &__ok.animate-fill {
+    padding: $gutter-ml $gutter-lg;
+    background: $color-primary;
+    color: $color-white;
+    border-radius: $rounded-sm;
+    font-family: "Londrina Solid", sans-serif;
+    font-size: $font-xxl;
+    letter-spacing: 0.06em;
+
+    &::before {
+      background-color: $color-secondary;
+    }
+
+    &:hover {
+      color: $color-primary;
+
+      svg > path {
+        fill: currentColor;
+      }
+    }
+  }
+
+  &__nav {
+    display: none;
+    position: absolute;
+    bottom: $gutter-lg;
+    right: $gutter-lg;
+    gap: $gutter-sm;
+
+    @include md {
+      display: flex;
+    }
+  }
+
+  &__navBtn {
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    background: transparent;
+    color: $color-font-dark;
+    border: 1.5px solid rgba($color-font-dark, 0.2);
+    border-radius: $rounded-sm;
+    transition: border-color 0.2s ease, color 0.2s ease, opacity 0.2s ease;
+
+    svg {
+      width: 1rem;
+    }
+
+    &--prev svg {
+      transform: rotate(90deg);
+    }
+
+    &--next svg {
+      transform: rotate(-90deg);
+    }      
+
+
+    &:hover:not(:disabled) {
+      border-color: $color-primary;
+      color: $color-primary;
+    }
+
+    &:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+  }
+
+  &__mobileNav {
+    display: flex;
+    gap: $gutter-sm;
+    width: 100%;
+    flex-shrink: 0;
+    padding: $gutter-md $gutter-xl;
+    box-sizing: border-box;
+
+    @include md {
+      display: none;
+    }
+  }
+
+  &__mobileBack {
+    aspect-ratio: 1 / 1;
+    flex: 0 0 auto;
+    height: auto;
+    align-self: stretch;
+    padding: 0;
+    background: transparent;
+    color: $color-font-dark;
+    border: 1.5px solid rgba($color-font-dark, 0.2);
+    border-radius: $rounded-sm;
+
+    svg {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+
+    &:hover:not(:disabled) {
+      border-color: $color-primary;
+      color: $color-primary;
+    }
+
+    &:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+  }
+
+  &__mobileOk {
+    flex: 1;
+  }
+
+  &--first-step &__mobileBack {
+    display: none;
+  }
+
+  &__summary {
+    margin: 0 0 $gutter-xl;
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid rgba($color-font-dark, 0.12);
+  }
+
+  &__summaryRow {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: $gutter-md;
+    padding: $gutter-md 0;
+    border-bottom: 1px solid rgba($color-font-dark, 0.12);
+
+    dt {
+      font-family: "RobotoCondensed", sans-serif;
+      font-weight: 600;
+      font-size: $font-xs;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba($color-font-dark, 0.5);
+    }
+
+    dd {
+      margin: 0;
+      text-align: right;
+      font-size: $font-base;
+      font-weight: 500;
+      color: #111;
+      word-break: break-word;
+    }
+  }
+
+  &__done {
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: $gutter-md;
+    min-height: 0;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  &__doneMark {
+    width: 64px;
+    height: 64px;
+    border-radius: $rounded-full;
+    background: $color-primary;
+    color: $color-white;
+    display: grid;
+    place-items: center;
+  }
+
+  &--done {
+    .BookingSteps__form {
+      display: none;
+    }
+
+    .BookingSteps__mobileNav {
+      display: none;
+    }
+
+    .BookingSteps__done {
+      display: flex;
+    }
+  }
+}
