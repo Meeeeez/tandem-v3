@@ -2,9 +2,10 @@
 import "./BookingSteps.scss";
 import ArrowIcon from "../../assets/icons/arrow.svg";
 import ChevronLeftIcon from "../../assets/icons/chevron-left.svg";
+import linesImg from "../../assets/img/lines.png";
 ---
 
-<div class="BookingSteps" data-booking-steps>
+<div class="BookingSteps BookingSteps--first-step" data-booking-steps>
   <form class="BookingSteps__form" data-booking-form novalidate>
     <slot />
 
@@ -44,34 +45,40 @@ import ChevronLeftIcon from "../../assets/icons/chevron-left.svg";
       type="button"
       data-next
     >
-      OK
+      <span class="BookingSteps__okLabel">OK</span>
     </button>
   </div>
 
+  <div class="BookingSteps__burst" data-booking-burst hidden aria-hidden="true"></div>
+
   <div class="BookingSteps__done" data-booking-done>
-    <div class="BookingSteps__doneMark" aria-hidden="true">
-      <svg
-        viewBox="0 0 24 24"
-        width="34"
-        height="34"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
-        <polyline points="4 12 10 18 20 6"></polyline>
-      </svg>
+    <img
+      class="BookingSteps__doneBg"
+      src={linesImg.src}
+      alt=""
+      aria-hidden="true"
+    />
+    <div class="BookingSteps__doneInner">
+      <div class="BookingSteps__doneMark" aria-hidden="true">
+        <svg
+          viewBox="0 0 24 24"
+          width="34"
+          height="34"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <polyline points="4 12 10 18 20 6"></polyline>
+        </svg>
+      </div>
+      <h2 class="BookingStep__title">Thanks!</h2>
+      <p class="BookingStep__desc">
+        We&rsquo;ll get back to you within the hour during flying season. In the
+        meantime, you can also reach us on WhatsApp.
+      </p>
     </div>
-    <h2 class="BookingStep__title">
-      Request sent, <span class="BookingStep__hl" data-summary="nameTitle"
-        >there</span
-      >.
-    </h2>
-    <p class="BookingStep__desc">
-      We&rsquo;ll get back to you within the hour during flying season. In the
-      meantime, you can also reach us on WhatsApp.
-    </p>
   </div>
 </div>
 
@@ -99,6 +106,9 @@ import ChevronLeftIcon from "../../assets/icons/chevron-left.svg";
     const contactRadios = Array.from(
       stepsRoot.querySelectorAll<HTMLInputElement>("input[name='contactMethod']"),
     );
+    const passengerRadios = Array.from(
+      stepsRoot.querySelectorAll<HTMLInputElement>("input[name='passengers']"),
+    );
     const emailWrap = stepsRoot.querySelector<HTMLElement>(
       "[data-contact-field='email']",
     );
@@ -111,6 +121,38 @@ import ChevronLeftIcon from "../../assets/icons/chevron-left.svg";
 
     const total = steps.length;
     let current = 0;
+    const STEP_PARAM = "step";
+
+    const getStepFromUrl = () => {
+      const raw = new URLSearchParams(window.location.search).get(STEP_PARAM);
+      if (!raw) return 0;
+      const n = Number.parseInt(raw, 10);
+      if (Number.isNaN(n) || n < 1) return 0;
+      return Math.min(n - 1, total - 1);
+    };
+
+    const buildStepUrl = (index: number) => {
+      const url = new URL(window.location.href);
+      if (index <= 0) {
+        url.searchParams.delete(STEP_PARAM);
+      } else {
+        url.searchParams.set(STEP_PARAM, String(index + 1));
+      }
+      return `${url.pathname}${url.search}${url.hash}`;
+    };
+
+    const syncStepUrl = (
+      index: number,
+      mode: "push" | "replace",
+    ) => {
+      const url = buildStepUrl(index);
+      const state = { step: index };
+      if (mode === "push") {
+        history.pushState(state, "", url);
+      } else {
+        history.replaceState(state, "", url);
+      }
+    };
 
     const value = (name: string) => {
       const el = form?.querySelector<HTMLInputElement | HTMLTextAreaElement>(
@@ -147,7 +189,7 @@ import ChevronLeftIcon from "../../assets/icons/chevron-left.svg";
             : "";
       const from = formatDate(value("dateFrom"));
       const to = formatDate(value("dateTo"));
-      const message = value("message");
+      const passengers = passengerRadios.find((r) => r.checked)?.value ?? "";
 
       stepsRoot
         .querySelectorAll<HTMLElement>("[data-summary='nameTitle']")
@@ -165,7 +207,20 @@ import ChevronLeftIcon from "../../assets/icons/chevron-left.svg";
         "dates",
         from && to ? `${from} → ${to}` : from || to || "—",
       );
-      setSummary("message", message || "No message");
+      setSummary(
+        "passengers",
+        passengers === "1"
+          ? "1 person"
+          : passengers === "2"
+            ? "2 people"
+            : passengers === "3"
+              ? "3 people"
+              : passengers === "4"
+                ? "4 people"
+                : passengers === "5+"
+                  ? "5 or more"
+                  : "—",
+      );
     };
 
     const applyContactMethod = (focus = false) => {
@@ -205,16 +260,40 @@ import ChevronLeftIcon from "../../assets/icons/chevron-left.svg";
       }
     };
 
-    const validateStep = (index: number) => {
+    const validateStep = (index: number, report = true) => {
       const step = steps[index];
+
+      const fail = (
+        el: HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | null,
+        message?: string,
+      ) => {
+        if (!report || !el) return false;
+        if (message) {
+          el.setCustomValidity(message);
+          el.reportValidity();
+          el.setCustomValidity("");
+        } else {
+          el.reportValidity();
+        }
+        return false;
+      };
 
       if (step.querySelector("[data-contact-choices]")) {
         if (!contactRadios.some((r) => r.checked)) {
-          const firstRadio = contactRadios[0];
-          firstRadio?.setCustomValidity("Please select a contact method.");
-          firstRadio?.reportValidity();
-          firstRadio?.setCustomValidity("");
-          return false;
+          return fail(
+            contactRadios[0] ?? null,
+            "Please select a contact method.",
+          );
+        }
+        return true;
+      }
+
+      if (step.querySelector("[data-passenger-choices]")) {
+        if (!passengerRadios.some((r) => r.checked)) {
+          return fail(
+            passengerRadios[0] ?? null,
+            "Please select how many people will fly.",
+          );
         }
         return true;
       }
@@ -231,10 +310,7 @@ import ChevronLeftIcon from "../../assets/icons/chevron-left.svg";
         if (!input) return false;
 
         input.setCustomValidity("");
-        if (!input.checkValidity()) {
-          input.reportValidity();
-          return false;
-        }
+        if (!input.checkValidity()) return fail(input);
         return true;
       }
 
@@ -246,24 +322,32 @@ import ChevronLeftIcon from "../../assets/icons/chevron-left.svg";
 
       for (const el of controls) {
         el.setCustomValidity("");
-        if (!el.checkValidity()) {
-          el.reportValidity();
-          return false;
-        }
+        if (!el.checkValidity()) return fail(el);
       }
 
       const from = step.querySelector<HTMLInputElement>("[name='dateFrom']");
       const to = step.querySelector<HTMLInputElement>("[name='dateTo']");
       if (from && to && from.value && to.value && to.value < from.value) {
-        to.setCustomValidity(
+        return fail(
+          to,
           "The latest date must be on or after the earliest date.",
         );
-        to.reportValidity();
-        to.setCustomValidity("");
-        return false;
       }
 
       return true;
+    };
+
+    const getMaxReachableStep = () => {
+      for (let i = 0; i < total; i += 1) {
+        if (!validateStep(i, false)) return i;
+      }
+      return total - 1;
+    };
+
+    const resolveStep = (requested: number, fromIndex: number) => {
+      const bounded = Math.max(0, Math.min(requested, total - 1));
+      if (bounded <= fromIndex) return bounded;
+      return Math.min(bounded, getMaxReachableStep());
     };
 
     const focusFirstControl = (step: HTMLElement) => {
@@ -276,8 +360,27 @@ import ChevronLeftIcon from "../../assets/icons/chevron-left.svg";
     };
 
     const STAGGER_MS = 60;
+    const CONTACT_CHOICE_ADVANCE_MS = 150;
     const ANIMATE_FORWARD = "BookingStep__animate--forward";
     const ANIMATE_BACK = "BookingStep__animate--back";
+    const MOBILE_MQ = window.matchMedia("(max-width: 767px)");
+    let contactAdvanceTimer: ReturnType<typeof window.setTimeout> | null = null;
+
+    const clearContactAdvance = () => {
+      if (contactAdvanceTimer === null) return;
+      window.clearTimeout(contactAdvanceTimer);
+      contactAdvanceTimer = null;
+    };
+
+    const scheduleChoiceAdvance = (choicesSelector: string) => {
+      clearContactAdvance();
+      contactAdvanceTimer = window.setTimeout(() => {
+        contactAdvanceTimer = null;
+        if (!steps[current].querySelector(choicesSelector)) return;
+        if (!validateStep(current)) return;
+        setStep(current + 1, true, "forward", "push");
+      }, CONTACT_CHOICE_ADVANCE_MS);
+    };
 
     const getStepBlocks = (step: HTMLElement) => {
       const blocks: HTMLElement[] = [];
@@ -300,11 +403,27 @@ import ChevronLeftIcon from "../../assets/icons/chevron-left.svg";
       return blocks;
     };
 
+    const clearStepAnimation = (step: HTMLElement) => {
+      step.classList.remove(ANIMATE_FORWARD, ANIMATE_BACK);
+      step.style.animationDelay = "";
+      getStepBlocks(step).forEach((block) => {
+        block.classList.remove(ANIMATE_FORWARD, ANIMATE_BACK);
+        block.style.animationDelay = "";
+      });
+    };
+
     const animateStep = (step: HTMLElement, direction: "forward" | "back") => {
       const animClass = direction === "forward" ? ANIMATE_FORWARD : ANIMATE_BACK;
 
+      clearStepAnimation(step);
+
+      if (MOBILE_MQ.matches) {
+        void step.offsetWidth;
+        step.classList.add(animClass);
+        return;
+      }
+
       getStepBlocks(step).forEach((block, i) => {
-        block.classList.remove(ANIMATE_FORWARD, ANIMATE_BACK);
         block.style.animationDelay = `${i * STAGGER_MS}ms`;
         void block.offsetWidth;
         block.classList.add(animClass);
@@ -328,8 +447,8 @@ import ChevronLeftIcon from "../../assets/icons/chevron-left.svg";
       stepImages.forEach((img) => img?.classList.remove("is-active"));
       stepImages[current]?.classList.add("is-active");
       booking.classList.toggle(
-        "Booking--no-step-image",
-        !stepImages[current],
+        "Booking--has-step-image",
+        !!stepImages[current],
       );
     };
 
@@ -337,12 +456,17 @@ import ChevronLeftIcon from "../../assets/icons/chevron-left.svg";
       index: number,
       focus = true,
       direction?: "forward" | "back",
+      syncHistory: "push" | "replace" | "none" = "none",
     ) => {
+      clearContactAdvance();
       const prev = current;
-      const next = Math.max(0, Math.min(index, total - 1));
+      const requested = Math.max(0, Math.min(index, total - 1));
+      const next = resolveStep(requested, prev);
       const dir =
         direction ??
         (next > prev ? "forward" : next < prev ? "back" : "forward");
+
+      if (requested > next && focus) validateStep(next, true);
 
       current = next;
 
@@ -363,6 +487,12 @@ import ChevronLeftIcon from "../../assets/icons/chevron-left.svg";
 
       if (current === total - 1) updateSummary();
       if (focus) focusFirstControl(steps[current]);
+
+      if (syncHistory !== "none") {
+        syncStepUrl(current, requested > next ? "replace" : syncHistory);
+      } else if (requested > next) {
+        syncStepUrl(current, "replace");
+      }
     };
 
     stepsRoot.addEventListener("click", (event) => {
@@ -371,7 +501,7 @@ import ChevronLeftIcon from "../../assets/icons/chevron-left.svg";
       if (target.closest("[data-next]")) {
         event.preventDefault();
         if (current < total - 1) {
-          if (validateStep(current)) setStep(current + 1);
+          if (validateStep(current)) setStep(current + 1, true, "forward", "push");
         } else {
           form?.requestSubmit();
         }
@@ -380,7 +510,7 @@ import ChevronLeftIcon from "../../assets/icons/chevron-left.svg";
 
       if (target.closest("[data-prev]")) {
         event.preventDefault();
-        if (current > 0) setStep(current - 1);
+        if (current > 0) history.back();
       }
     });
 
@@ -391,34 +521,195 @@ import ChevronLeftIcon from "../../assets/icons/chevron-left.svg";
 
       event.preventDefault();
       if (current < total - 1) {
-        if (validateStep(current)) setStep(current + 1);
+        if (validateStep(current)) setStep(current + 1, true, "forward", "push");
       } else {
         form.requestSubmit();
       }
     });
 
     contactRadios.forEach((radio) =>
-      radio.addEventListener("change", () => applyContactMethod()),
+      radio.addEventListener("change", () => {
+        applyContactMethod();
+        if (!steps[current].querySelector("[data-contact-choices]")) return;
+        scheduleChoiceAdvance("[data-contact-choices]");
+      }),
     );
 
-    form?.addEventListener("submit", (event) => {
+    passengerRadios.forEach((radio) =>
+      radio.addEventListener("change", () => {
+        if (!steps[current].querySelector("[data-passenger-choices]")) return;
+        scheduleChoiceAdvance("[data-passenger-choices]");
+      }),
+    );
+
+    const SUBMIT_MIN_MS = 700;
+    const BURST_MS = 850;
+
+    const burst = stepsRoot.querySelector<HTMLElement>("[data-booking-burst]");
+
+    const getSubmitBtns = () => {
+      const btns: HTMLButtonElement[] = [];
+      const desktop = stepsRoot.querySelector<HTMLButtonElement>(
+        ".BookingStep.is-active .BookingStep__ok[type='submit']",
+      );
+      const mobile = stepsRoot.querySelector<HTMLButtonElement>(
+        ".BookingSteps__mobileOk",
+      );
+      if (desktop) btns.push(desktop);
+      if (mobile) btns.push(mobile);
+      return btns;
+    };
+
+    const setSubmitLoading = (loading: boolean) => {
+      const btns = getSubmitBtns().filter((btn) => btn.offsetHeight > 0);
+
+      if (loading) {
+        btns.forEach((btn) => {
+          const height = btn.offsetHeight;
+          const width = btn.offsetWidth;
+
+          btn.style.setProperty("--booking-submit-size", `${height}px`);
+          btn.style.width = `${width}px`;
+          btn.style.height = `${height}px`;
+          btn.style.minWidth = `${width}px`;
+          btn.style.maxWidth = `${width}px`;
+          btn.style.flex = `0 0 ${width}px`;
+
+          btn.classList.add("is-loading");
+          btn.toggleAttribute("disabled", true);
+          btn.setAttribute("aria-busy", "true");
+        });
+
+        stepsRoot.classList.add("BookingSteps--submitting");
+
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            btns.forEach((btn) => {
+              const size = btn.style.getPropertyValue("--booking-submit-size");
+              btn.style.width = size;
+              btn.style.minWidth = size;
+              btn.style.maxWidth = size;
+              btn.style.flex = `0 0 ${size}`;
+            });
+          });
+        });
+
+        return;
+      }
+
+      stepsRoot.classList.remove("BookingSteps--submitting");
+      btns.forEach((btn) => {
+        btn.classList.remove("is-loading");
+        btn.toggleAttribute("disabled", false);
+        btn.setAttribute("aria-busy", "false");
+        btn.style.removeProperty("width");
+        btn.style.removeProperty("height");
+        btn.style.removeProperty("min-width");
+        btn.style.removeProperty("max-width");
+        btn.style.removeProperty("flex");
+        btn.style.removeProperty("--booking-submit-size");
+      });
+    };
+
+    const playSuccessBurst = () =>
+      new Promise<void>((resolve) => {
+        const btn = getSubmitBtns().find(
+          (b) => b.offsetHeight > 0 && b.classList.contains("is-loading"),
+        );
+
+        const finish = () => {
+          stepsRoot.classList.remove("BookingSteps--bursting");
+          stepsRoot.classList.add("BookingSteps--done");
+          booking?.classList.add("Booking--done");
+          resolve();
+        };
+
+        if (!burst || !btn) {
+          finish();
+          return;
+        }
+
+        const rect = btn.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        const diameter = Math.max(rect.width, rect.height);
+        const radius = diameter / 2;
+        const maxDist = Math.max(
+          Math.hypot(cx, cy),
+          Math.hypot(window.innerWidth - cx, cy),
+          Math.hypot(cx, window.innerHeight - cy),
+          Math.hypot(window.innerWidth - cx, window.innerHeight - cy),
+        );
+        const scale = maxDist / radius + 0.05;
+
+        burst.style.width = `${diameter}px`;
+        burst.style.height = `${diameter}px`;
+        burst.style.left = `${cx}px`;
+        burst.style.top = `${cy}px`;
+        burst.style.setProperty("--burst-scale", String(scale));
+        burst.hidden = false;
+        burst.classList.remove("is-expanding");
+        burst.classList.add("is-active");
+
+        stepsRoot.classList.add("BookingSteps--bursting");
+
+        let finished = false;
+        const finishOnce = () => {
+          if (finished) return;
+          finished = true;
+          finish();
+        };
+
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+          burst.style.transform = `translate(-50%, -50%) scale(${scale})`;
+          finishOnce();
+          return;
+        }
+
+        burst.addEventListener("animationend", finishOnce, { once: true });
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            burst.classList.add("is-expanding");
+          });
+        });
+
+        window.setTimeout(finishOnce, BURST_MS + 100);
+      });
+
+    form?.addEventListener("submit", async (event) => {
       event.preventDefault();
       for (let i = 0; i < total; i += 1) {
         if (!validateStep(i)) {
-          setStep(i);
+          setStep(i, true, undefined, "replace");
           return;
         }
       }
+
+      setSubmitLoading(true);
       updateSummary();
       if (progressFill) progressFill.style.width = "100%";
-      stepsRoot.classList.add("BookingSteps--done");
+
       // TODO: wire to real endpoint (fetch / formspree / mailto fallback)
+      await new Promise((resolve) => window.setTimeout(resolve, SUBMIT_MIN_MS));
+
+      await playSuccessBurst();
+    });
+
+    window.addEventListener("popstate", () => {
+      const step = getStepFromUrl();
+      if (step === current) return;
+      setStep(
+        step,
+        false,
+        step > current ? "forward" : "back",
+        "none",
+      );
     });
 
     applyContactMethod();
     mountStepImages();
     stepsRoot.classList.add("BookingSteps--initialized");
-    setStep(0, false);
+    setStep(getStepFromUrl(), false, undefined, "replace");
   };
 
   if (document.readyState === "loading") {

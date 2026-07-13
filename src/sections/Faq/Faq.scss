@@ -44,8 +44,6 @@
 
         &::after { transform: rotate(90deg); opacity: 0; }
       }
-
-      .Faq__answer { grid-template-rows: 1fr; }
     }
   }
 
@@ -97,14 +95,7 @@
     &::after  { width: 2px;  height: 12px; }
   }
 
-  &__answer {
-    display: grid;
-    grid-template-rows: 0fr;
-    transition: grid-template-rows 0.3s ease;
-  }
-
   &__answerText {
-    overflow: hidden;
     margin: 0;
     padding-right: $gutter-xl;
     padding-bottom: $gutter-lg;

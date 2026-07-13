@@ -46,7 +46,8 @@ const {
       isLast ? (
         <>
           <button class="BookingStep__ok animate-fill" type="submit">
-            Send request <ArrowIcon />
+            <span class="BookingStep__okLabel">Send request</span>
+            <ArrowIcon />
           </button>
           {hintMuted && (
             <span class="BookingStep__hint BookingStep__hint--muted">
@@ -57,7 +58,8 @@ const {
       ) : (
         <>
           <button class="BookingStep__ok animate-fill" type="button" data-next>
-            OK <ArrowIcon />
+            <span class="BookingStep__okLabel">OK</span>
+            <ArrowIcon />
           </button>
           <span class="BookingStep__hint">Press <kbd>Enter &crarr;</kbd></span>
         </>

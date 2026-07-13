@@ -13,6 +13,7 @@
 
   &.is-active {
     display: flex;
+    flex-shrink: 0;
   }
 
   &__title,
@@ -23,11 +24,19 @@
   }
 
   &__animate--forward {
-    animation: booking-step-from-top 0.5s cubic-bezier(0.25, 1, 0.5, 1) both;
+    animation: booking-step-from-right 0.5s cubic-bezier(0.25, 1, 0.5, 1) both;
+
+    @include md {
+      animation: booking-step-from-top 0.5s cubic-bezier(0.25, 1, 0.5, 1) both;
+    }
   }
 
   &__animate--back {
-    animation: booking-step-from-bottom 0.5s cubic-bezier(0.25, 1, 0.5, 1) both;
+    animation: booking-step-from-left 0.5s cubic-bezier(0.25, 1, 0.5, 1) both;
+
+    @include md {
+      animation: booking-step-from-bottom 0.5s cubic-bezier(0.25, 1, 0.5, 1) both;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -61,7 +70,7 @@
   }
 
   &__desc {
-    margin: 0 0 $gutter-xl;
+    margin: 0 0 $gutter-md;
     max-width: 420px;
     font-size: $font-base;
     color: rgba($color-font-dark, 0.6);
@@ -82,6 +91,7 @@
     margin-top: $gutter-xl;
     min-width: 0;
     max-width: 100%;
+    transition: justify-content 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 
     @include md {
       display: flex;
@@ -89,6 +99,8 @@
   }
 
   &__ok.animate-fill {
+    --booking-submit-size: calc(#{$gutter-md} * 2 + #{$font-xl});
+    box-sizing: border-box;
     padding: $gutter-md $gutter-lg;
     background: $color-primary;
     color: $color-white;
@@ -96,6 +108,14 @@
     font-family: "Londrina Solid", sans-serif;
     font-size: $font-xl;
     letter-spacing: 0.06em;
+    transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+      height 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+      min-width 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+      max-width 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+      flex 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+      padding 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+      border-radius 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+      color 0.25s ease;
 
     &::before {
       background-color: $color-secondary;
@@ -108,6 +128,20 @@
         fill: currentColor;
       }
     }
+
+    &.is-loading {
+      height: var(--booking-submit-size);
+      min-height: var(--booking-submit-size);
+      max-height: var(--booking-submit-size);
+      padding: 0;
+      padding-inline: 0;
+      border-radius: 50%;
+      aspect-ratio: 1;
+    }
+  }
+
+  &__okLabel {
+    line-height: 1;
   }
 
   &__hint {
@@ -138,6 +172,14 @@
   }
 }
 
+.BookingSteps--submitting .BookingStep.is-active .BookingStep__actions {
+  justify-content: center;
+
+  .BookingStep__hint {
+    display: none;
+  }
+}
+
 @keyframes booking-step-from-top {
   from {
     opacity: 0;
@@ -159,5 +201,29 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes booking-step-from-right {
+  from {
+    opacity: 0;
+    transform: translateX(1.25rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes booking-step-from-left {
+  from {
+    opacity: 0;
+    transform: translateX(-1.25rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
   }
 }

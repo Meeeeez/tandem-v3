@@ -114,7 +114,6 @@ import ChoiceCard from "../../components/ChoiceCard/ChoiceCard.astro";
 
       <BookingStep
         image="/tandem-v3/img/3.jpg"
-        description="Give us a window rather than a single day — we'll match your flight to the best weather in it."
       >
         <span slot="title">
           When would you like to <span class="BookingStep__hl">fly?</span>
@@ -137,19 +136,62 @@ import ChoiceCard from "../../components/ChoiceCard/ChoiceCard.astro";
         </div>
       </BookingStep>
 
-      <BookingStep description="Group size, rough weights, a birthday or proposal, questions — all welcome, all optional.">
+      <BookingStep>
         <span slot="title">
-          Anything we should <span class="BookingStep__hl">know</span> before we
-          reply?
+          How many people want to <span class="BookingStep__hl">fly?</span>
         </span>
-        <FormField
-          id="bk-message"
-          name="message"
-          type="textarea"
-          label="Your message"
-          placeholder="Two of us, hoping to fly a weekend in June…"
-          rows={4}
-        />
+        <div class="BookingSteps__numberChoices" data-passenger-choices>
+          <label class="BookingSteps__numberChoice" for="bk-passengers-1">
+            <input
+              class="BookingSteps__numberChoiceInput"
+              id="bk-passengers-1"
+              type="radio"
+              name="passengers"
+              value="1"
+            />
+            <span class="BookingSteps__numberChoiceLabel">1</span>
+          </label>
+          <label class="BookingSteps__numberChoice" for="bk-passengers-2">
+            <input
+              class="BookingSteps__numberChoiceInput"
+              id="bk-passengers-2"
+              type="radio"
+              name="passengers"
+              value="2"
+            />
+            <span class="BookingSteps__numberChoiceLabel">2</span>
+          </label>
+          <label class="BookingSteps__numberChoice" for="bk-passengers-3">
+            <input
+              class="BookingSteps__numberChoiceInput"
+              id="bk-passengers-3"
+              type="radio"
+              name="passengers"
+              value="3"
+            />
+            <span class="BookingSteps__numberChoiceLabel">3</span>
+          </label>
+          <label class="BookingSteps__numberChoice" for="bk-passengers-4">
+            <input
+              class="BookingSteps__numberChoiceInput"
+              id="bk-passengers-4"
+              type="radio"
+              name="passengers"
+              value="4"
+            />
+            <span class="BookingSteps__numberChoiceLabel">4</span>
+          </label>
+          <label class="BookingSteps__numberChoice" for="bk-passengers-5plus">
+            <input
+              class="BookingSteps__numberChoiceInput"
+              id="bk-passengers-5plus"
+              type="radio"
+              name="passengers"
+              value="5+"
+            />
+            <span class="BookingSteps__numberChoiceLabel">5+</span>
+          </label>
+        </div>
       </BookingStep>
 
       <BookingStep
@@ -178,8 +220,8 @@ import ChoiceCard from "../../components/ChoiceCard/ChoiceCard.astro";
             <dd data-summary="dates">&mdash;</dd>
           </div>
           <div class="BookingSteps__summaryRow">
-            <dt>Message</dt>
-            <dd data-summary="message">No message</dd>
+            <dt>Passengers</dt>
+            <dd data-summary="passengers">&mdash;</dd>
           </div>
         </dl>
       </BookingStep>
