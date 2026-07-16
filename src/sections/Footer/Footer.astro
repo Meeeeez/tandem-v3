@@ -1,1 +1,86 @@
-<footer></footer>
+---
+import "./Footer.scss";
+import bgFooter from "../../assets/img/bg_footer.svg";
+import { getLangFromUrl, useTranslations, localizedPath } from "../../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const f = t.footer;
+const homeHref = localizedPath(lang, "home");
+const year = new Date().getFullYear();
+const legal = f.legal.replace("{year}", String(year));
+
+const exploreLinks = [
+  { href: "#flights", label: f.nav.flights },
+  { href: "#location", label: f.nav.location },
+  { href: "#reviews", label: f.nav.reviews },
+  { href: "#faq", label: f.nav.faq },
+  { href: "#contact", label: f.nav.contact },
+] as const;
+---
+
+<footer class="Footer">
+  <img
+    class="Footer__edge"
+    src={bgFooter.src}
+    alt=""
+    width={bgFooter.width}
+    height={bgFooter.height}
+    loading="lazy"
+    decoding="async"
+  />
+
+  <div class="container Footer__inner">
+    <div class="Footer__top">
+      <div class="Footer__brand">
+        <a class="Footer__logo" href={homeHref}>
+          <span class="Footer__logoPre">{f.brandPre}</span><span class="Footer__logoAccent">{f.brandAccent}</span>
+        </a>
+        <p class="Footer__description">{f.description}</p>
+      </div>
+
+      <div class="Footer__columns">
+        <div class="Footer__block">
+          <h5 class="Footer__heading">{f.explore}</h5>
+          <nav class="Footer__nav" aria-label={f.explore}>
+            {
+              exploreLinks.map((link) => (
+                <a class="Footer__navLink" href={link.href}>
+                  {link.label}
+                </a>
+              ))
+            }
+          </nav>
+        </div>
+
+        <div class="Footer__block">
+          <h5 class="Footer__heading">{f.getInTouch}</h5>
+          <div class="Footer__contact">
+            <a class="Footer__contactLink" href={`mailto:${f.email}`}>{f.email}</a>
+            <a class="Footer__contactLink" href={`tel:${f.phone.replace(/\s/g, "")}`}>{f.phone}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="Footer__divider" />
+
+  <div class="container Footer__bottom">
+    <p class="Footer__legal">{legal}</p>
+    <nav class="Footer__legalNav" aria-label="Legal">
+      <a class="Footer__legalLink" href="#">{f.impressum}</a>
+      <span class="Footer__legalSep" aria-hidden="true">·</span>
+      <a class="Footer__legalLink" href="#">{f.privacy}</a>
+      <span class="Footer__legalSep" aria-hidden="true">·</span>
+      <a class="Footer__legalLink Footer__backToTop" href="#">{f.backToTop}&nbsp;→</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+  document.querySelector(".Footer__backToTop")?.addEventListener("click", (event) => {
+    event.preventDefault();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+</script>

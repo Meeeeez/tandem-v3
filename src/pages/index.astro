@@ -1,36 +1,20 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import Hero from "../sections/Hero/Hero.astro";
-import Flights from "../sections/Flights/Flights.astro";
-import Process from "../sections/Process/Process.astro";
-import Location from "../sections/Location/Location.astro";
-import Reviews from "../sections/Reviews/Reviews.astro";
-import Faq from "../sections/Faq/Faq.astro";
-import Footer from "../sections/Footer/Footer.astro";
-import Contact from "../sections/Contact/Contact.astro";
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { defaultLang } from "../i18n/config";
+
+// Root entry point: redirect to the default locale (e.g. /tandem-v3/en/).
+const target = getRelativeLocaleUrl(defaultLang, "/");
 ---
 
-<Layout>
-	<Hero />
-	<Flights />
-	<Location
-		locations={[
-			{
-				name: "Villnöss",
-				meta: "Launch · 1,650 m",
-				coordinates: [46.645, 11.749],
-				imageUrls: ["/tandem-v3/img/1.jpg", "/tandem-v3/img/2.jpg"],
-			},
-			{
-				name: "Plose",
-				meta: "Launch · 2,050 m",
-				coordinates: [46.704, 11.686],
-				imageUrls: ["/tandem-v3/img/2.jpg", "/tandem-v3/img/3.jpg"],
-			},
-		]}
-	/>
-	<Reviews />
-	<Process />
-	<Faq />
-	<Footer />
-</Layout>
+<!doctype html>
+<html lang={defaultLang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="refresh" content={`0; url=${target}`} />
+    <link rel="canonical" href={target} />
+    <title>Let's Fly · Tandem Paragliding in the Dolomites</title>
+  </head>
+  <body>
+    <a href={target}>Continue</a>
+  </body>
+</html>

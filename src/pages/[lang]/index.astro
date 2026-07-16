@@ -1,0 +1,48 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Hero from "../../sections/Hero/Hero.astro";
+import Flights from "../../sections/Flights/Flights.astro";
+import Process from "../../sections/Process/Process.astro";
+import Location from "../../sections/Location/Location.astro";
+import Reviews from "../../sections/Reviews/Reviews.astro";
+import Faq from "../../sections/Faq/Faq.astro";
+import Cta from "../../sections/Cta/Cta.astro";
+import Footer from "../../sections/Footer/Footer.astro";
+import { locales } from "../../i18n/config";
+import { getLangFromUrl, useTranslations } from "../../i18n/utils";
+
+export function getStaticPaths() {
+  return locales.map((lang) => ({ params: { lang } }));
+}
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+// Coordinates and images are not translatable; labels come from the dictionary.
+const locationMeta = [
+  {
+    coordinates: [46.645, 11.749] as [number, number],
+    imageUrls: ["/tandem-v3/img/1.jpg", "/tandem-v3/img/2.jpg"],
+  },
+  {
+    coordinates: [46.704, 11.686] as [number, number],
+    imageUrls: ["/tandem-v3/img/2.jpg", "/tandem-v3/img/3.jpg"],
+  },
+];
+
+const locations = t.location.items.map((item, i) => ({
+  ...item,
+  ...locationMeta[i],
+}));
+---
+
+<Layout>
+	<Hero />
+	<Flights />
+	<Location locations={locations} />
+	<Reviews />
+	<Process />
+	<Faq />
+	<Cta />
+	<Footer />
+</Layout>

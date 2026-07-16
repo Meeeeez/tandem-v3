@@ -1,0 +1,22 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Booking from "../../sections/Booking/Booking.astro";
+import { locales, routeSlugs } from "../../i18n/config";
+
+/**
+ * Localized sub-pages. Each entry maps a locale to its translated slug.
+ * Add a `case` in the markup below when you introduce another named route.
+ */
+export function getStaticPaths() {
+  return locales.map((lang) => ({
+    params: { lang, slug: routeSlugs.booking[lang] },
+    props: { page: "booking" as const },
+  }));
+}
+
+const { page } = Astro.props;
+---
+
+<Layout>
+  {page === "booking" && <Booking />}
+</Layout>

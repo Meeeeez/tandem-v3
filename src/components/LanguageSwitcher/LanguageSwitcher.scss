@@ -1,0 +1,64 @@
+@use "../../definitions" as *;
+
+.LanguageSwitcher {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: stretch;
+
+  &__trigger {
+    height: 55px;
+    padding: 0 $gutter-lg;
+    min-width: 55px;
+    box-sizing: border-box;
+  }
+
+  &__chevron {
+    display: inline-block;
+    width: 0.45em;
+    height: 0.45em;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(45deg) translateY(-0.15em);
+    transition: transform 0.2s ease;
+  }
+
+  &.is-open &__chevron {
+    transform: rotate(225deg) translateY(0.1em);
+  }
+
+  &__menu {
+    position: absolute;
+    top: calc(100% + $gutter-xs);
+    left: 0;
+    width: 100%;
+    margin: 0;
+    padding: $gutter-xs;
+    list-style: none;
+    background: $color-white;
+    border-radius: $rounded-md;
+    box-shadow: $shadow;
+    box-sizing: border-box;
+    z-index: 20;
+  }
+
+  &__option {
+    display: block;
+    padding: $gutter-sm;
+    color: $color-font-dark;
+    text-decoration: none;
+    font-size: $font-xl;
+    font-weight: 600;
+    text-align: center;
+    text-transform: uppercase;
+    border-radius: $rounded-sm;
+    white-space: nowrap;
+    transition: background-color 0.15s ease, color 0.15s ease;
+
+    &:hover,
+    &:focus-visible {
+      background: rgba($color-primary, 0.08);
+      color: $color-primary;
+    }
+  }
+}

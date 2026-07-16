@@ -3,41 +3,39 @@ import "./Flights.scss";
 import ArrowIcon from "../../assets/icons/arrow.svg";
 import FlightCard from "../../components/FlightCard/FlightCard.astro";
 import Header from "../../components/Header/Header.astro";
+import { getLangFromUrl, useTranslations } from "../../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const flightMedia = [
+  { image: "/tandem-v3/img/1.jpg", videoSrc: "/tandem-v3/vid/bg.mp4" },
+  { image: "/tandem-v3/img/2.jpg", videoSrc: "/tandem-v3/vid/bg.mp4" },
+  { image: "/tandem-v3/img/3.jpg", videoSrc: "/tandem-v3/vid/bg.mp4" },
+];
 ---
 
-<section class="Flights">
+<section class="Flights" id="flights">
   <div class="container">
     <Header
-      title="choose <br>your"
-      titleHighlighted="adventure"
-      description="If Bradford matched Core City averages across key metrics, <b>productivity would rise to £37.80 per hour</b>, the business base would grow to nearly 20,000, and the working‑age population would increase."
+      title={t.flights.header.title}
+      titleHighlighted={t.flights.header.titleHighlighted}
+      description={t.flights.header.description}
     />
 
     <div class="Flights__scrollContainer">
-      <FlightCard
-        title="Glide"
-        description="A relaxed flight from the top of the mountain back to the valley."
-        price="120 €"
-        duration="30 min"
-        image="/tandem-v3/img/1.jpg",
-        videoSrc = "/tandem-v3/vid/bg.mp4"
-      />
-      <FlightCard
-        title="Thermal"
-        description="We will use rising air to fly longer and higher."
-        price="150 €"
-        duration="45 min"
-        image="/tandem-v3/img/2.jpg",
-        videoSrc = "/tandem-v3/vid/bg.mp4"
-      />
-      <FlightCard
-        title="Adventure"
-        description="A long journey across the beautiful dolomite peaks..."
-        price="210 €"
-        duration="90 min"
-        image="/tandem-v3/img/3.jpg"
-        videoSrc = "/tandem-v3/vid/bg.mp4"
-      />
+      {
+        t.flights.items.map((flight, i) => (
+          <FlightCard
+            title={flight.title}
+            description={flight.description}
+            price={flight.price}
+            duration={flight.duration}
+            image={flightMedia[i]?.image}
+            videoSrc={flightMedia[i]?.videoSrc}
+          />
+        ))
+      }
     </div>
 
     <div class="Flights__controls">
@@ -65,61 +63,96 @@ import Header from "../../components/Header/Header.astro";
     if (!container || !pagination) return;
     if (!cards || cards.length === 0) return;
 
-    // 1. Generate the dots dynamically based on the number of cards
-    cards?.forEach((_, index) => {
-      const dot = document.createElement("button");
-      dot.classList.add("Flights__dot");
-      dot.setAttribute("aria-label", `Go to slide ${index + 1}`);
-      pagination.appendChild(dot);
-    });
+    const scrollContainer = container as HTMLElement;
+    const cardList = Array.from(cards) as HTMLElement[];
 
-    const dots = pagination.querySelectorAll(".Flights__dot");
-    let activeIndex = 0;
+    // Distance from the start of one card to the start of the next
+    // (card width + gap). Falls back to the single card width.
+    const getStride = () => {
+      if (cardList.length < 2) {
+        return cardList[0].getBoundingClientRect().width || 1;
+      }
+      return cardList[1].offsetLeft - cardList[0].offsetLeft || 1;
+    };
 
-    const scrollToIndex = (index: number) => {
-      const clamped = Math.max(0, Math.min(index, cards.length - 1));
-      activeIndex = clamped;
-      cards[clamped]?.scrollIntoView({
-        behavior: "smooth",
-        block: "nearest",
-        inline: "center",
+    // How many cards are fully visible at once (responsive: 1 / 2 / 3).
+    const getVisibleCount = () =>
+      Math.max(1, Math.round(scrollContainer.clientWidth / getStride()));
+
+    let visibleCount = getVisibleCount();
+    let pageCount = Math.ceil(cardList.length / visibleCount);
+    let activePage = 0;
+
+    const updateActiveDot = () => {
+      const dots = pagination.querySelectorAll(".Flights__dot");
+      dots.forEach((dot, index) => {
+        dot.classList.toggle("Flights__dot--active", index === activePage);
       });
     };
 
-    // 2. Use IntersectionObserver to highlight the active dot
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            // Find which card is intersecting
-            activeIndex = Array.from(cards ?? []).indexOf(entry.target);
-
-            // Update dot classes
-            dots.forEach((dot, index) => {
-              dot.classList.toggle(
-                "Flights__dot--active",
-                index === activeIndex,
-              );
-            });
-          }
+    const scrollToPage = (page: number) => {
+      const clamped = Math.max(0, Math.min(page, pageCount - 1));
+      activePage = clamped;
+      const target = cardList[clamped * visibleCount];
+      if (target) {
+        scrollContainer.scrollTo({
+          left: target.offsetLeft - scrollContainer.offsetLeft,
+          behavior: "smooth",
         });
-      },
-      {
-        root: container,
-        threshold: 0.6, // Triggers when 60% of the card is visible
-      },
-    );
+      }
+      updateActiveDot();
+    };
 
-    // Observe all cards
-    cards?.forEach((card) => observer.observe(card));
+    // (Re)build the pagination dots — one per page.
+    const buildDots = () => {
+      pagination.innerHTML = "";
+      for (let i = 0; i < pageCount; i++) {
+        const dot = document.createElement("button");
+        dot.classList.add("Flights__dot");
+        dot.setAttribute("aria-label", `Go to page ${i + 1}`);
+        dot.addEventListener("click", () => scrollToPage(i));
+        pagination.appendChild(dot);
+      }
+      updateActiveDot();
+    };
 
-    // 3. Make the Prev/Next buttons work
+    // Recompute layout-dependent values (called on load and resize).
+    const recompute = () => {
+      visibleCount = getVisibleCount();
+      pageCount = Math.ceil(cardList.length / visibleCount);
+      activePage = Math.min(activePage, pageCount - 1);
+      buildDots();
+    };
+
+    recompute();
+
+    // Track the active page while scrolling.
+    scrollContainer.addEventListener("scroll", () => {
+      const maxScroll =
+        scrollContainer.scrollWidth - scrollContainer.clientWidth;
+      if (maxScroll > 0 && scrollContainer.scrollLeft >= maxScroll - 1) {
+        activePage = pageCount - 1;
+      } else {
+        activePage = Math.min(
+          pageCount - 1,
+          Math.round(scrollContainer.scrollLeft / (getStride() * visibleCount)),
+        );
+      }
+      updateActiveDot();
+    });
+
+    let resizeTimer: ReturnType<typeof setTimeout>;
+    window.addEventListener("resize", () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(recompute, 150);
+    });
+
     prevBtn?.addEventListener("click", () => {
-      scrollToIndex(activeIndex - 1);
+      scrollToPage(activePage - 1);
     });
 
     nextBtn?.addEventListener("click", () => {
-      scrollToIndex(activeIndex + 1);
+      scrollToPage(activePage + 1);
     });
 
     const prefersHover =

@@ -1,6 +1,7 @@
 ---
 import "./BookingStep.scss";
 import ArrowIcon from "../../assets/icons/arrow.svg";
+import { getLangFromUrl, useTranslations } from "../../i18n/utils";
 
 type Props = {
   contactDetails?: boolean;
@@ -17,6 +18,10 @@ const {
   isLast = false,
   hintMuted,
 } = Astro.props as Props;
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const actions = t.booking.actions;
 ---
 
 <section
@@ -46,7 +51,7 @@ const {
       isLast ? (
         <>
           <button class="BookingStep__ok animate-fill" type="submit">
-            <span class="BookingStep__okLabel">Send request</span>
+            <span class="BookingStep__okLabel">{actions.sendRequest}</span>
             <ArrowIcon />
           </button>
           {hintMuted && (
@@ -58,10 +63,10 @@ const {
       ) : (
         <>
           <button class="BookingStep__ok animate-fill" type="button" data-next>
-            <span class="BookingStep__okLabel">OK</span>
+            <span class="BookingStep__okLabel">{actions.ok}</span>
             <ArrowIcon />
           </button>
-          <span class="BookingStep__hint">Press <kbd>Enter &crarr;</kbd></span>
+          <span class="BookingStep__hint">{actions.pressEnter} <kbd>Enter &crarr;</kbd></span>
         </>
       )
     }

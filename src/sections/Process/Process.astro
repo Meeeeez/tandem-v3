@@ -2,53 +2,34 @@
 import "./Process.scss";
 import Header from "../../components/Header/Header.astro";
 import FullscreenSlider from "../../components/FullscreenSlider/FullscreenSlider.astro";
+import { getLangFromUrl, useTranslations } from "../../i18n/utils";
 
-const slides = [
-  {
-    title: "Book",
-    description:
-      "Send a message and we'll pick a day based on weather and your preferences.",
-    imageSrc: "/tandem-v3/img/1.jpg",
-    imageAlt: "Booking a tandem flight",
-  },
-  {
-    title: "Meet",
-    description:
-      "We meet, check conditions, and drive or hike to the take-off area together.",
-    imageSrc: "/tandem-v3/img/2.jpg",
-    imageAlt: "Meeting your pilot",
-  },
-  {
-    title: "Launch",
-    description:
-      "Harness on, safety checks, and a simple run-up for a smooth launch.",
-    imageSrc: "/tandem-v3/img/3.jpg",
-    imageAlt: "Preparing for take-off",
-  },
-  {
-    title: "Fly",
-    description:
-      "Enjoy the view. Want it calm or more dynamic? We adjust to your comfort.",
-    imageSrc: "/tandem-v3/img/hero.webp",
-    imageAlt: "Flying over the Dolomites",
-  },
-  {
-    title: "Land",
-    description:
-      "A gentle approach and a few steps — then we're back on the ground.",
-    imageSrc: "/tandem-v3/img/2.jpg",
-    imageAlt: "Landing after the flight",
-  },
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const slideImages = [
+  "/tandem-v3/img/1.jpg",
+  "/tandem-v3/img/2.jpg",
+  "/tandem-v3/img/3.jpg",
+  "/tandem-v3/img/hero.webp",
+  "/tandem-v3/img/2.jpg",
 ];
+
+const slides = t.process.slides.map((slide, i) => ({
+  title: slide.title,
+  description: slide.description,
+  imageAlt: slide.imageAlt,
+  imageSrc: slideImages[i],
+}));
 ---
 
 <section class="Process" id="process">
   <FullscreenSlider slides={slides}>
     <Header
       slot="header"
-      title="How your"
-      titleHighlighted="flight works"
-      description="Five simple steps from your first message to landing back on the ground — here's what a typical tandem day looks like."
+      title={t.process.header.title}
+      titleHighlighted={t.process.header.titleHighlighted}
+      description={t.process.header.description}
       onPrimaryBackground
     />
   </FullscreenSlider>

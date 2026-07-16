@@ -1,45 +1,45 @@
 ---
 import './ContactForm.scss';
-const flights = [
-  "Glide · 30 min",
-  "Thermal · 45 min",
-  "Adventure · 90 min",
-  "Not sure yet",
-];
+import { getLangFromUrl, useTranslations } from "../../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const form = t.contact.form;
+const flights = form.flightOptions;
 ---
 
 <form class="ContactForm" data-contact-form novalidate>
   <div class="ContactForm__body">
-    <p class="ContactForm__eyebrow">or write to us</p>
-    <h4 class="ContactForm__title">Send us a message</h4>
+    <p class="ContactForm__eyebrow">{form.eyebrow}</p>
+    <h4 class="ContactForm__title">{form.title}</h4>
 
     <div class="ContactForm__field">
-      <label class="ContactForm__label" for="cf-name">Your name</label>
+      <label class="ContactForm__label" for="cf-name">{form.nameLabel}</label>
       <input
         class="ContactForm__input"
         id="cf-name"
         name="name"
         type="text"
         required
-        placeholder="Alex"
+        placeholder={form.namePlaceholder}
       />
     </div>
 
     <div class="ContactForm__row">
       <div class="ContactForm__field">
-        <label class="ContactForm__label" for="cf-email">Email</label>
+        <label class="ContactForm__label" for="cf-email">{form.emailLabel}</label>
         <input
           class="ContactForm__input"
           id="cf-email"
           name="email"
           type="email"
           required
-          placeholder="alex@email.com"
+          placeholder={form.emailPlaceholder}
         />
       </div>
 
       <div class="ContactForm__field">
-        <label class="ContactForm__label" for="cf-flight">Flight</label>
+        <label class="ContactForm__label" for="cf-flight">{form.flightLabel}</label>
         <select
           class="ContactForm__input ContactForm__input--select"
           id="cf-flight"
@@ -47,20 +47,20 @@ const flights = [
           required
           defaultValue=""
         >
-          <option value="" disabled selected>Pick one</option>
+          <option value="" disabled selected>{form.flightPlaceholder}</option>
           {flights.map((f) => <option value={f}>{f}</option>)}
         </select>
       </div>
     </div>
 
     <div class="ContactForm__field">
-      <label class="ContactForm__label" for="cf-msg">Message</label>
+      <label class="ContactForm__label" for="cf-msg">{form.messageLabel}</label>
       <textarea
         class="ContactForm__input ContactForm__input--textarea"
         id="cf-msg"
         name="message"
         rows="3"
-        placeholder="Two of us, hoping to fly the weekend of June 14–15…"
+        placeholder={form.messagePlaceholder}
       ></textarea>
     </div>
 
@@ -79,11 +79,9 @@ const flights = [
             fill="currentColor"
           />
         </svg>
-        Send message
+        {form.submit}
       </button>
-      <p class="ContactForm__fineprint">
-        No commitment — we&rsquo;ll suggest a date and you decide.
-      </p>
+      <p class="ContactForm__fineprint">{form.fineprint}</p>
     </div>
   </div>
 
@@ -93,11 +91,8 @@ const flights = [
         <polyline points="4 12 10 18 20 6" />
       </svg>
     </div>
-    <h4 class="ContactForm__title">Message sent.</h4>
-    <p class="ContactForm__sentText">
-      We&rsquo;ll get back to you within the hour. In the meantime, you can
-      also reach us on WhatsApp.
-    </p>
+    <h4 class="ContactForm__title">{form.sentTitle}</h4>
+    <p class="ContactForm__sentText">{form.sentText}</p>
   </div>
 </form>
 

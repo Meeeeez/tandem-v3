@@ -9,9 +9,12 @@
   --color-font-light: #{$color-font-light};
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: 'Roboto', sans-serif;
-  scroll-behavior: smooth;
   color: $color-font-dark;
   line-height: 1;
   background-color: $color-background;
@@ -67,7 +70,8 @@ h5 {
 }
 
 // Base Button Styles
-button {
+button,
+a.animate-fill {
   color: $color-primary;
   display: flex;
   align-items: center;
@@ -82,6 +86,7 @@ button {
   text-transform: uppercase;
   font-family: 'Roboto', sans-serif;
   font-weight: 600;
+  text-decoration: none;
   -webkit-tap-highlight-color: transparent;
 
   @include lg {

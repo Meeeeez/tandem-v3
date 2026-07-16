@@ -2,6 +2,7 @@
 import Header from "../../components/Header/Header.astro";
 import LocationCard from "../../components/LocationCard/LocationCard.astro";
 import "./Location.scss";
+import { getLangFromUrl, useTranslations } from "../../i18n/utils";
 
 interface LocationData {
   name: string;
@@ -16,14 +17,17 @@ interface Props {
 }
 
 const { locations = [] } = Astro.props;
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
-<section class="Location">
+<section class="Location" id="location">
   <div class="container">
     <Header
-      title="where do you <br>want to"
-      titleHighlighted="fly from"
-      description="If Bradford matched Core City averages across key metrics, <b>productivity would rise to £37.80 per hour</b>, the business base would grow to nearly 20,000, and the working‑age population would increase."
+      title={t.location.header.title}
+      titleHighlighted={t.location.header.titleHighlighted}
+      description={t.location.header.description}
       onPrimaryBackground
     />
     <div class="Location__details">

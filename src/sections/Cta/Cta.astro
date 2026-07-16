@@ -1,0 +1,30 @@
+---
+import "./Cta.scss";
+import ArrowIcon from "../../assets/icons/arrow.svg";
+import WhatsappIcon from "../../components/WhatsappIcon/WhatsappIcon.astro";
+import { getLangFromUrl, useTranslations, localizedPath } from "../../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const bookingHref = localizedPath(lang, "booking");
+---
+
+<section class="Cta" id="contact">
+  <div class="container Cta__content">
+    <h2 class="Cta__title">
+      {t.cta.titlePre}
+      <span class="Cta__titleHighlight">{t.cta.titleHighlight}</span>{t.cta.titlePost}
+    </h2>
+    <p class="Cta__description">{t.cta.description}</p>
+    <div class="Cta__actions">
+      <a class="Cta__book animate-fill" href={bookingHref}>
+        <ArrowIcon />
+        {t.cta.book}
+      </a>
+      <button class="Cta__whatsapp animate-fill" type="button">
+        <WhatsappIcon />
+        {t.cta.whatsapp}
+      </button>
+    </div>
+  </div>
+</section>

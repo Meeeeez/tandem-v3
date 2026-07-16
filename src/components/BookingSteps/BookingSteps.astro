@@ -3,9 +3,32 @@ import "./BookingSteps.scss";
 import ArrowIcon from "../../assets/icons/arrow.svg";
 import ChevronLeftIcon from "../../assets/icons/chevron-left.svg";
 import linesImg from "../../assets/img/lines.png";
+import { getLangFromUrl, useTranslations } from "../../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const actions = t.booking.actions;
+const done = t.booking.done;
+
+// Strings the client-side script needs; injected as JSON since the script
+// itself is locale-agnostic at runtime.
+const scriptI18n = {
+  empty: t.booking.summaryDynamic.empty,
+  email: t.booking.steps.emailTitle,
+  whatsapp: t.booking.steps.whatsappTitle,
+  passengers1: t.booking.summaryDynamic.passengers1,
+  passengers2: t.booking.summaryDynamic.passengers2,
+  passengers3: t.booking.summaryDynamic.passengers3,
+  passengers4Plus: t.booking.summaryDynamic.passengers4Plus,
+  dateLocale: t.booking.summaryDynamic.dateLocale,
+};
 ---
 
-<div class="BookingSteps BookingSteps--first-step" data-booking-steps>
+<div
+  class="BookingSteps BookingSteps--first-step"
+  data-booking-steps
+  data-booking-i18n={JSON.stringify(scriptI18n)}
+>
   <form class="BookingSteps__form" data-booking-form novalidate>
     <slot />
 
@@ -14,7 +37,7 @@ import linesImg from "../../assets/img/lines.png";
         class="BookingSteps__navBtn BookingSteps__navBtn--prev"
         type="button"
         data-prev
-        aria-label="Previous step"
+        aria-label={actions.prevStep}
         disabled
       >
         <ChevronLeftIcon />
@@ -23,7 +46,7 @@ import linesImg from "../../assets/img/lines.png";
         class="BookingSteps__navBtn BookingSteps__navBtn--next"
         type="button"
         data-next
-        aria-label="Next step"
+        aria-label={actions.nextStep}
       >
         <ChevronLeftIcon />
       </button>
@@ -35,7 +58,7 @@ import linesImg from "../../assets/img/lines.png";
       class="BookingSteps__mobileBack"
       type="button"
       data-prev
-      aria-label="Previous step"
+      aria-label={actions.prevStep}
       disabled
     >
       <ChevronLeftIcon />
@@ -45,7 +68,7 @@ import linesImg from "../../assets/img/lines.png";
       type="button"
       data-next
     >
-      <span class="BookingSteps__okLabel">OK</span>
+      <span class="BookingSteps__okLabel">{actions.ok}</span>
     </button>
   </div>
 
@@ -73,11 +96,8 @@ import linesImg from "../../assets/img/lines.png";
           <polyline points="4 12 10 18 20 6"></polyline>
         </svg>
       </div>
-      <h2 class="BookingStep__title">Thanks!</h2>
-      <p class="BookingStep__desc">
-        We&rsquo;ll get back to you within the hour during flying season. In the
-        meantime, you can also reach us on WhatsApp.
-      </p>
+      <h2 class="BookingStep__title">{done.title}</h2>
+      <p class="BookingStep__desc">{done.text}</p>
     </div>
   </div>
 </div>
@@ -88,6 +108,20 @@ import linesImg from "../../assets/img/lines.png";
     const booking = stepsRoot?.closest<HTMLElement>(".Booking");
 
     if (!stepsRoot || !booking) return;
+
+    type BookingI18n = {
+      empty: string;
+      email: string;
+      whatsapp: string;
+      passengers1: string;
+      passengers2: string;
+      passengers3: string;
+      passengers4Plus: string;
+      dateLocale: string;
+    };
+    const i18n: BookingI18n = JSON.parse(
+      stepsRoot.dataset.bookingI18n ?? "{}",
+    );
 
     const form = stepsRoot.querySelector<HTMLFormElement>("[data-booking-form]");
     const steps = Array.from(
@@ -171,7 +205,7 @@ import linesImg from "../../assets/img/lines.png";
       if (!v) return "";
       const d = new Date(`${v}T00:00:00`);
       if (Number.isNaN(d.getTime())) return v;
-      return d.toLocaleDateString("en-GB", {
+      return d.toLocaleDateString(i18n.dateLocale, {
         day: "numeric",
         month: "short",
       });
@@ -193,33 +227,34 @@ import linesImg from "../../assets/img/lines.png";
 
       stepsRoot
         .querySelectorAll<HTMLElement>("[data-summary='nameTitle']")
-        .forEach((el) => (el.textContent = name || "there"));
+        .forEach((el) => (el.textContent = name));
+      stepsRoot
+        .querySelectorAll<HTMLElement>("[data-summary='nameClause']")
+        .forEach((el) => (el.hidden = !name));
 
       const contactLabel = stepsRoot.querySelector<HTMLElement>(
         "[data-summary-label='contact']",
       );
       if (contactLabel)
-        contactLabel.textContent = method === "email" ? "Email" : "WhatsApp";
+        contactLabel.textContent = method === "email" ? i18n.email : i18n.whatsapp;
 
-      setSummary("name", name || "—");
-      setSummary("contact", contact || "—");
+      setSummary("name", name || i18n.empty);
+      setSummary("contact", contact || i18n.empty);
       setSummary(
         "dates",
-        from && to ? `${from} → ${to}` : from || to || "—",
+        from && to ? `${from} → ${to}` : from || to || i18n.empty,
       );
       setSummary(
         "passengers",
         passengers === "1"
-          ? "1 person"
+          ? i18n.passengers1
           : passengers === "2"
-            ? "2 people"
+            ? i18n.passengers2
             : passengers === "3"
-              ? "3 people"
-              : passengers === "4"
-                ? "4 people"
-                : passengers === "5+"
-                  ? "5 or more"
-                  : "—",
+              ? i18n.passengers3
+              : passengers === "4+"
+                ? i18n.passengers4Plus
+                : i18n.empty,
       );
     };
 

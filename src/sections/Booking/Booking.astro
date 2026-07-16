@@ -5,6 +5,12 @@ import BookingStep from "../../components/BookingStep/BookingStep.astro";
 import WhatsappIcon from "../../components/WhatsappIcon/WhatsappIcon.astro";
 import FormField from "../../components/FormField/FormField.astro";
 import ChoiceCard from "../../components/ChoiceCard/ChoiceCard.astro";
+import { getLangFromUrl, useTranslations, localizedPath } from "../../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const s = t.booking.steps;
+const homeHref = localizedPath(lang, "home");
 ---
 
 <div class="Booking">
@@ -15,27 +21,23 @@ import ChoiceCard from "../../components/ChoiceCard/ChoiceCard.astro";
   <aside class="Booking__aside">
     <div class="Booking__media"></div>
 
-    <a class="Booking__logo" href="/tandem-v3/">
-      <span class="Booking__logoLine">Let&rsquo;s</span>
-      <span class="Booking__logoLine Booking__logoLine--accent">Fly</span>
+    <a class="Booking__logo" href={homeHref}>
+      <span class="Booking__logoLine">{t.booking.logoLine1}</span>
+      <span class="Booking__logoLine Booking__logoLine--accent">{t.booking.logoLine2}</span>
     </a>
 
-    <p class="Booking__caption">Tandem Paragliding &middot; Dolomites</p>
+    <p class="Booking__caption">{t.booking.caption}</p>
   </aside>
 
   <div class="Booking__main">
     <BookingSteps>
       <BookingStep>
-        <span slot="title">
-          First things first &mdash; what should we <span class="BookingStep__hl"
-            >call you?</span
-          >
-        </span>
+        <span slot="title" set:html={s.nameTitle}></span>
         <FormField
           id="bk-name"
           name="firstName"
-          label="First name"
-          placeholder="Alex"
+          label={s.nameLabel}
+          placeholder={s.namePlaceholder}
           required
           autocomplete="given-name"
         />
@@ -44,16 +46,14 @@ import ChoiceCard from "../../components/ChoiceCard/ChoiceCard.astro";
       <BookingStep
         image="/tandem-v3/img/2.jpg"
       >
-        <span slot="title">
-          Where can we <span class="BookingStep__hl">reach you</span> to confirm?
-        </span>
+        <span slot="title" set:html={s.contactTitle}></span>
         <div class="BookingSteps__choices" data-contact-choices>
           <ChoiceCard
             id="bk-contact-whatsapp"
             name="contactMethod"
             value="whatsapp"
-            title="WhatsApp"
-            description="Quickest — we usually reply within the hour"
+            title={s.whatsappTitle}
+            description={s.whatsappDescription}
           >
             <WhatsappIcon slot="icon" />
           </ChoiceCard>
@@ -61,8 +61,8 @@ import ChoiceCard from "../../components/ChoiceCard/ChoiceCard.astro";
             id="bk-contact-email"
             name="contactMethod"
             value="email"
-            title="Email"
-            description="We'll send your confirmation and details here"
+            title={s.emailTitle}
+            description={s.emailDescription}
           >
             <svg
               slot="icon"
@@ -84,19 +84,15 @@ import ChoiceCard from "../../components/ChoiceCard/ChoiceCard.astro";
       </BookingStep>
 
       <BookingStep contactDetails>
-        <span slot="title" data-contact-title="email" hidden>
-          What&rsquo;s your <span class="BookingStep__hl">email address</span>?
-        </span>
-        <span slot="title" data-contact-title="whatsapp" hidden>
-          What&rsquo;s your <span class="BookingStep__hl">WhatsApp number</span>?
-        </span>
+        <span slot="title" data-contact-title="email" hidden set:html={s.emailFieldTitle}></span>
+        <span slot="title" data-contact-title="whatsapp" hidden set:html={s.whatsappFieldTitle}></span>
         <div data-contact-field="email" hidden>
           <FormField
             id="bk-email"
             name="email"
             type="email"
-            label="Email address"
-            placeholder="alex@email.com"
+            label={s.emailLabel}
+            placeholder={s.emailPlaceholder}
             autocomplete="email"
           />
         </div>
@@ -105,8 +101,8 @@ import ChoiceCard from "../../components/ChoiceCard/ChoiceCard.astro";
             id="bk-whatsapp"
             name="whatsapp"
             type="tel"
-            label="WhatsApp number"
-            placeholder="+39 333 123 4567"
+            label={s.whatsappLabel}
+            placeholder={s.whatsappPlaceholder}
             inputmode="tel"
           />
         </div>
@@ -115,31 +111,27 @@ import ChoiceCard from "../../components/ChoiceCard/ChoiceCard.astro";
       <BookingStep
         image="/tandem-v3/img/3.jpg"
       >
-        <span slot="title">
-          When would you like to <span class="BookingStep__hl">fly?</span>
-        </span>
+        <span slot="title" set:html={s.datesTitle}></span>
         <div class="BookingSteps__row">
           <FormField
             id="bk-date-from"
             name="dateFrom"
             type="date"
-            label="Earliest date"
+            label={s.dateFromLabel}
             required
           />
           <FormField
             id="bk-date-to"
             name="dateTo"
             type="date"
-            label="Latest date"
+            label={s.dateToLabel}
             required
           />
         </div>
       </BookingStep>
 
       <BookingStep>
-        <span slot="title">
-          How many people want to <span class="BookingStep__hl">fly?</span>
-        </span>
+        <span slot="title" set:html={s.passengersTitle}></span>
         <div class="BookingSteps__numberChoices" data-passenger-choices>
           <label class="BookingSteps__numberChoice" for="bk-passengers-1">
             <input
@@ -171,25 +163,15 @@ import ChoiceCard from "../../components/ChoiceCard/ChoiceCard.astro";
             />
             <span class="BookingSteps__numberChoiceLabel">3</span>
           </label>
-          <label class="BookingSteps__numberChoice" for="bk-passengers-4">
+          <label class="BookingSteps__numberChoice" for="bk-passengers-4plus">
             <input
               class="BookingSteps__numberChoiceInput"
-              id="bk-passengers-4"
+              id="bk-passengers-4plus"
               type="radio"
               name="passengers"
-              value="4"
+              value="4+"
             />
-            <span class="BookingSteps__numberChoiceLabel">4</span>
-          </label>
-          <label class="BookingSteps__numberChoice" for="bk-passengers-5plus">
-            <input
-              class="BookingSteps__numberChoiceInput"
-              id="bk-passengers-5plus"
-              type="radio"
-              name="passengers"
-              value="5+"
-            />
-            <span class="BookingSteps__numberChoiceLabel">5+</span>
+            <span class="BookingSteps__numberChoiceLabel">4+</span>
           </label>
         </div>
       </BookingStep>
@@ -197,30 +179,25 @@ import ChoiceCard from "../../components/ChoiceCard/ChoiceCard.astro";
       <BookingStep
         image="/tandem-v3/img/stolen.webp"
         isLast
-        description="Have a quick look, then send it over. We reply within the hour during flying season."
-        hintMuted="No commitment — we'll suggest a date and you decide."
+        description={s.summaryDescription}
+        hintMuted={s.summaryHint}
       >
-        <span slot="title">
-          That&rsquo;s everything, <span
-            class="BookingStep__hl"
-            data-summary="nameTitle">there</span
-          >.
-        </span>
+        <span slot="title" set:html={s.summaryTitle}></span>
         <dl class="BookingSteps__summary">
           <div class="BookingSteps__summaryRow">
-            <dt>Name</dt>
+            <dt>{s.summaryName}</dt>
             <dd data-summary="name">&mdash;</dd>
           </div>
           <div class="BookingSteps__summaryRow">
-            <dt data-summary-label="contact">Email</dt>
+            <dt data-summary-label="contact">{s.summaryContact}</dt>
             <dd data-summary="contact">&mdash;</dd>
           </div>
           <div class="BookingSteps__summaryRow">
-            <dt>Dates</dt>
+            <dt>{s.summaryDates}</dt>
             <dd data-summary="dates">&mdash;</dd>
           </div>
           <div class="BookingSteps__summaryRow">
-            <dt>Passengers</dt>
+            <dt>{s.summaryPassengers}</dt>
             <dd data-summary="passengers">&mdash;</dd>
           </div>
         </dl>

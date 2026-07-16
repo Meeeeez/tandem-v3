@@ -2,6 +2,13 @@
 import "./Hero.scss";
 import ArrowIcon from "../../assets/icons/arrow.svg";
 import WhatsappIcon from "../../components/WhatsappIcon/WhatsappIcon.astro";
+import LanguageSwitcher from "../../components/LanguageSwitcher/LanguageSwitcher.astro";
+import { getLangFromUrl, useTranslations, localizedPath } from "../../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const bookingHref = localizedPath(lang, "booking");
+const homeHref = localizedPath(lang, "home");
 ---
 
 <section class="Hero">
@@ -19,23 +26,23 @@ import WhatsappIcon from "../../components/WhatsappIcon/WhatsappIcon.astro";
   </video>
   <header class="Hero__header">
     <div class="Hero__buttonsTop">
-      <button class="animate-fill">
+      <a class="animate-fill" href={bookingHref}>
         <ArrowIcon />
-        Book Now
-      </button>
+        {t.nav.bookNow}
+      </a>
       <button class="button--icon animate-fill">
         <WhatsappIcon />
       </button>
-      <button class="animate-fill">lang</button>
+      <LanguageSwitcher route="home" />
     </div>
     <div class="Hero__logoWrapper">logo</div>
     <div class="Hero__navContainer">
       <button class="Hero__navOpen button--icon">☰</button>
       <nav class="Hero__nav">
         <button class="Hero__navClose button--icon">x</button>
-        <a href="#">Home</a>
-        <a href="#">About</a>
-        <a href="#">Contact</a>
+        <a href={homeHref}>{t.nav.home}</a>
+        <a href="#">{t.nav.about}</a>
+        <a href="#">{t.nav.contact}</a>
       </nav>
       <script>
         const openNavButton = document.querySelector(".Hero__navOpen");
@@ -56,14 +63,14 @@ import WhatsappIcon from "../../components/WhatsappIcon/WhatsappIcon.astro";
 
   <div>
     <h1 class="Hero__title">
-      Let’s <span class="Hero__title--highlight">Fly</span>
+      {t.hero.titlePre} <span class="Hero__title--highlight">{t.hero.titleHighlight}</span>
     </h1>
-    <h2 class="Hero__subtitle">Paragliding in the Dolomites</h2>
+    <h2 class="Hero__subtitle">{t.hero.subtitle}</h2>
     <div class="Hero__buttonsBottom">
-      <button class="Hero__ctaButton animate-fill">
+      <a class="Hero__ctaButton animate-fill" href={bookingHref}>
         <ArrowIcon />
-        Book Now
-      </button>
+        {t.nav.bookNow}
+      </a>
       <button class="Hero__whatsappButton button--icon animate-fill">
         <WhatsappIcon />
       </button>

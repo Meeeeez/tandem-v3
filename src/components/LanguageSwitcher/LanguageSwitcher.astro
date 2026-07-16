@@ -1,0 +1,89 @@
+---
+import "./LanguageSwitcher.scss";
+import { locales, type RouteKey } from "../../i18n/config";
+import { getLangFromUrl, localizedPath } from "../../i18n/utils";
+
+interface Props {
+  /** The named route to link to in each locale (defaults to the home page). */
+  route?: RouteKey;
+}
+
+const { route = "home" } = Astro.props;
+const current = getLangFromUrl(Astro.url);
+const otherLocales = locales.filter((lang) => lang !== current);
+const menuId = `language-switcher-menu-${Math.random().toString(36).slice(2, 9)}`;
+---
+
+<div class="LanguageSwitcher">
+  <button
+    class="LanguageSwitcher__trigger animate-fill"
+    type="button"
+    aria-haspopup="true"
+    aria-expanded="false"
+    aria-controls={menuId}
+  >
+    {current.toUpperCase()}
+    <span class="LanguageSwitcher__chevron" aria-hidden="true"></span>
+  </button>
+  <ul
+    class="LanguageSwitcher__menu"
+    id={menuId}
+    role="menu"
+    hidden
+  >
+    {
+      otherLocales.map((lang) => (
+        <li role="none">
+          <a
+            class="LanguageSwitcher__option"
+            role="menuitem"
+            href={localizedPath(lang, route)}
+            hreflang={lang}
+          >
+            {lang.toUpperCase()}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</div>
+
+<script>
+  const switchers = document.querySelectorAll(".LanguageSwitcher");
+
+  switchers.forEach((switcher) => {
+    const trigger = switcher.querySelector<HTMLButtonElement>(
+      ".LanguageSwitcher__trigger",
+    );
+    const menu = switcher.querySelector<HTMLUListElement>(
+      ".LanguageSwitcher__menu",
+    );
+    if (!trigger || !menu) return;
+
+    const open = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+      switcher.classList.add("is-open");
+    };
+
+    const close = () => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+      switcher.classList.remove("is-open");
+    };
+
+    trigger.addEventListener("click", (event) => {
+      event.stopPropagation();
+      if (menu.hidden) open();
+      else close();
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!switcher.contains(event.target as Node)) close();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") close();
+    });
+  });
+</script>

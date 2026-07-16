@@ -1,0 +1,115 @@
+@use "../../definitions" as *;
+
+.Cta {
+  background-color: $color-white;
+  color: $color-font-dark;
+  border-top: 1px solid rgba($color-font-dark, 0.12);
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  &__title {
+    margin: $gutter-md 0 0;
+    color: $color-font-dark;
+    white-space: nowrap;
+    font-size: $font-title-lg;
+
+    @include md {
+      font-size: 3.25rem;
+    }
+  }
+
+  &__titleHighlight {
+    color: $color-secondary;
+  }
+
+  &__description {
+    margin: $gutter-md 0 0;
+    color: $color-font-dark;
+    max-width: $sm;
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: $gutter-md;
+    margin-top: $gutter-xl;
+
+    // Scoped under __actions to override the global `a.animate-fill`
+    // and `button` base styles (specificity + shared sizing).
+    .Cta__book {
+      box-sizing: border-box;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: $gutter-sm;
+      padding: $gutter-md $gutter-lg;
+      border: 1px solid transparent;
+      border-radius: $rounded-md;
+      font-family: "Roboto", sans-serif;
+      font-weight: 600;
+      font-size: $font-lg;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      background-color: $color-primary;
+      color: $color-white;
+
+      svg {
+        width: 22px;
+        height: 22px;
+      }
+
+      svg > path {
+        fill: $color-white;
+        transition: fill 0.25s ease;
+      }
+
+      &::before {
+        background-color: $color-secondary;
+      }
+
+      &:hover {
+        color: $color-primary;
+        border-color: $color-secondary;
+      }
+
+      &.animate-fill:hover svg > path {
+        fill: $color-primary;
+      }
+    }
+
+    // Same as Hero WhatsApp (white + animate-fill),
+    // but with label text and hover fill in secondary.
+    .Cta__whatsapp {
+      box-sizing: border-box;
+      border: 1px solid transparent;
+      font-size: $font-lg;
+      padding: $gutter-md $gutter-lg;
+
+      svg {
+        width: 28px;
+        height: 28px;
+      }
+
+      &::before {
+        background-color: $color-secondary;
+      }
+
+      &:hover {
+        color: $color-primary;
+      }
+
+      &.animate-fill:hover svg > path,
+      &.animate-fill:hover .WhatsappIcon__path {
+        fill: $color-primary;
+      }
+    }
+  }
+}
