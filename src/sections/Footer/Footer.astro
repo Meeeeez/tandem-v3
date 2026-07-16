@@ -41,7 +41,7 @@ const exploreLinks = [
 
       <div class="Footer__columns">
         <div class="Footer__block">
-          <h5 class="Footer__heading">{f.explore}</h5>
+          <h2 class="Footer__heading">{f.explore}</h2>
           <nav class="Footer__nav" aria-label={f.explore}>
             {
               exploreLinks.map((link) => (
@@ -54,7 +54,7 @@ const exploreLinks = [
         </div>
 
         <div class="Footer__block">
-          <h5 class="Footer__heading">{f.getInTouch}</h5>
+          <h2 class="Footer__heading">{f.getInTouch}</h2>
           <div class="Footer__contact">
             <a class="Footer__contactLink" href={`mailto:${f.email}`}>{f.email}</a>
             <a class="Footer__contactLink" href={`tel:${f.phone.replace(/\s/g, "")}`}>{f.phone}</a>

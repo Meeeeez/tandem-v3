@@ -20,5 +20,7 @@ const { page } = Astro.props;
 ---
 
 <Layout>
-  {page === "booking" && <Booking />}
+  <main>
+    {page === "booking" && <Booking />}
+  </main>
 </Layout>

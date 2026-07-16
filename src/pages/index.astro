@@ -65,12 +65,14 @@ const productsData = {
     <link rel="preload" as="image" href="/tandem-v3/img/hero.webp">
     <script type="application/ld+json" set:html={JSON.stringify(productsData)} />
   </Fragment>
-	<Hero />
-	<Flights />
-	<Location locations={locations} />
-	<Reviews />
-	<Process />
-	<Faq />
-	<Cta />
-	<Footer />
+  <main>
+    <Hero />
+    <Flights />
+    <Location locations={locations} />
+    <Reviews />
+    <Process />
+    <Faq />
+    <Cta />
+  </main>
+  <Footer />
 </Layout>
