@@ -1,6 +1,8 @@
 export const en = {
   meta: {
     title: "Air Adventures • Tandem Paragliding in the Dolomites",
+    description:
+      "Tandem paragliding in the Dolomites on the Plose above Brixen and in Val di Funes. From a calm glide to an adventure flight. From €100, experienced pilots, no prior experience needed.",
   },
 
   nav: {

@@ -1,20 +1,48 @@
 ---
-import { getRelativeLocaleUrl } from "astro:i18n";
+import Layout from "../layouts/Layout.astro";
+import Hero from "../sections/Hero/Hero.astro";
+import Flights from "../sections/Flights/Flights.astro";
+import Process from "../sections/Process/Process.astro";
+import Location from "../sections/Location/Location.astro";
+import Reviews from "../sections/Reviews/Reviews.astro";
+import Faq from "../sections/Faq/Faq.astro";
+import Cta from "../sections/Cta/Cta.astro";
+import Footer from "../sections/Footer/Footer.astro";
 import { defaultLang } from "../i18n/config";
+import { useTranslations } from "../i18n/utils";
 
-// Root entry point: redirect to the default locale (e.g. /tandem-v3/en/).
-const target = getRelativeLocaleUrl(defaultLang, "/");
+const t = useTranslations(defaultLang);
+
+// Coordinates and images are not translatable; labels come from the dictionary.
+const locationMeta = [
+  {
+    coordinates: [46.645, 11.749] as [number, number],
+    imageUrls: ["/tandem-v3/img/1.jpg", "/tandem-v3/img/2.jpg"],
+  },
+  {
+    coordinates: [46.704, 11.686] as [number, number],
+    imageUrls: ["/tandem-v3/img/2.jpg", "/tandem-v3/img/3.jpg"],
+  },
+];
+
+const locations = t.location.items.map((item, i) => ({
+  ...item,
+  ...locationMeta[i],
+}));
 ---
 
-<!doctype html>
-<html lang={defaultLang}>
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="refresh" content={`0; url=${target}`} />
-    <link rel="canonical" href={target} />
-    <title>Let's Fly · Tandem Paragliding in the Dolomites</title>
-  </head>
-  <body>
-    <a href={target}>Continue</a>
-  </body>
-</html>
+<Layout>
+  <Fragment slot="head">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <link rel="preload" as="image" href="/tandem-v3/img/hero.webp">
+  </Fragment>
+	<Hero />
+	<Flights />
+	<Location locations={locations} />
+	<Reviews />
+	<Process />
+	<Faq />
+	<Cta />
+	<Footer />
+</Layout>

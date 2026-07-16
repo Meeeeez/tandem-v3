@@ -1,6 +1,8 @@
 export const de = {
   meta: {
     title: "Air Adventures • Tandem Paragliding in den Dolomiten",
+    description:
+      "Tandem-Gleitschirmfliegen in den Dolomiten auf der Plose über Brixen und in dem Villnösser Tal (Val di Funes). Vom ruhigen Gleitflug bis zum Abenteuerflug. Ab 100 €, erfahrene Piloten, keine Vorkenntnisse nötig.",
   },
 
   nav: {

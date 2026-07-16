@@ -1,0 +1,24 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Booking from "../sections/Booking/Booking.astro";
+import { defaultLang, routeSlugs } from "../i18n/config";
+
+/**
+ * Default-locale sub-pages (no language prefix).
+ * Prefixed locales are handled by [lang]/[slug].astro.
+ */
+export function getStaticPaths() {
+  return [
+    {
+      params: { slug: routeSlugs.booking[defaultLang] },
+      props: { page: "booking" as const },
+    },
+  ];
+}
+
+const { page } = Astro.props;
+---
+
+<Layout>
+  {page === "booking" && <Booking />}
+</Layout>

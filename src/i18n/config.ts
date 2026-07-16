@@ -12,7 +12,7 @@ export const locales = Object.keys(languages) as Lang[];
 
 /**
  * Localized URL slugs per named route.
- * `home` maps to the bare locale root (e.g. /en/), so its slug is empty.
+ * `home` maps to the locale root (`/` for en, `/de/` / `/it/` for others).
  * Add a new entry here whenever you add a translatable page.
  */
 export const routeSlugs = {

@@ -1,33 +1,60 @@
 ---
 import "../globals.scss";
 import "./Layout.scss";
-import { getLangFromUrl, useTranslations } from "../i18n/utils";
+import {
+  getLangFromUrl,
+  getRouteFromUrl,
+  localizedPath,
+  useTranslations,
+} from "../i18n/utils";
+import { defaultLang, locales } from "../i18n/config";
 
 interface Props {
   title?: string;
+  description?: string;
 }
 
 const lang = getLangFromUrl(Astro.url);
+const route = getRouteFromUrl(Astro.url);
 const t = useTranslations(lang);
-const { title = t.meta.title } = Astro.props;
+const { title = t.meta.title, description = t.meta.description } = Astro.props;
+
+const base = import.meta.env.BASE_URL;
+const ogImage = new URL(`${base}/img/hero.webp`, Astro.site);
+
+const absoluteLocalized = (locale: typeof locales[number]) => new URL(localizedPath(locale, route), Astro.site).href;
 ---
 
 <!doctype html>
 <html lang={lang}>
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
 		<meta name="viewport" content="width=device-width, initial-scale=1, interactive-widget=overlays-content">
+		<meta name="description" content={description} />
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={new URL(Astro.url.pathname, Astro.site)} />
+		<meta property="og:image" content={ogImage} />
+		<meta property="og:locale" content={lang === 'de' ? 'de_DE' : lang === 'it' ? 'it_IT' : 'en_US'} />
+		<link rel="sitemap" href="/sitemap-index.xml" />
+		{locales.map(locale => (
+			<link
+			  rel="alternate"
+			  hreflang={locale}
+			  href={absoluteLocalized(locale)}
+			/>
+		  ))}
+		<link rel="alternate" hreflang="x-default" href={absoluteLocalized(defaultLang)} />
+		<link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
 		<link rel="preload" href="/tandem-v3/fonts/woff2/LondrinaSolid-Regular.woff2" as="font" type="font/woff2" crossorigin />
 		<link rel="preload" href="/tandem-v3/fonts/woff2/LondrinaSolid-Light.woff2" as="font" type="font/woff2" crossorigin />
 		<link rel="preload" href="/tandem-v3/fonts/woff2/RobotoCondensedVariable.woff2" as="font" type="font/woff2" crossorigin />
 		<link rel="preload" href="/tandem-v3/fonts/woff2/RobotoVariable.woff2" as="font" type="font/woff2" crossorigin />
-		<link rel="preload" as="image" href="/tandem-v3/img/hero.webp">
-		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-		<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+		<slot name="head" />
 		<title>{title}</title>
 	</head>
 	<body>

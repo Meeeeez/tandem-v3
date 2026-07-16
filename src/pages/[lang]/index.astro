@@ -8,11 +8,14 @@ import Reviews from "../../sections/Reviews/Reviews.astro";
 import Faq from "../../sections/Faq/Faq.astro";
 import Cta from "../../sections/Cta/Cta.astro";
 import Footer from "../../sections/Footer/Footer.astro";
-import { locales } from "../../i18n/config";
+import { defaultLang, locales } from "../../i18n/config";
 import { getLangFromUrl, useTranslations } from "../../i18n/utils";
 
+// Prefixed locales only — English lives at `/` via pages/index.astro.
 export function getStaticPaths() {
-  return locales.map((lang) => ({ params: { lang } }));
+  return locales
+    .filter((lang) => lang !== defaultLang)
+    .map((lang) => ({ params: { lang } }));
 }
 
 const lang = getLangFromUrl(Astro.url);
