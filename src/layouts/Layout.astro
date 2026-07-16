@@ -23,6 +23,26 @@ const base = import.meta.env.BASE_URL;
 const ogImage = new URL(`${base}/img/hero.webp`, Astro.site);
 
 const absoluteLocalized = (locale: typeof locales[number]) => new URL(localizedPath(locale, route), Astro.site).href;
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Air Adventure",
+  "image": ogImage.href,
+  "telephone": "+393459923589",
+  "email": "info@air-adventure.it",
+  "priceRange": "€",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Josefweg 1",
+    "addressLocality": "Funes",
+    "addressRegion": "BZ",
+    "postalCode": "39040",
+    "addressCountry": "IT"
+  },
+  "url": Astro.site,
+  "inLanguage": lang
+};
 ---
 
 <!doctype html>
@@ -54,6 +74,7 @@ const absoluteLocalized = (locale: typeof locales[number]) => new URL(localizedP
 		<link rel="preload" href="/tandem-v3/fonts/woff2/LondrinaSolid-Light.woff2" as="font" type="font/woff2" crossorigin />
 		<link rel="preload" href="/tandem-v3/fonts/woff2/RobotoCondensedVariable.woff2" as="font" type="font/woff2" crossorigin />
 		<link rel="preload" href="/tandem-v3/fonts/woff2/RobotoVariable.woff2" as="font" type="font/woff2" crossorigin />
+		<script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 		<slot name="head" />
 		<title>{title}</title>
 	</head>

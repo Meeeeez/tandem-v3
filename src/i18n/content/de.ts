@@ -43,7 +43,7 @@ export const de = {
       faq: "FAQ",
       contact: "Kontakt",
     },
-    email: "info@air-adventure.com",
+    email: "info@air-adventure.it",
     phone: "+39 345 992 3589",
     legal:
       "© {year} Air Adventures des Samuel Messner · Josefweg 1, 39040 Funes (BZ), Italy · P.IVA 03346040219",
