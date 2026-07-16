@@ -107,7 +107,17 @@ export function initLocationMap(root: HTMLElement) {
     const coordinates = getCardCoordinates(card);
     if (!coordinates) return;
 
-    const marker = L.marker(coordinates, { icon: markerIcon }).addTo(map);
+    const name =
+      card.querySelector(".LocationCard__title")?.textContent?.trim() ||
+      `Location ${index + 1}`;
+
+    const marker = L.marker(coordinates, {
+      icon: markerIcon,
+      title: name,
+      alt: name,
+    }).addTo(map);
+
+    marker.getElement()?.setAttribute("aria-label", name);
 
     marker.on("click", () => {
       activeMarker?.getElement()?.classList.remove("Location__markerIcon--active");

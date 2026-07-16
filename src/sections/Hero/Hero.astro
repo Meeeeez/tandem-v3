@@ -30,7 +30,7 @@ const homeHref = localizedPath(lang, "home");
         <ArrowIcon />
         {t.nav.bookNow}
       </a>
-      <button class="button--icon animate-fill">
+      <button class="button--icon animate-fill" type="button" aria-label={t.cta.whatsapp}>
         <WhatsappIcon />
       </button>
       <LanguageSwitcher route="home" />
@@ -71,7 +71,7 @@ const homeHref = localizedPath(lang, "home");
         <ArrowIcon />
         {t.nav.bookNow}
       </a>
-      <button class="Hero__whatsappButton button--icon animate-fill">
+      <button class="Hero__whatsappButton button--icon animate-fill" type="button" aria-label={t.cta.whatsapp}>
         <WhatsappIcon />
       </button>
     </div>

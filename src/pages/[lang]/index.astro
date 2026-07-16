@@ -40,12 +40,22 @@ const locations = t.location.items.map((item, i) => ({
 
 const priceAmount = (price: string) => price.replace(/[^\d]/g, "");
 
+// Same images as FlightCard in Flights.astro
+const flightImages = [
+  "/tandem-v3/img/1.jpg",
+  "/tandem-v3/img/2.jpg",
+  "/tandem-v3/img/3.jpg",
+];
+
 const productsData = {
   "@context": "https://schema.org",
-  "@graph": t.flights.items.map((flight) => ({
+  "@graph": t.flights.items.map((flight, i) => ({
     "@type": "Product",
     name: flight.title,
     description: flight.description,
+    image: flightImages[i]
+      ? new URL(flightImages[i], Astro.site).href
+      : undefined,
     offers: {
       "@type": "Offer",
       priceCurrency: "EUR",
@@ -61,7 +71,6 @@ const productsData = {
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <link rel="preload" as="image" href="/tandem-v3/img/hero.webp">
-    <script type="application/ld+json" set:html={JSON.stringify(productsData)} />
     <script type="application/ld+json" set:html={JSON.stringify(productsData)} />
   </Fragment>
 	<Hero />

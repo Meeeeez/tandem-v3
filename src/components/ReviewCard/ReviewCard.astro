@@ -18,7 +18,11 @@ const initialB = initialBRaw.toUpperCase();
 ---
 
 <article class="ReviewCard">
-  <div class="ReviewCard__stars" aria-label={`${fullStars} out of 5 stars`}>
+  <div
+    class="ReviewCard__stars"
+    role="img"
+    aria-label={`${fullStars} out of 5 stars`}
+  >
     {
       Array.from({ length: 5 }).map((_, i) => (
         <span
