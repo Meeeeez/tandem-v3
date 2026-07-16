@@ -88,23 +88,12 @@
     height: 8px;
     border-radius: 50%;
     background-color: #d1d5db; // A light gray for inactive state
-    border: none;
-    padding: 0;
-    cursor: pointer;
     transition: background-color 0.3s ease, transform 0.3s ease;
-
-    // Optional hover state for desktop users
-    &:hover {
-      background-color: #9ca3af;
-    }
+    pointer-events: none;
 
     &--active {
       background-color: $color-primary; // Uses your primary theme color
       transform: scale(1.2); // Makes the active dot slightly larger
-
-      &:hover {
-        background-color: $color-primary; // Keep it primary on hover if active
-      }
     }
   }
 }

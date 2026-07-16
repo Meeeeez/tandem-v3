@@ -84,22 +84,12 @@
     height: 8px;
     border-radius: 50%;
     background-color: #d1d5db;
-    border: none;
-    padding: 0;
-    cursor: pointer;
     transition: background-color 0.3s ease, transform 0.3s ease;
-
-    &:hover {
-      background-color: #9ca3af;
-    }
+    pointer-events: none;
 
     &--active {
       background-color: $color-primary;
       transform: scale(1.2);
-
-      &:hover {
-        background-color: $color-primary;
-      }
     }
   }
 

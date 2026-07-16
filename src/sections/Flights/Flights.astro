@@ -46,7 +46,7 @@ const flightMedia = [
       >
         <ArrowIcon />
       </button>
-      <div class="Flights__pagination"></div>
+      <div class="Flights__pagination" aria-hidden="true"></div>
       <button
         class="Flights__controlButton Flights__controlButton--next"
         type="button"
@@ -111,14 +111,12 @@ const flightMedia = [
       updateActiveDot();
     };
 
-    // (Re)build the pagination dots — one per page.
+    // (Re)build the pagination dots — one per page (visual only).
     const buildDots = () => {
       pagination.innerHTML = "";
       for (let i = 0; i < pageCount; i++) {
-        const dot = document.createElement("button");
+        const dot = document.createElement("span");
         dot.classList.add("Flights__dot");
-        dot.setAttribute("aria-label", `Go to page ${i + 1}`);
-        dot.addEventListener("click", () => scrollToPage(i));
         pagination.appendChild(dot);
       }
       updateActiveDot();

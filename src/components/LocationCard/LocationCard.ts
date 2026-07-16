@@ -17,7 +17,7 @@ function initCardSlider(card: HTMLElement) {
     slider.querySelectorAll<HTMLElement>(".LocationCard__slide"),
   );
   const dots = Array.from(
-    card.querySelectorAll<HTMLButtonElement>(".LocationCard__dot"),
+    card.querySelectorAll<HTMLElement>(".LocationCard__dot"),
   );
 
   if (slides.length <= 1) {
@@ -65,13 +65,6 @@ function initCardSlider(card: HTMLElement) {
 
   prevBtn?.addEventListener("click", () => scrollToSlide(activeIndex - 1));
   nextBtn?.addEventListener("click", () => scrollToSlide(activeIndex + 1));
-
-  dots.forEach((dot) => {
-    dot.addEventListener("click", () => {
-      const slideIndex = Number(dot.dataset.slideIndex);
-      if (!Number.isNaN(slideIndex)) scrollToSlide(slideIndex);
-    });
-  });
 
   return {
     reset: () => {

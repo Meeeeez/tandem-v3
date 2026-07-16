@@ -169,12 +169,10 @@
     height: 8px;
     border-radius: 50%;
     background-color: rgba($color-white, 0.4);
-    border: none;
-    padding: 0;
-    cursor: pointer;
     transition:
       background-color 0.25s ease,
       transform 0.25s ease;
+    pointer-events: none;
 
     &--active {
       background-color: $color-secondary;

@@ -59,17 +59,14 @@ const hasMultipleImages = imageUrls.length > 1;
           >
             <ArrowIcon />
           </button>
-          <div class="LocationCard__pagination">
+          <div class="LocationCard__pagination" aria-hidden="true">
             {
               imageUrls.map((_, dotIndex) => (
-                <button
-                  type="button"
+                <span
                   class:list={[
                     "LocationCard__dot",
                     { "LocationCard__dot--active": dotIndex === 0 },
                   ]}
-                  aria-label={`Go to image ${dotIndex + 1}`}
-                  data-slide-index={dotIndex}
                 />
               ))
             }

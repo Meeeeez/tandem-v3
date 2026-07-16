@@ -43,7 +43,7 @@ const reviews = t.reviews.items;
       <button class="Reviews__controlButton Reviews__controlButton--prev" type="button">
         <ArrowIcon />
       </button>
-      <div class="Reviews__pagination"></div>
+      <div class="Reviews__pagination" aria-hidden="true"></div>
       <button class="Reviews__controlButton Reviews__controlButton--next" type="button">
         <ArrowIcon />
       </button>
@@ -63,12 +63,9 @@ const reviews = t.reviews.items;
     if (!container || !pagination) return;
     if (!cards || cards.length === 0) return;
 
-    cards.forEach((_, index) => {
-      const dot = document.createElement("button");
-      dot.type = "button";
+    cards.forEach(() => {
+      const dot = document.createElement("span");
       dot.classList.add("Reviews__dot");
-      dot.setAttribute("aria-label", `Go to review ${index + 1}`);
-      dot.addEventListener("click", () => scrollToIndex(index));
       pagination.appendChild(dot);
     });
 
