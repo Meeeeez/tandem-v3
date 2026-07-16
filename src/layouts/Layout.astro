@@ -24,10 +24,8 @@ const ogImage = new URL(`${base}/img/hero.webp`, Astro.site);
 
 const absoluteLocalized = (locale: typeof locales[number]) => new URL(localizedPath(locale, route), Astro.site).href;
 
-const stripHtml = (value: string) => value.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
-const priceAmount = (price: string) => price.replace(/[^\d]/g, "");
-
-const localBusinessData = {
+const structuredData = {
+  "@context": "https://schema.org",
   "@type": "LocalBusiness",
   name: `${t.footer.brandPre} ${t.footer.brandAccent}`,
   image: ogImage.href,
@@ -44,45 +42,6 @@ const localBusinessData = {
   },
   url: Astro.site,
   inLanguage: lang,
-};
-
-const productsData = t.flights.items.map((flight) => ({
-  "@type": "Product",
-  name: flight.title,
-  description: flight.description,
-  offers: {
-    "@type": "Offer",
-    priceCurrency: "EUR",
-    price: priceAmount(flight.price),
-    availability: "https://schema.org/InStock",
-  },
-}));
-
-const howToData = {
-  "@type": "HowTo",
-  name: stripHtml(`${t.process.header.title} ${t.process.header.titleHighlighted}`),
-  step: t.process.slides.map((slide) => ({
-    "@type": "HowToStep",
-    name: slide.title,
-    text: slide.description,
-  })),
-};
-
-const faqData = {
-  "@type": "FAQPage",
-  mainEntity: t.faq.items.map((item) => ({
-    "@type": "Question",
-    name: item.q,
-    acceptedAnswer: {
-      "@type": "Answer",
-      text: item.a,
-    },
-  })),
-};
-
-const structuredData = {
-  "@context": "https://schema.org",
-  "@graph": [localBusinessData, ...productsData, howToData, faqData],
 };
 ---
 

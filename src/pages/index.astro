@@ -29,6 +29,23 @@ const locations = t.location.items.map((item, i) => ({
   ...item,
   ...locationMeta[i],
 }));
+
+const priceAmount = (price: string) => price.replace(/[^\d]/g, "");
+
+const productsData = {
+  "@context": "https://schema.org",
+  "@graph": t.flights.items.map((flight) => ({
+    "@type": "Product",
+    name: flight.title,
+    description: flight.description,
+    offers: {
+      "@type": "Offer",
+      priceCurrency: "EUR",
+      price: priceAmount(flight.price),
+      availability: "https://schema.org/InStock",
+    },
+  })),
+};
 ---
 
 <Layout>
@@ -36,6 +53,7 @@ const locations = t.location.items.map((item, i) => ({
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <link rel="preload" as="image" href="/tandem-v3/img/hero.webp">
+    <script type="application/ld+json" set:html={JSON.stringify(productsData)} />
   </Fragment>
 	<Hero />
 	<Flights />
