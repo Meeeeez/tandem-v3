@@ -71,7 +71,7 @@ const productsData = {
   <Fragment slot="head">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <link rel="preload" as="image" href="/tandem-v3/img/hero.webp">
+    <link rel="preload" as="image" fetchpriority="high" href="/tandem-v3/img/hero.webp">
     <script type="application/ld+json" set:html={JSON.stringify(productsData)} />
   </Fragment>
   <main>

@@ -17,11 +17,11 @@ const t = useTranslations(defaultLang);
 const locationMeta = [
   {
     coordinates: [46.645, 11.749] as [number, number],
-    imageUrls: ["/tandem-v3/img/1.jpg", "/tandem-v3/img/2.jpg"],
+    imageUrls: ["/tandem-v3/img/tandem-paragliding-odles.webp", "/tandem-v3/img/tandem-paragliding-funes.webp"],
   },
   {
     coordinates: [46.704, 11.686] as [number, number],
-    imageUrls: ["/tandem-v3/img/2.jpg", "/tandem-v3/img/3.jpg"],
+    imageUrls: ["/tandem-v3/img/tandem-paragliding-above-bressanone.avif", "/tandem-v3/img/tandem-paragliding-plose.avif"],
   },
 ];
 
@@ -63,7 +63,7 @@ const productsData = {
   <Fragment slot="head">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <link rel="preload" as="image" href="/tandem-v3/img/hero.webp">
+    <link rel="preload" as="image" fetchpriority="high" href="/tandem-v3/img/hero.webp">
     <script type="application/ld+json" set:html={JSON.stringify(productsData)} />
   </Fragment>
   <main>
