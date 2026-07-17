@@ -6,8 +6,8 @@ export const it = {
   },
 
   nav: {
-    home: "Home",
-    about: "Chi siamo",
+    prices: "Prezzi",
+    faq: "FAQ",
     contact: "Contatti",
     bookNow: "Prenota il volo",
   },
@@ -230,7 +230,8 @@ export const it = {
     },
     done: {
       title: "Grazie!",
-      text: "Ti risponderemo il prima possibile. Nel frattempo puoi contattarci anche su WhatsApp.",
+      text: "Il volo è la nostra passione e grazie a persone come te, possiamo continuare a fare ciò che amiamo. Ti risponderemo il prima possibile.",
+      backHome: "Torna alla home",
     },
     summaryDynamic: {
       empty: "/",

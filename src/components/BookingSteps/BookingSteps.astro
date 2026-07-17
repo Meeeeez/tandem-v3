@@ -3,12 +3,13 @@ import "./BookingSteps.scss";
 import ArrowIcon from "../../assets/icons/arrow.svg";
 import ChevronLeftIcon from "../../assets/icons/chevron-left.svg";
 import linesImg from "../../assets/img/lines.png";
-import { getLangFromUrl, useTranslations } from "../../i18n/utils";
+import { getLangFromUrl, useTranslations, localizedPath } from "../../i18n/utils";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const actions = t.booking.actions;
 const done = t.booking.done;
+const homeHref = localizedPath(lang, "home");
 
 // Strings the client-side script needs; injected as JSON since the script
 // itself is locale-agnostic at runtime.
@@ -98,6 +99,9 @@ const scriptI18n = {
       </div>
       <h2 class="BookingStep__title">{done.title}</h2>
       <p class="BookingStep__desc">{done.text}</p>
+      <a class="BookingSteps__doneHome animate-fill" href={homeHref}>
+        {done.backHome}
+      </a>
     </div>
   </div>
 </div>

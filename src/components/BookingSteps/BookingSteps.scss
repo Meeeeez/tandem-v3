@@ -477,6 +477,20 @@
     width: min(100%, 28rem);
     opacity: 0;
     transform: translateY(1rem);
+    pointer-events: auto;
+  }
+
+  &__doneHome.animate-fill {
+    margin-top: $gutter-sm;
+    padding-block: $gutter-md;
+
+    &::before {
+      background-color: $color-secondary;
+    }
+
+    &:hover {
+      color: $color-primary;
+    }
   }
 
   &__burst {

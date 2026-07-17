@@ -6,8 +6,8 @@ export const en = {
   },
 
   nav: {
-    home: "Home",
-    about: "About",
+    prices: "Prices",
+    faq: "FAQ",
     contact: "Contact",
     bookNow: "Book a Flight",
   },
@@ -15,7 +15,7 @@ export const en = {
   hero: {
     titlePre: "Let’s",
     titleHighlight: "Fly",
-    subtitle: "Paragliding in the Dolomites",
+    subtitle: "Paragldsafdsafiding in the Dolomites",
   },
 
   cta: {
@@ -230,7 +230,8 @@ export const en = {
     },
     done: {
       title: "Thank you!",
-      text: "We'll be in touch as soon as we can. In the meantime, feel free to reach us on WhatsApp too.",
+      text: "Paragliding is our passion and thanks to people like you, we can continue to do what we love. We'll be in touch as soon as we can.",
+      backHome: "Back to home",
     },
     summaryDynamic: {
       empty: "None yet",

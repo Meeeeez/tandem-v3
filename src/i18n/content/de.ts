@@ -6,8 +6,8 @@ export const de = {
   },
 
   nav: {
-    home: "Home",
-    about: "Über uns",
+    prices: "Preise",
+    faq: "FAQ",
     contact: "Kontakt",
     bookNow: "Flug buchen",
   },
@@ -230,7 +230,8 @@ export const de = {
     },
     done: {
       title: "Danke!",
-      text: "Wir melden uns so schnell wie möglich. In der Zwischenzeit kannst du uns auch auf WhatsApp erreichen.",
+      text: "Paragliding ist unsere Leidenschaft und dank Leuten wie dir können wir weiterhin tun, was wir lieben. Wir melden uns so schnell wie möglich.",
+      backHome: "Zur Startseite",
     },
     summaryDynamic: {
       empty: "—",
