@@ -53,6 +53,7 @@ export const de = {
   },
 
   flights: {
+    popular: "Beliebt",
     header: {
       title: "Wähle <br>dein",
       titleHighlighted: "Abenteuer",
@@ -66,6 +67,7 @@ export const de = {
           "Großes Kino! Ein herrlicher Flug mit Blick auf die Geisler im Villnösser Tal.",
         price: "100 €",
         duration: "5-10 min",
+        maxAltitude: "1.650 m",
       },
       {
         title: "Gleitflug",
@@ -73,18 +75,21 @@ export const de = {
           "Ein ruhiger Flug von der Plose zurück nach St. Andrä über der Stadt Brixen",
         price: "140 €",
         duration: "20 min",
+        maxAltitude: "2.000 m",
       },
       {
         title: "Gipfelflug",
         description: "Bis hoch über die Gipfel! Wir nutzen aufsteigende Luft, um länger und höher zu fliegen.",
         price: "170 €",
         duration: "30-40 min",
+        maxAltitude: "2.500 m",
       },
       {
         title: "Abenteuerflug",
         description: "Zusammen mit deinem Piloten planst du ein individuelles Abenteuer in den Dolomiten.",
         price: "240 €",
-        duration: "10 min",
+        duration: "> 90 min",
+        maxAltitude: "3.000 m",
       },
     ],
   },

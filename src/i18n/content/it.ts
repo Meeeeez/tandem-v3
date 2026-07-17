@@ -53,6 +53,7 @@ export const it = {
   },
 
   flights: {
+    popular: "Popolare",
     header: {
       title: "Scegli <br>la tua",
       titleHighlighted: "Avventura",
@@ -61,30 +62,34 @@ export const it = {
     },
     items: [
       {
-        title: "Vista sulle Odle",
+        title: "Volo Odle",
         description:
           "Uno spettacolo assoluto! Un volo splendido con vista sulle Odle, nella Val di Funes.",
         price: "100 €",
-        duration: "da 5 a 10 min",
+        duration: "5 - 10 min",
+        maxAltitude: "1.650 m",
       },
       {
-        title: "Volo in planata",
+        title: "Planata",
         description:
           "Un volo tranquillo dalla Plose fino a Sant'Andrea, sorvolando la città di Bressanone",
         price: "140 €",
         duration: "20 min",
+        maxAltitude: "2.000 m",
       },
       {
-        title: "Volo sulle vette",
+        title: "Volo in cima",
         description: "Fino sopra le cime! Sfruttiamo le correnti ascensionali per volare più a lungo e più in alto.",
         price: "170 €",
         duration: "da 30 a 40 min",
+        maxAltitude: "2.500 m",
       },
       {
         title: "Volo avventura",
         description: "Insieme al tuo pilota pianifichi un'avventura personalizzata nelle Dolomiti.",
         price: "240 €",
-        duration: "10 min",
+        duration: "> 90 min",
+        maxAltitude: "3.000 m",
       },
     ],
   },

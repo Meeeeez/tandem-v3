@@ -3,63 +3,87 @@
 .FlightCard {
   color: $color-white;
   position: relative;
-  padding: $gutter-md;
+  padding: 0;
   overflow: hidden;
   border-radius: $rounded-md;
   display: flex;
-  align-items: flex-end;
+  flex-direction: column;
+  justify-content: flex-end;
 
   height: 60svh;
   @include md {
     height: 75svh;
   }
 
-  &__content {
-    width: 100%;
-  }
-
-  &__content > p {
-    margin: 0;
-    opacity: 0.8;
+  &__body {
+    padding: $gutter-lg;
   }
 
   &__title {
+    margin: 0 0 $gutter-sm;
     font-weight: 400;
-    margin-bottom: $gutter-md;
-    font-size: $font-title-lg;
-  }
+    font-size: $font-title-md;
 
-  &__bottom {
-    display: flex;
-    gap: $gutter-lg;
-    align-items: flex-end;
+    @include md {
+      font-size: $font-title-lg;
+    }
   }
 
   &__description {
-    margin: 0;
+    margin: 0 0 $gutter-md;
     color: $color-font-light;
+    font-size: $font-sm;
+    line-height: 150%;
   }
 
-  &__priceWrapper {
-    text-wrap: nowrap;
+  &__meta {
+    position: relative;
   }
 
-  &__priceWrapper > p {
+  &__facts {
     margin: 0;
-    text-align: right;
-    font-size: $font-xs;
+    padding-right: 5.5rem;
+    display: flex;
+    align-items: center;
+    gap: $gutter-sm;
+    font-family: "RobotoCondensed", sans-serif;
+    font-weight: 700;
+    font-size: $font-sm;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: $color-white;
   }
 
   &__price {
-    font-size: $font-title-lg;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    background-color: $color-secondary;
+    color: $color-primary;
     font-family: "Londrina Solid", sans-serif;
+    font-size: $font-title-sm;
+    line-height: 1;
+    padding: $gutter-sm $gutter-md;
+    border-radius: $rounded-sm;
+    text-wrap: nowrap;
+  }
+
+  &__factsSeparator {
+    color: $color-secondary;
   }
 
   &__button {
-    border-radius: $rounded-sm;
-    font-size: $font-lg;
-    margin-top: 1rem;
     width: 100%;
+    border-radius: 0;
+    background-color: $color-secondary;
+    color: $color-primary;
+    font-size: $font-lg;
+    padding: $gutter-md $gutter-lg;
+
+    svg {
+      width: 1rem;
+      height: auto;
+    }
   }
 
   &__media {
@@ -74,8 +98,14 @@
       content: "";
       position: absolute;
       inset: 0;
-      background-color: rgba(0, 0, 0, 0.45);
       z-index: 1;
+      background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.85) 0%,
+        rgba(0, 0, 0, 0.55) 30%,
+        rgba(0, 0, 0, 0.15) 60%,
+        rgba(0, 0, 0, 0.3) 100%
+      );
     }
   }
 
@@ -101,20 +131,18 @@
     }
   }
 
-  &__bottom {
-    display: flex;
-    justify-content: space-between;
-  }
-
   &__marker {
     position: absolute;
     transform: rotate(45deg);
-    top: 10px;
-    right: -30px;
+    top: 20px;
+    right: -60px;
     background-color: $color-secondary;
-    color: $color-white;
-    padding: $gutter-sm $gutter-xl;
+    color: $color-primary;
+    padding: $gutter-sm 4rem;
+    font-size: $font-xs;
     font-weight: bold;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
     z-index: 1;
   }
 }

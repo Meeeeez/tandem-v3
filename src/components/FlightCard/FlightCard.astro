@@ -1,19 +1,26 @@
 ---
 import "./FlightCard.scss";
+import ArrowIcon from "../../assets/icons/arrow.svg";
 
 const {
   title,
   description,
   price,
   duration,
+  maxAltitude,
   isMarked,
+  popularLabel,
   image,
-  videoSrc
+  imagePosition,
+  videoSrc,
+  href
 } = Astro.props;
+
+const facts = [maxAltitude, duration].filter(Boolean);
 ---
 
 <div class="FlightCard">
-  {isMarked && <div class="FlightCard__marker">Popular</div>}
+  {isMarked && <div class="FlightCard__marker">{popularLabel}</div>}
   <div class="FlightCard__media" aria-hidden="true">
     <img
       class="FlightCard__backgroundImage"
@@ -21,6 +28,7 @@ const {
       alt=""
       loading="lazy"
       decoding="async"
+      style={imagePosition ? `object-position: ${imagePosition}` : undefined}
     />
     <video
       class="FlightCard__backgroundVideo"
@@ -30,17 +38,27 @@ const {
       playsinline
       preload="metadata"></video>
   </div>
-  <div class="FlightCard__content">
-    <p>{duration} Airtime</p>
-    <h2 class="FlightCard__title">{title}</h2>
 
-    <div class="FlightCard__bottom">
-      <p class="FlightCard__description">{description}</p>
-      <div class="FlightCard__priceWrapper">
-        <p>from</p>
-        <div class="FlightCard__price">{price}</div>
-      </div>
+  <div class="FlightCard__body">
+    <h2 class="FlightCard__title">{title}</h2>
+    <p class="FlightCard__description">{description}</p>
+    <div class="FlightCard__meta">
+      {facts.length > 0 && (
+        <p class="FlightCard__facts">
+          {facts.map((fact, i) => (
+            <>
+              {i > 0 && <span class="FlightCard__factsSeparator" aria-hidden="true">·</span>}
+              <span>{fact}</span>
+            </>
+          ))}
+        </p>
+      )}
+      <div class="FlightCard__price">{price}</div>
     </div>
-    <button class="FlightCard__button animate-fill">book now</button>
   </div>
+
+  <button class="FlightCard__button animate-fill" type="button" data-href={href}>
+    Book now
+    <ArrowIcon />
+  </button>
 </div>

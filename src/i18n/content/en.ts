@@ -15,7 +15,7 @@ export const en = {
   hero: {
     titlePre: "Let’s",
     titleHighlight: "Fly",
-    subtitle: "Paragldsafdsafiding in the Dolomites",
+    subtitle: "Paragliding in the Dolomites",
   },
 
   cta: {
@@ -53,6 +53,7 @@ export const en = {
   },
 
   flights: {
+    popular: "Popular",
     header: {
       title: "Choose <br>your",
       titleHighlighted: "Adventure",
@@ -61,30 +62,34 @@ export const en = {
     },
     items: [
       {
-        title: "Odels",
+        title: "Odles",
         description:
           "Pure cinema! A wonderful flight with a view of the Geisler peaks in Val di Funes.",
-        price: "€100",
-        duration: "5 to 10 min",
+        price: "100 €",
+        duration: "5 - 10 min",
+        maxAltitude: "1,650 m",
       },
       {
         title: "Glide",
         description:
           "A calm flight from Plose back to St. Andrä, above the town of Bressanone",
-        price: "€140",
+        price: "140 €",
         duration: "20 min",
+        maxAltitude: "2,000 m",
       },
       {
         title: "Summit",
         description: "Up above the peaks! We ride rising air currents to fly longer and higher.",
-        price: "€170",
-        duration: "30 to 40 min",
+        price: "170 €",
+        duration: "30 - 40 min",
+        maxAltitude: "2,500 m",
       },
       {
         title: "Adventure",
         description: "Together with your pilot, you'll plan your own custom adventure through the Dolomites.",
         price: "€240",
-        duration: "10 min",
+        duration: "> 90 min",
+        maxAltitude: "3,000 mth",
       },
     ],
   },
@@ -267,7 +272,7 @@ export const en = {
       dateFromLabel: "Earliest date",
       dateToLabel: "Latest date",
       passengersTitle:
-        "How many people would like to <span class=\"BookingStep__hl\">fly?</span>",
+        "How many people want to <span class=\"BookingStep__hl\">fly?</span>",
       summaryTitle:
         "That's everything<span data-summary=\"nameClause\" hidden>, <span class=\"BookingStep__hl\" data-summary=\"nameTitle\"></span></span>!",
       summaryDescription:

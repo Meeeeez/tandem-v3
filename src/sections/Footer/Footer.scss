@@ -3,11 +3,17 @@
 .Footer {
   background-color: $color-primary;
   color: $color-white;
+  overflow-x: hidden;
 
   &__edge {
     display: block;
-    width: 100%;
+    // Wider than the viewport on mobile so the SVG scales taller;
+    // overflow is clipped by the footer on both sides.
+    width: 160%;
+    max-width: none;
     height: auto;
+    margin-left: 50%;
+    transform: translateX(-42%);
     pointer-events: none;
     user-select: none;
     // White behind the top (CTA), primary behind the bottom so anti-aliased
@@ -19,6 +25,12 @@
       $color-primary 55%,
       $color-primary 100%
     );
+
+    @include md {
+      width: 100%;
+      margin-left: 0;
+      transform: none;
+    }
   }
 
   &__inner {

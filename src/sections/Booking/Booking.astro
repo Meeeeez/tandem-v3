@@ -31,7 +31,7 @@ const homeHref = localizedPath(lang, "home");
 
   <div class="Booking__main">
     <BookingSteps>
-      <BookingStep>
+      <BookingStep image="/tandem-v3/img/tandem-paragliding-in-the-dolomites.avif">
         <span slot="title" set:html={s.nameTitle}></span>
         <FormField
           id="bk-name"
@@ -43,9 +43,7 @@ const homeHref = localizedPath(lang, "home");
         />
       </BookingStep>
 
-      <BookingStep
-        image="/tandem-v3/img/2.jpg"
-      >
+      <BookingStep image="/tandem-v3/img/tandem-paragliding-above-bressanone.avif">
         <span slot="title" set:html={s.contactTitle}></span>
         <div class="BookingSteps__choices" data-contact-choices>
           <ChoiceCard
@@ -108,9 +106,7 @@ const homeHref = localizedPath(lang, "home");
         </div>
       </BookingStep>
 
-      <BookingStep
-        image="/tandem-v3/img/3.jpg"
-      >
+      <BookingStep>
         <span slot="title" set:html={s.datesTitle}></span>
         <div class="BookingSteps__row">
           <FormField
@@ -130,7 +126,7 @@ const homeHref = localizedPath(lang, "home");
         </div>
       </BookingStep>
 
-      <BookingStep>
+      <BookingStep image="/tandem-v3/img/tandem-paragliding-odles.webp">
         <span slot="title" set:html={s.passengersTitle}></span>
         <div class="BookingSteps__numberChoices" data-passenger-choices>
           <label class="BookingSteps__numberChoice" for="bk-passengers-1">
@@ -177,7 +173,7 @@ const homeHref = localizedPath(lang, "home");
       </BookingStep>
 
       <BookingStep
-        image="/tandem-v3/img/stolen.webp"
+        image="/tandem-v3/img/tandem-paragliding-above-the-clouds.avif"
         isLast
         description={s.summaryDescription}
         hintMuted={s.summaryHint}
