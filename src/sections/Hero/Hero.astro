@@ -38,23 +38,53 @@ const bookingHref = localizedPath(lang, "booking");
     <div class="Hero__navContainer">
       <button class="Hero__navOpen button--icon">☰</button>
       <nav class="Hero__nav">
-        <button class="Hero__navClose button--icon">x</button>
-        <a href="#flights">{t.nav.prices}</a>
-        <a href="#faq">{t.nav.faq}</a>
-        <a href="#contact">{t.nav.contact}</a>
+        <button class="Hero__navClose" type="button" aria-label="Close">
+          ×
+        </button>
+        <a class="Hero__navLink" href="#flights">{t.nav.prices}</a>
+        <a class="Hero__navLink" href="#faq">{t.nav.faq}</a>
+        <a class="Hero__navLink" href="#contact">{t.nav.contact}</a>
+        <div class="Hero__navBody">
+          <div class="Hero__navLanguage">
+            <LanguageSwitcher route="home" />
+          </div>
+          <div class="Hero__navContact">
+            <span class="Hero__navContactLabel">{t.nav.contact}</span>
+            <a class="Hero__navContactLink" href={`mailto:${t.footer.email}`}>
+              {t.footer.email}
+            </a>
+            <a
+              class="Hero__navContactLink"
+              href={`tel:${t.footer.phone.replace(/\s/g, "")}`}
+            >
+              {t.footer.phone}
+            </a>
+          </div>
+        </div>
+        <div class="Hero__navLegal">
+          <a href="#">{t.footer.impressum}</a>
+          <a href="#">{t.footer.privacy}</a>
+          <a href="#">{t.footer.cookies}</a>
+        </div>
       </nav>
       <script>
         const openNavButton = document.querySelector(".Hero__navOpen");
         const closeNavButton = document.querySelector(".Hero__navClose");
         const body = document.body;
         const nav = document.querySelector(".Hero__nav");
+
+        const closeNav = () => {
+          nav?.classList.remove("is-open");
+          body.style.overflow = "visible";
+        };
+
         openNavButton?.addEventListener("click", () => {
           nav?.classList.toggle("is-open");
           body.style.overflow = "hidden";
         });
-        closeNavButton?.addEventListener("click", () => {
-          nav?.classList.remove("is-open");
-          body.style.overflow = "visible";
+        closeNavButton?.addEventListener("click", closeNav);
+        nav?.querySelectorAll("a").forEach((link) => {
+          link.addEventListener("click", closeNav);
         });
       </script>
     </div>

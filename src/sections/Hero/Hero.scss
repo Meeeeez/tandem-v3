@@ -125,12 +125,24 @@
   }
 
   &__navClose {
-    display: block;
-    // Pull the button out of the document flow to pin it to the top right
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: absolute;
     top: $gutter-lg;
     right: $gutter-md;
     z-index: 11;
+    width: 55px;
+    height: 55px;
+    padding: 0;
+    border: none;
+    border-radius: $rounded-md;
+    background: $color-white;
+    color: $color-primary;
+    font-size: 1.75rem;
+    font-weight: 400;
+    line-height: 1;
+    cursor: pointer;
 
     @include md {
       top: $gutter-xl;
@@ -138,7 +150,7 @@
     }
 
     @include lg {
-      display: none; // Hidden on desktop
+      display: none;
     }
   }
 
@@ -148,11 +160,11 @@
     top: 0;
     left: 0;
     width: 100vw;
-    height: 100vh;
+    height: 100dvh;
     background: $color-primary;
     flex-direction: column;
-    justify-content: center;
-    gap: $gutter-md;
+    justify-content: flex-end;
+    gap: 0;
     z-index: 10;
 
     box-sizing: border-box;
@@ -165,7 +177,8 @@
       transform: translateY(0);
     }
 
-    a {
+    .Hero__navLink {
+      display: none;
       color: $color-white;
       font-size: $font-title-lg;
       font-weight: 600;
@@ -173,7 +186,6 @@
       text-transform: uppercase;
       transition: opacity 0.2s ease, color 0.2s ease;
       position: relative;
-      display: inline-block;
       width: fit-content;
       max-width: 100%;
       padding-bottom: 6px;
@@ -191,11 +203,6 @@
         transition: transform 0.25s ease;
       }
 
-      // Remove bottom margin from the last link so it centers perfectly
-      &:last-of-type {
-        margin-bottom: 0;
-      }
-
       &:hover {
         opacity: 0.8;
       }
@@ -207,6 +214,7 @@
       }
 
       @include lg {
+        display: inline-block;
         font-size: 1.125rem;
         margin-bottom: 0;
         margin-left: $gutter-lg;
@@ -228,10 +236,128 @@
       flex-direction: row;
       justify-content: flex-end;
       align-items: center;
+      padding: 0;
 
       // Kill the mobile animation
       transform: translateY(0);
       transition: none;
+    }
+  }
+
+  &__navBody {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: $gutter-xl;
+    margin-bottom: $gutter-xxl;
+
+    @include lg {
+      display: none;
+    }
+  }
+
+  &__navLanguage {
+    .LanguageSwitcher__trigger {
+      height: auto;
+      min-width: 0;
+      padding: 0.15em 0.2em 0.15em 0;
+      overflow: visible;
+      background: transparent;
+      color: $color-white;
+      border-radius: 0;
+      font-size: $font-title-md;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      line-height: 1.2;
+      justify-content: flex-start;
+      gap: $gutter-md;
+
+      &::before {
+        display: none;
+      }
+
+      &:hover {
+        color: $color-white;
+        opacity: 0.85;
+      }
+    }
+
+    .LanguageSwitcher__chevron {
+      flex-shrink: 0;
+      width: 0.35em;
+      height: 0.35em;
+      border-right-width: 3px;
+      border-bottom-width: 3px;
+      transform: rotate(45deg) translateY(-0.05em);
+    }
+
+    .LanguageSwitcher.is-open .LanguageSwitcher__chevron {
+      transform: rotate(225deg) translateY(0.05em);
+    }
+
+    .LanguageSwitcher__menu {
+      top: auto;
+      bottom: calc(100% + $gutter-xs);
+      min-width: 5rem;
+    }
+
+    @include lg {
+      display: none;
+    }
+  }
+
+  &__navContact {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: $gutter-sm;
+  }
+
+  &__navContactLabel {
+    color: $color-white;
+    font-size: $font-lg;
+    font-weight: 400;
+    text-transform: none;
+  }
+
+  &__navContactLink {
+    color: $color-white;
+    font-size: clamp(1.25rem, 5vw, 1.75rem);
+    font-weight: 700;
+    text-decoration: none;
+    text-transform: none;
+    word-break: break-all;
+    line-height: 1.2;
+
+    &:hover {
+      opacity: 0.85;
+    }
+  }
+
+  &__navLegal {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: $gutter-md;
+    padding-bottom: env(safe-area-inset-bottom, 0);
+
+    a {
+      color: $color-white;
+      font-size: $font-sm;
+      font-weight: 400;
+      text-decoration: none;
+      text-transform: none;
+      opacity: 0.95;
+      white-space: nowrap;
+
+      &:hover {
+        opacity: 0.75;
+      }
+    }
+
+    @include lg {
+      display: none;
     }
   }
 }

@@ -49,6 +49,7 @@ export const de = {
       "© {year} Air Adventures des Samuel Messner · Josefweg 1, 39040 Funes (BZ), Italy · P.IVA 03346040219",
     impressum: "Impressum",
     privacy: "Datenschutz",
+    cookies: "Cookies",
     backToTop: "Nach oben",
   },
 

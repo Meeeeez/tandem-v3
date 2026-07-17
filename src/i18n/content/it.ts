@@ -9,7 +9,7 @@ export const it = {
     prices: "Prezzi",
     faq: "FAQ",
     contact: "Contatti",
-    bookNow: "Prenota il volo",
+    bookNow: "Prenota ora",
   },
 
   hero: {
@@ -47,8 +47,9 @@ export const it = {
     phone: "+39 345 992 3589",
     legal:
       "© {year} Air Adventures di Samuel Messner · Josefweg 1, 39040 Funes (BZ), Italy · P.IVA 03346040219",
-    impressum: "Impressum",
-    privacy: "Privacy Policy",
+    impressum: "Note legali",
+    privacy: "Informativa sulla privacy",
+    cookies: "Cookie",
     backToTop: "Torna su",
   },
 

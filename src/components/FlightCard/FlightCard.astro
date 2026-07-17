@@ -1,6 +1,5 @@
 ---
 import "./FlightCard.scss";
-import ArrowIcon from "../../assets/icons/arrow.svg";
 
 const {
   title,
@@ -10,6 +9,7 @@ const {
   maxAltitude,
   isMarked,
   popularLabel,
+  bookLabel,
   image,
   imagePosition,
   videoSrc,
@@ -58,7 +58,6 @@ const facts = [maxAltitude, duration].filter(Boolean);
   </div>
 
   <button class="FlightCard__button animate-fill" type="button" data-href={href}>
-    Book now
-    <ArrowIcon />
+    {bookLabel}
   </button>
 </div>

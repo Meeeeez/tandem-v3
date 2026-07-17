@@ -47,8 +47,9 @@ export const en = {
     phone: "+39 345 992 3589",
     legal:
       "© {year} Air Adventures by Samuel Messner · Josefweg 1, 39040 Funes (BZ), Italy · P.IVA 03346040219",
-    impressum: "Impressum",
+    impressum: "Legal Notice",
     privacy: "Privacy Policy",
+    cookies: "Cookies",
     backToTop: "Back to Top",
   },
 
