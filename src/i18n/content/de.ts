@@ -247,6 +247,14 @@ export const de = {
       passengers4Plus: "4 oder mehr",
       dateLocale: "de-DE",
     },
+    errors: {
+      required: "Bitte fülle dieses Feld aus.",
+      email: "Bitte gib eine gültige E-Mail-Adresse ein.",
+      phone: "Bitte gib eine gültige Telefonnummer ein.",
+      contactMethod: "Bitte wähle eine Kontaktmethode.",
+      passengers: "Bitte wähle, wie viele Personen fliegen.",
+      dateRange: "Enddatum muss nach dem Startdatum sein.",
+    },
     steps: {
       nameTitle:
         "Wie sollen wir dich <span class=\"BookingStep__hl\">nennen?</span>",
@@ -266,7 +274,7 @@ export const de = {
       emailLabel: "E-Mail Adresse",
       emailPlaceholder: "max.mustermann@beispiel.com",
       whatsappLabel: "WhatsApp Nummer",
-      whatsappPlaceholder: "+49 000 00000000",
+      whatsappPlaceholder: "000 00000000",
 
       datesTitle:
         "Wann möchtest du <span class=\"BookingStep__hl\">fliegen?</span>",

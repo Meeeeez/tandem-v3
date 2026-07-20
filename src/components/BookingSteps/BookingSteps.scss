@@ -293,6 +293,7 @@
 
   &__mobileNav {
     display: flex;
+    flex-direction: column;
     align-items: stretch;
     gap: $gutter-sm;
     width: 100%;
@@ -344,6 +345,52 @@
     }
   }
 
+  &__mobileNavRow {
+    display: flex;
+    align-items: stretch;
+    gap: $gutter-sm;
+    width: 100%;
+  }
+
+  &__error {
+    display: flex;
+    align-items: center;
+    gap: $gutter-sm;
+    width: 100%;
+    box-sizing: border-box;
+    padding: $gutter-md $gutter-ml;
+    border-radius: $rounded-sm;
+    background: #fdeceb;
+    color: #b42318;
+    font-family: "Roboto", sans-serif;
+    font-size: $font-sm;
+    line-height: 1.4;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  &__errorIcon {
+    flex-shrink: 0;
+    width: 1.25rem;
+    height: 1.25rem;
+    color: #d92d20;
+  }
+
+  &__errorText {
+    min-width: 0;
+  }
+
+  &--has-error {
+    @media (max-width: #{$md - 1px}) {
+      --booking-mobile-nav-offset: calc(
+        var(--booking-mobile-control-height) + #{$gutter-md} * 2 + 3.25rem +
+          env(safe-area-inset-bottom, 0px)
+      );
+    }
+  }
+
   &__mobileBack {
     display: inline-flex;
     align-items: center;
@@ -387,6 +434,14 @@
   &--submitting {
     .BookingSteps__mobileNav {
       justify-content: center;
+    }
+
+    .BookingSteps__mobileNavRow {
+      justify-content: center;
+    }
+
+    .BookingSteps__error {
+      display: none;
     }
 
     .BookingSteps__mobileBack,

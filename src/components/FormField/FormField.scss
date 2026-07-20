@@ -33,10 +33,157 @@
       border-color: $color-primary;
     }
 
+    &.is-invalid {
+      border-color: #d92d20;
+    }
+
+    &.is-invalid:focus {
+      border-color: #d92d20;
+    }
+
     &--textarea {
       resize: vertical;
       min-height: 140px;
       line-height: 1.5;
     }
   }
+
+  // intl-tel-input: country select to the left, matching FormField chrome
+  &--phone {
+    min-width: 0;
+    max-width: 100%;
+
+    // Keep open dropdown above the OK button (sibling stacking context)
+    &:has(.iti__arrow--up) {
+      position: relative;
+      z-index: 10;
+    }
+
+    .iti.FormField__iti,
+    .iti {
+      display: flex;
+      align-items: stretch;
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      gap: $gutter-sm;
+    }
+
+    .iti__country-container {
+      position: relative;
+      top: auto;
+      bottom: auto;
+      left: auto;
+      padding: 0;
+      flex: 0 0 auto;
+      z-index: 1;
+    }
+
+    .iti__selected-country {
+      height: 100%;
+      font-family: "Roboto", sans-serif;
+      font-size: $font-lg;
+      color: $color-font-dark;
+      background-color: #fff;
+      border: 1.5px solid rgba($color-primary, 0.25);
+      border-radius: $rounded-sm;
+      padding: $gutter-md $gutter-md;
+      transition: border-color 0.2s ease;
+      cursor: pointer;
+
+      &:focus-visible {
+        border-color: $color-primary;
+        outline: none;
+      }
+    }
+
+    .iti__selected-country-primary {
+      gap: 0.35rem;
+      padding: 0;
+    }
+
+    .iti__selected-dial-code {
+      margin-left: 0;
+      font-size: $font-lg;
+      color: $color-font-dark;
+    }
+
+    .iti__arrow {
+      margin-left: 0.35rem;
+      border-right-color: rgba($color-font-dark, 0.55);
+      border-bottom-color: rgba($color-font-dark, 0.55);
+    }
+
+    // Override ITI min-width:100% + left padding so the flex sibling doesn't overflow
+    input.FormField__control.iti__tel-input {
+      flex: 1 1 0;
+      width: auto;
+      max-width: 100%;
+      min-width: 0 !important;
+      padding-left: $gutter-ml !important;
+      padding-right: $gutter-ml !important;
+    }
+
+    .iti:has(input.is-invalid) .iti__selected-country {
+      border-color: #d92d20;
+    }
+
+    .iti--has-country-selector
+      .iti__country-container:not(:has(+ input[disabled])):not(
+        :has(+ input[readonly])
+      ) {
+      .iti__selected-country-primary:hover,
+      .iti__selected-country:has(+ .iti__country-selector:hover)
+        .iti__selected-country-primary {
+        background-color: rgba($color-primary, 0.04);
+      }
+    }
+  }
+}
+
+// Detached dropdown lives on <body> — above OK / mobile nav (z-index: 5)
+.iti--detached-country-selector {
+  z-index: 30;
+}
+
+// Keep dropdown inside the viewport with the same side inset as the booking form
+.iti--detached-country-selector:not(.iti--fullscreen-popup) {
+  max-width: calc(100vw - #{$gutter-xl * 2});
+  box-sizing: border-box;
+}
+
+.iti--detached-country-selector.iti--fullscreen-popup {
+  --iti-mobile-popup-margin: #{$gutter-xl};
+  padding: $gutter-xl;
+  box-sizing: border-box;
+}
+
+.iti--detached-country-selector .iti__country-selector,
+.FormField--phone .iti__country-selector {
+  border-radius: $rounded-sm;
+  border: 1.5px solid rgba($color-primary, 0.25);
+  box-shadow: $shadow;
+  overflow: hidden;
+  font-family: "Roboto", sans-serif;
+  font-size: $font-base;
+  color: $color-font-dark;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.iti--detached-country-selector .iti__country-list {
+  white-space: normal;
+}
+
+.iti--detached-country-selector .iti__search-input,
+.FormField--phone .iti__search-input {
+  font-family: "Roboto", sans-serif;
+  font-size: $font-base;
+  color: $color-font-dark;
+  outline: none;
+}
+
+.iti--detached-country-selector .iti__country.iti__highlight,
+.FormField--phone .iti__country.iti__highlight {
+  background-color: rgba($color-primary, 0.08);
 }

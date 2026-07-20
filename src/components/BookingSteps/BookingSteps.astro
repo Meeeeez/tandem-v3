@@ -2,6 +2,7 @@
 import "./BookingSteps.scss";
 import ArrowIcon from "../../assets/icons/arrow.svg";
 import ChevronLeftIcon from "../../assets/icons/chevron-left.svg";
+import TriangleAlertIcon from "../../assets/icons/triangle-alert.svg";
 import linesImg from "../../assets/img/lines.png";
 import { getLangFromUrl, useTranslations, localizedPath } from "../../i18n/utils";
 
@@ -22,6 +23,7 @@ const scriptI18n = {
   passengers3: t.booking.summaryDynamic.passengers3,
   passengers4Plus: t.booking.summaryDynamic.passengers4Plus,
   dateLocale: t.booking.summaryDynamic.dateLocale,
+  errors: t.booking.errors,
 };
 ---
 
@@ -55,22 +57,34 @@ const scriptI18n = {
   </form>
 
   <div class="BookingSteps__mobileNav">
-    <button
-      class="BookingSteps__mobileBack"
-      type="button"
-      data-prev
-      aria-label={actions.prevStep}
-      disabled
+    <div
+      class="BookingSteps__error"
+      data-booking-error-mobile
+      hidden
+      role="alert"
+      aria-live="polite"
     >
-      <ChevronLeftIcon />
-    </button>
-    <button
-      class="BookingSteps__ok BookingSteps__mobileOk animate-fill"
-      type="button"
-      data-next
-    >
-      <span class="BookingSteps__okLabel">{actions.ok}</span>
-    </button>
+      <TriangleAlertIcon class="BookingSteps__errorIcon" aria-hidden="true" />
+      <span class="BookingSteps__errorText" data-booking-error-text></span>
+    </div>
+    <div class="BookingSteps__mobileNavRow">
+      <button
+        class="BookingSteps__mobileBack"
+        type="button"
+        data-prev
+        aria-label={actions.prevStep}
+        disabled
+      >
+        <ChevronLeftIcon />
+      </button>
+      <button
+        class="BookingSteps__ok BookingSteps__mobileOk animate-fill"
+        type="button"
+        data-next
+      >
+        <span class="BookingSteps__okLabel">{actions.ok}</span>
+      </button>
+    </div>
   </div>
 
   <div class="BookingSteps__burst" data-booking-burst hidden aria-hidden="true"></div>
@@ -107,11 +121,18 @@ const scriptI18n = {
 </div>
 
 <script>
+  import {
+    getIntlTelInstance,
+    initIntlTelFields,
+  } from "../FormField/initIntlTel.ts";
+
   const initBookingSteps = () => {
     const stepsRoot = document.querySelector<HTMLElement>("[data-booking-steps]");
     const booking = stepsRoot?.closest<HTMLElement>(".Booking");
 
     if (!stepsRoot || !booking) return;
+
+    initIntlTelFields(stepsRoot);
 
     type BookingI18n = {
       empty: string;
@@ -122,6 +143,14 @@ const scriptI18n = {
       passengers3: string;
       passengers4Plus: string;
       dateLocale: string;
+      errors: {
+        required: string;
+        email: string;
+        phone: string;
+        contactMethod: string;
+        passengers: string;
+        dateRange: string;
+      };
     };
     const i18n: BookingI18n = JSON.parse(
       stepsRoot.dataset.bookingI18n ?? "{}",
@@ -196,7 +225,18 @@ const scriptI18n = {
       const el = form?.querySelector<HTMLInputElement | HTMLTextAreaElement>(
         `[name='${name}']`,
       );
-      return el?.value.trim() ?? "";
+      if (!el) return "";
+
+      if (
+        el instanceof HTMLInputElement &&
+        el.hasAttribute("data-intl-tel")
+      ) {
+        const iti = getIntlTelInstance(el);
+        const full = iti?.getNumber()?.trim();
+        if (full) return full;
+      }
+
+      return el.value.trim();
     };
 
     const setSummary = (key: string, text: string) => {
@@ -299,6 +339,75 @@ const scriptI18n = {
       }
     };
 
+    const clearStepInvalid = (step: HTMLElement) => {
+      step
+        .querySelectorAll<HTMLElement>(".is-invalid")
+        .forEach((el) => el.classList.remove("is-invalid"));
+    };
+
+    const clearError = () => {
+      steps.forEach((step) => {
+        clearStepInvalid(step);
+        const alert = step.querySelector<HTMLElement>("[data-booking-error]");
+        if (!alert) return;
+        alert.hidden = true;
+        const text = alert.querySelector<HTMLElement>("[data-booking-error-text]");
+        if (text) text.textContent = "";
+      });
+
+      const mobileAlert = stepsRoot.querySelector<HTMLElement>(
+        "[data-booking-error-mobile]",
+      );
+      if (mobileAlert) {
+        mobileAlert.hidden = true;
+        const text = mobileAlert.querySelector<HTMLElement>(
+          "[data-booking-error-text]",
+        );
+        if (text) text.textContent = "";
+      }
+
+      stepsRoot.classList.remove("BookingSteps--has-error");
+    };
+
+    const showError = (
+      stepIndex: number,
+      message: string,
+      el?: HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | null,
+    ) => {
+      clearError();
+
+      const step = steps[stepIndex];
+      const desktopAlert = step?.querySelector<HTMLElement>("[data-booking-error]");
+      const mobileAlert = stepsRoot.querySelector<HTMLElement>(
+        "[data-booking-error-mobile]",
+      );
+
+      [desktopAlert, mobileAlert].forEach((alert) => {
+        if (!alert) return;
+        const text = alert.querySelector<HTMLElement>("[data-booking-error-text]");
+        if (text) text.textContent = message;
+        alert.hidden = false;
+      });
+
+      stepsRoot.classList.add("BookingSteps--has-error");
+
+      if (el) {
+        el.classList.add("is-invalid");
+        el.focus({ preventScroll: true });
+      }
+    };
+
+    const messageForControl = (
+      el: HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement,
+      custom?: string,
+    ) => {
+      if (custom) return custom;
+      if (el.validity.valueMissing) return i18n.errors.required;
+      if (el.validity.typeMismatch && el.type === "email")
+        return i18n.errors.email;
+      return el.validationMessage || i18n.errors.required;
+    };
+
     const validateStep = (index: number, report = true) => {
       const step = steps[index];
 
@@ -306,13 +415,11 @@ const scriptI18n = {
         el: HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | null,
         message?: string,
       ) => {
-        if (!report || !el) return false;
-        if (message) {
-          el.setCustomValidity(message);
-          el.reportValidity();
-          el.setCustomValidity("");
-        } else {
-          el.reportValidity();
+        if (report) {
+          const msg = el
+            ? messageForControl(el, message)
+            : (message ?? i18n.errors.required);
+          showError(index, msg, el);
         }
         return false;
       };
@@ -321,9 +428,10 @@ const scriptI18n = {
         if (!contactRadios.some((r) => r.checked)) {
           return fail(
             contactRadios[0] ?? null,
-            "Please select a contact method.",
+            i18n.errors.contactMethod,
           );
         }
+        if (report) clearError();
         return true;
       }
 
@@ -331,9 +439,10 @@ const scriptI18n = {
         if (!passengerRadios.some((r) => r.checked)) {
           return fail(
             passengerRadios[0] ?? null,
-            "Please select how many people will fly.",
+            i18n.errors.passengers,
           );
         }
+        if (report) clearError();
         return true;
       }
 
@@ -350,6 +459,15 @@ const scriptI18n = {
 
         input.setCustomValidity("");
         if (!input.checkValidity()) return fail(input);
+
+        if (!isEmail && input.hasAttribute("data-intl-tel")) {
+          const iti = getIntlTelInstance(input);
+          if (iti && iti.isValidNumber() === false) {
+            return fail(input, i18n.errors.phone);
+          }
+        }
+
+        if (report) clearError();
         return true;
       }
 
@@ -367,12 +485,10 @@ const scriptI18n = {
       const from = step.querySelector<HTMLInputElement>("[name='dateFrom']");
       const to = step.querySelector<HTMLInputElement>("[name='dateTo']");
       if (from && to && from.value && to.value && to.value < from.value) {
-        return fail(
-          to,
-          "The latest date must be on or after the earliest date.",
-        );
+        return fail(to, i18n.errors.dateRange);
       }
 
+      if (report) clearError();
       return true;
     };
 
@@ -498,6 +614,7 @@ const scriptI18n = {
       syncHistory: "push" | "replace" | "none" = "none",
     ) => {
       clearContactAdvance();
+      clearError();
       const prev = current;
       const requested = Math.max(0, Math.min(index, total - 1));
       const next = resolveStep(requested, prev);
@@ -505,7 +622,8 @@ const scriptI18n = {
         direction ??
         (next > prev ? "forward" : next < prev ? "back" : "forward");
 
-      if (requested > next && focus) validateStep(next, true);
+      const blocked = requested > next;
+      if (blocked && focus) validateStep(next, true);
 
       current = next;
 
@@ -525,11 +643,11 @@ const scriptI18n = {
       animateStep(steps[current], dir);
 
       if (current === total - 1) updateSummary();
-      if (focus) focusFirstControl(steps[current]);
+      if (focus && !blocked) focusFirstControl(steps[current]);
 
       if (syncHistory !== "none") {
-        syncStepUrl(current, requested > next ? "replace" : syncHistory);
-      } else if (requested > next) {
+        syncStepUrl(current, blocked ? "replace" : syncHistory);
+      } else if (blocked) {
         syncStepUrl(current, "replace");
       }
     };
@@ -568,6 +686,7 @@ const scriptI18n = {
 
     contactRadios.forEach((radio) =>
       radio.addEventListener("change", () => {
+        clearError();
         applyContactMethod();
         if (!steps[current].querySelector("[data-contact-choices]")) return;
         scheduleChoiceAdvance("[data-contact-choices]");
@@ -576,10 +695,19 @@ const scriptI18n = {
 
     passengerRadios.forEach((radio) =>
       radio.addEventListener("change", () => {
+        clearError();
         if (!steps[current].querySelector("[data-passenger-choices]")) return;
         scheduleChoiceAdvance("[data-passenger-choices]");
       }),
     );
+
+    form?.addEventListener("input", () => {
+      if (stepsRoot.classList.contains("BookingSteps--has-error")) clearError();
+    });
+
+    form?.addEventListener("change", () => {
+      if (stepsRoot.classList.contains("BookingSteps--has-error")) clearError();
+    });
 
     const SUBMIT_MIN_MS = 700;
     const BURST_MS = 850;
@@ -718,8 +846,9 @@ const scriptI18n = {
     form?.addEventListener("submit", async (event) => {
       event.preventDefault();
       for (let i = 0; i < total; i += 1) {
-        if (!validateStep(i)) {
+        if (!validateStep(i, false)) {
           setStep(i, true, undefined, "replace");
+          validateStep(i, true);
           return;
         }
       }

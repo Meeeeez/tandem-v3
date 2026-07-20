@@ -102,6 +102,9 @@ const homeHref = localizedPath(lang, "home");
             label={s.whatsappLabel}
             placeholder={s.whatsappPlaceholder}
             inputmode="tel"
+            autocomplete="tel-national"
+            intlTel
+            lang={lang}
           />
         </div>
       </BookingStep>

@@ -1,6 +1,7 @@
 ---
 import "./BookingStep.scss";
 import ArrowIcon from "../../assets/icons/arrow.svg";
+import TriangleAlertIcon from "../../assets/icons/triangle-alert.svg";
 import { getLangFromUrl, useTranslations } from "../../i18n/utils";
 
 type Props = {
@@ -66,9 +67,21 @@ const actions = t.booking.actions;
             <span class="BookingStep__okLabel">{actions.ok}</span>
             <ArrowIcon />
           </button>
-          <span class="BookingStep__hint">{actions.pressEnter} <kbd>Enter &crarr;</kbd></span>
+          <span class="BookingStep__hint">
+            {actions.pressEnter} <kbd>Enter &crarr;</kbd>
+          </span>
         </>
       )
     }
+    <div
+      class="BookingStep__error"
+      data-booking-error
+      hidden
+      role="alert"
+      aria-live="polite"
+    >
+      <TriangleAlertIcon class="BookingStep__errorIcon" aria-hidden="true" />
+      <span class="BookingStep__errorText" data-booking-error-text></span>
+    </div>
   </div>
 </section>

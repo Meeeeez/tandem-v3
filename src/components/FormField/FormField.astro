@@ -13,6 +13,12 @@ type Props = {
   min?: string;
   inputmode?: "text" | "tel" | "email" | "numeric";
   autocomplete?: string;
+  /** Enable intl-tel-input country code selector (tel inputs only). */
+  intlTel?: boolean;
+  /** ISO2 country code for intl-tel-input initial country. */
+  initialCountry?: string;
+  /** Locale used to pick a default country when initialCountry is omitted. */
+  lang?: string;
 };
 
 const {
@@ -27,10 +33,15 @@ const {
   min,
   inputmode,
   autocomplete,
+  intlTel = false,
+  initialCountry,
+  lang,
 } = Astro.props as Props;
+
+const useIntlTel = intlTel && type === "tel";
 ---
 
-<div class="FormField">
+<div class:list={["FormField", { "FormField--phone": useIntlTel }]}>
   <label class="FormField__label" for={id}>{label}</label>
   {
     type === "textarea" ? (
@@ -54,7 +65,26 @@ const {
         min={min}
         inputmode={inputmode}
         autocomplete={autocomplete}
+        data-intl-tel={useIntlTel ? "" : undefined}
+        data-intl-tel-lang={useIntlTel ? lang : undefined}
+        data-intl-tel-country={useIntlTel ? initialCountry : undefined}
       />
     )
   }
 </div>
+
+{
+  useIntlTel && (
+    <script>
+      import { initIntlTelFields } from "./initIntlTel.ts";
+
+      const init = () => initIntlTelFields();
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", init);
+      } else {
+        init();
+      }
+    </script>
+  )
+}

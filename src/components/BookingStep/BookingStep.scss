@@ -98,6 +98,38 @@
     }
   }
 
+  &__error {
+    display: flex;
+    align-items: center;
+    gap: $gutter-sm;
+    flex: 1 1 12rem;
+    min-width: 0;
+    max-width: 28rem;
+    box-sizing: border-box;
+    padding: $gutter-md $gutter-ml;
+    border-radius: $rounded-sm;
+    background: #fdeceb;
+    color: #b42318;
+    font-family: "Roboto", sans-serif;
+    font-size: $font-sm;
+    line-height: 1.4;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  &__errorIcon {
+    flex-shrink: 0;
+    width: 1.25rem;
+    height: 1.25rem;
+    color: #d92d20;
+  }
+
+  &__errorText {
+    min-width: 0;
+  }
+
   &__ok.animate-fill {
     --booking-submit-size: calc(#{$gutter-md} * 2 + #{$font-xl});
     box-sizing: border-box;
@@ -175,7 +207,8 @@
 .BookingSteps--submitting .BookingStep.is-active .BookingStep__actions {
   justify-content: center;
 
-  .BookingStep__hint {
+  .BookingStep__hint,
+  .BookingStep__error {
     display: none;
   }
 }
