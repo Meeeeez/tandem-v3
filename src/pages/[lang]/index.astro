@@ -25,11 +25,11 @@ const t = useTranslations(lang);
 const locationMeta = [
   {
     coordinates: [46.645, 11.749] as [number, number],
-    imageUrls: ["/tandem-v3/img/tandem-paragliding-odles.avif", "/tandem-v3/img/tandem-paragliding-funes.webp"],
+    imageUrls: ["/img/tandem-paragliding-odles.avif", "/img/tandem-paragliding-funes.webp"],
   },
   {
     coordinates: [46.704, 11.686] as [number, number],
-    imageUrls: ["/tandem-v3/img/tandem-paragliding-plose.avif", "/tandem-v3/img/tandem-paragliding-above-the-clouds.avif"],
+    imageUrls: ["/img/tandem-paragliding-plose.avif", "/img/tandem-paragliding-above-the-clouds.avif"],
   },
 ];
 
@@ -42,10 +42,10 @@ const priceAmount = (price: string) => price.replace(/[^\d]/g, "");
 
 // Same images as FlightCard in Flights.astro
 const flightImages = [
-  "/tandem-v3/img/tandem-paragliding-odles.avif",
-  "/tandem-v3/img/tandem-paragliding-glide.avif",
-  "/tandem-v3/img/tandem-paragliding-above-the-clouds.avif",
-  "/tandem-v3/img/tandem-paragliding-in-the-dolomites.avif",
+  "/img/tandem-paragliding-odles.avif",
+  "/img/tandem-paragliding-glide.avif",
+  "/img/tandem-paragliding-above-the-clouds.avif",
+  "/img/tandem-paragliding-in-the-dolomites.avif",
 ];
 
 const productsData = {
@@ -71,7 +71,7 @@ const productsData = {
   <Fragment slot="head">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <link rel="preload" as="image" fetchpriority="high" href="/tandem-v3/img/hero.webp">
+    <link rel="preload" as="image" fetchpriority="high" href="/img/hero.webp">
     <script type="application/ld+json" set:html={JSON.stringify(productsData)} />
   </Fragment>
   <main>
