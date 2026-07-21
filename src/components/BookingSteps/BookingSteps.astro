@@ -881,8 +881,7 @@ const scriptI18n = {
         window.setTimeout(finishOnce, BURST_MS + 100);
       });
 
-    const BOOKING_ENDPOINT =
-      "https://go783vbk7k.execute-api.eu-central-1.amazonaws.com/default/AirAdventureBooking";
+    const BOOKING_ENDPOINT = "https://book.airadventure.it/";
 
     const buildPayload = () => {
       const method = contactRadios.find((r) => r.checked)?.value ?? "";
