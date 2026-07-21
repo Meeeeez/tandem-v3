@@ -35,6 +35,17 @@ const scriptI18n = {
   <form class="BookingSteps__form" data-booking-form novalidate>
     <slot />
 
+    <div class="BookingSteps__honeypot" aria-hidden="true">
+      <label for="bk-website">Website</label>
+      <input
+        id="bk-website"
+        name="honeypot"
+        type="text"
+        tabindex="-1"
+        autocomplete="off"
+      />
+    </div>
+
     <div class="BookingSteps__nav">
       <button
         class="BookingSteps__navBtn BookingSteps__navBtn--prev"
@@ -150,11 +161,29 @@ const scriptI18n = {
         contactMethod: string;
         passengers: string;
         dateRange: string;
+        datePast: string;
+        submit: string;
       };
     };
     const i18n: BookingI18n = JSON.parse(
       stepsRoot.dataset.bookingI18n ?? "{}",
     );
+
+    const todayIso = () => {
+      const now = new Date();
+      const y = now.getFullYear();
+      const m = String(now.getMonth() + 1).padStart(2, "0");
+      const d = String(now.getDate()).padStart(2, "0");
+      return `${y}-${m}-${d}`;
+    };
+
+    const dateInputs = Array.from(
+      stepsRoot.querySelectorAll<HTMLInputElement>("input[type='date']"),
+    );
+    const minDate = todayIso();
+    dateInputs.forEach((input) => {
+      input.min = minDate;
+    });
 
     const form = stepsRoot.querySelector<HTMLFormElement>("[data-booking-form]");
     const steps = Array.from(
@@ -405,6 +434,8 @@ const scriptI18n = {
       if (el.validity.valueMissing) return i18n.errors.required;
       if (el.validity.typeMismatch && el.type === "email")
         return i18n.errors.email;
+      if (el.validity.rangeUnderflow && el.type === "date")
+        return i18n.errors.datePast;
       return el.validationMessage || i18n.errors.required;
     };
 
@@ -484,6 +515,13 @@ const scriptI18n = {
 
       const from = step.querySelector<HTMLInputElement>("[name='dateFrom']");
       const to = step.querySelector<HTMLInputElement>("[name='dateTo']");
+      const today = todayIso();
+      if (from?.value && from.value < today) {
+        return fail(from, i18n.errors.datePast);
+      }
+      if (to?.value && to.value < today) {
+        return fail(to, i18n.errors.datePast);
+      }
       if (from && to && from.value && to.value && to.value < from.value) {
         return fail(to, i18n.errors.dateRange);
       }
@@ -519,7 +557,7 @@ const scriptI18n = {
     const ANIMATE_FORWARD = "BookingStep__animate--forward";
     const ANIMATE_BACK = "BookingStep__animate--back";
     const MOBILE_MQ = window.matchMedia("(max-width: 767px)");
-    let contactAdvanceTimer: ReturnType<typeof window.setTimeout> | null = null;
+    let contactAdvanceTimer: number | null = null;
 
     const clearContactAdvance = () => {
       if (contactAdvanceTimer === null) return;
@@ -843,6 +881,28 @@ const scriptI18n = {
         window.setTimeout(finishOnce, BURST_MS + 100);
       });
 
+    const BOOKING_ENDPOINT =
+      "https://go783vbk7k.execute-api.eu-central-1.amazonaws.com/default/AirAdventureBooking";
+
+    const buildPayload = () => {
+      const method = contactRadios.find((r) => r.checked)?.value ?? "";
+      const passengersRaw =
+        passengerRadios.find((r) => r.checked)?.value ?? "";
+      const passengers =
+        passengersRaw === "4+" ? 4 : Number(passengersRaw);
+
+      return {
+        firstName: value("firstName"),
+        contactMethod: method,
+        email: method === "email" ? value("email") : "",
+        whatsapp: method === "whatsapp" ? value("whatsapp") : "",
+        dateFrom: value("dateFrom"),
+        dateTo: value("dateTo"),
+        passengers,
+        honeypot: value("honeypot"),
+      };
+    };
+
     form?.addEventListener("submit", async (event) => {
       event.preventDefault();
       for (let i = 0; i < total; i += 1) {
@@ -854,13 +914,32 @@ const scriptI18n = {
       }
 
       setSubmitLoading(true);
+      clearError();
       updateSummary();
       if (progressFill) progressFill.style.width = "100%";
 
-      // TODO: wire to real endpoint (fetch / formspree / mailto fallback)
-      await new Promise((resolve) => window.setTimeout(resolve, SUBMIT_MIN_MS));
+      try {
+        const [, res] = await Promise.all([
+          new Promise<void>((resolve) =>
+            window.setTimeout(resolve, SUBMIT_MIN_MS),
+          ),
+          fetch(BOOKING_ENDPOINT, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(buildPayload()),
+          }),
+        ]);
 
-      await playSuccessBurst();
+        if (!res.ok) throw new Error("submit failed");
+
+        const data: { success?: boolean } = await res.json();
+        if (!data.success) throw new Error("submit failed");
+
+        await playSuccessBurst();
+      } catch {
+        setSubmitLoading(false);
+        showError(total - 1, i18n.errors.submit);
+      }
     });
 
     window.addEventListener("popstate", () => {

@@ -7,14 +7,15 @@ export const it = {
 
   nav: {
     prices: "Prezzi",
+    location: "Luoghi",
     faq: "FAQ",
     contact: "Contatti",
     bookNow: "Prenota ora",
   },
 
   hero: {
-    titlePre: "Let’s",
-    titleHighlight: "Fly",
+    titlePre: "Air",
+    titleHighlight: "Adventure",
     subtitle: "Voli in tandem nelle Dolomiti",
   },
 
@@ -43,7 +44,7 @@ export const it = {
       faq: "FAQ",
       contact: "Contatti",
     },
-    email: "info@air-adventure.it",
+    email: "info@airadventure.it",
     phone: "+39 345 992 3589",
     legal:
       "© {year} Air Adventures di Samuel Messner · Josefweg 1, 39040 Funes (BZ), Italy · P.IVA 03346040219",
@@ -254,6 +255,8 @@ export const it = {
       contactMethod: "Seleziona un metodo di contatto.",
       passengers: "Seleziona quante persone voleranno.",
       dateRange: "La data di fine deve essere successiva a quella di inizio.",
+      datePast: "La data deve essere oggi o nel futuro.",
+      submit: "Invio non riuscito. Riprova.",
     },
     steps: {
       nameTitle:

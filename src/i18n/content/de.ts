@@ -7,6 +7,7 @@ export const de = {
 
   nav: {
     prices: "Preise",
+    location: "Standort",
     faq: "FAQ",
     contact: "Kontakt",
     bookNow: "Flug buchen",
@@ -43,7 +44,7 @@ export const de = {
       faq: "FAQ",
       contact: "Kontakt",
     },
-    email: "info@air-adventure.it",
+    email: "info@airadventure.it",
     phone: "+39 345 992 3589",
     legal:
       "© {year} Air Adventures des Samuel Messner · Josefweg 1, 39040 Funes (BZ), Italy · P.IVA 03346040219",
@@ -224,8 +225,8 @@ export const de = {
   },
 
   booking: {
-    logoLine1: "Let’s",
-    logoLine2: "Fly",
+    logoLine1: "Air",
+    logoLine2: "Adventure",
     caption: "Tandem Paragliding · Dolomites",
     actions: {
       ok: "OK",
@@ -254,6 +255,8 @@ export const de = {
       contactMethod: "Bitte wähle eine Kontaktmethode.",
       passengers: "Bitte wähle, wie viele Personen fliegen.",
       dateRange: "Enddatum muss nach dem Startdatum sein.",
+      datePast: "Das Datum muss heute oder in der Zukunft liegen.",
+      submit: "Senden fehlgeschlagen. Bitte versuche es erneut.",
     },
     steps: {
       nameTitle:

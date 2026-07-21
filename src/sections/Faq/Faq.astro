@@ -20,8 +20,8 @@ const items = t.faq.items;
       </div>
 
       <div class="Faq__list">
-      {items.map((item, i) => (
-        <details class="Faq__item" open={i === 0}>
+      {items.map((item) => (
+        <details class="Faq__item">
           <summary class="Faq__question">
             <span class="Faq__questionText">{item.q}</span>
             <span class="Faq__toggle" aria-hidden="true"></span>

@@ -178,9 +178,9 @@
     }
 
     .Hero__navLink {
-      display: none;
+      display: inline-block;
       color: $color-white;
-      font-size: $font-title-lg;
+      font-size: $font-title-sm;
       font-weight: 600;
       text-decoration: none;
       text-transform: uppercase;
@@ -189,6 +189,7 @@
       width: fit-content;
       max-width: 100%;
       padding-bottom: 6px;
+      margin-bottom: $gutter-md;
 
       &::after {
         content: "";
@@ -214,7 +215,6 @@
       }
 
       @include lg {
-        display: inline-block;
         font-size: 1.125rem;
         margin-bottom: 0;
         margin-left: $gutter-lg;
