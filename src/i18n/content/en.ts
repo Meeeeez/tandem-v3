@@ -1,8 +1,8 @@
 export const en = {
   meta: {
-    title: "Air Adventures • Tandem Paragliding in the Dolomites",
+    title: "Air Adventure • Tandem Paragliding in the Dolomites",
     description:
-      "Tandem paragliding in the Dolomites on the Plose above Brixen and in Val di Funes. From a calm glide to an adventure flight. From €100, experienced pilots, no prior experience needed.",
+      "Tandem paragliding in the Dolomites on the Plose above Brixen and in Villnöß. From a calm glide to an adventure flight. From €100, experienced pilots, no prior experience needed.",
   },
 
   nav: {
@@ -32,9 +32,9 @@ export const en = {
 
   footer: {
     brandPre: "Air",
-    brandAccent: "Adventures",
+    brandAccent: "Adventure",
     description:
-      "Tandem paragliding over the Dolomites in the flight areas of Villnöss (Val di Funes) and Plose above Brixen. Enjoy unforgettable flights with experienced pilots – from a calm glide to a thermal flight with views of the Odle peaks and the Eisack Valley in South Tyrol.",
+      "Tandem paragliding over the Dolomites in the flight areas of Villnöß (Val di Funes) and Plose above Brixen. Enjoy unforgettable flights with experienced pilots – from a calm glide to a thermal flight with views of the Odle peaks and the Eisack Valley in South Tyrol.",
     explore: "Explore",
     getInTouch: "Get in Touch",
     nav: {
@@ -44,10 +44,10 @@ export const en = {
       faq: "FAQ",
       contact: "Contact",
     },
-    email: "info@airadventure.it",
+    email: "info@air-adventure.it",
     phone: "+39 345 992 3589",
     legal:
-      "© {year} Air Adventures by Samuel Messner · Josefweg 1, 39040 Funes (BZ), Italy · P.IVA 03346040219",
+      "© {year} Air Adventure by Samuel Messner · Josefweg 1, 39040 Funes (BZ), Italy · P.IVA 03346040219",
     impressum: "Legal Notice",
     privacy: "Privacy Policy",
     cookies: "Cookies",
@@ -74,7 +74,7 @@ export const en = {
       {
         title: "Glide",
         description:
-          "A calm flight from Plose back to St. Andrä, above the town of Bressanone",
+          "A calm flight from Plose back to St. Andrä, above the town of Brixen.",
         price: "140 €",
         duration: "20 min",
         maxAltitude: "2,000 m",
@@ -88,10 +88,10 @@ export const en = {
       },
       {
         title: "Adventure",
-        description: "Together with your pilot, you'll plan your own custom adventure through the Dolomites.",
-        price: "€240",
+        description: "Whether it's a hike followed by a tandem flight or a cross-country flight through the Dolomites, we'll create your personal adventure together.",
+        price: "240 €",
         duration: "> 90 min",
-        maxAltitude: "3,000 mth",
+        maxAltitude: "3,000 m",
       },
     ],
   },
@@ -101,7 +101,7 @@ export const en = {
       title: "Where do you want to <br>",
       titleHighlighted: "fly?",
       description:
-        "Pick your flying area! <b>Plose offers a wonderful view over the Isarco Valley and the town of Bressanone, while Val di Funes offers a magical view of the Geisler peaks</b>",
+        "<b>Pick your flying area!</b> Plose offers a wonderful view over the valley and the town of Bressanone, while Villnöß offers a magical view of the Geisler peaks.",
     },
     items: [
       { name: "Val di Funes", meta: "Launch · 1,650 m" },
@@ -194,24 +194,28 @@ export const en = {
       title: "Questions you <br>",
       titleHighlighted: "might have",
       description:
-        "Six questions we get asked before almost every booking. If yours isn't listed, just message us on WhatsApp. We usually reply within an hour.",
+        "",
     },
     items: [
       {
         q: "Is it safe?",
-        a: "Tandem paragliding is one of the safest adventure sports around, with a very low accident rate. Every one of our pilots holds a valid FIVL license, all our wings are EN certified and inspected every 100 hours, and we only fly in good conditions. If the weather isn't right, we simply don't fly.",
+        a: "Tandem paragliding can be a very safe activity. Our pilots have many years of experience, are state-certified, and fly with certified paragliding equipment. We'll take you safely into the air and bring you back to the ground again.",
       },
       {
         q: "Do I need any experience?",
-        a: "No, none at all. Most of our guests have never been on a paraglider before. Your pilot takes care of everything, the launch, the steering, and the landing. All you have to do is jog a few steps and then lean back and enjoy.",
+        a: "No. Your pilot takes care of controlling the paraglider. All you need to do is take a few steps during takeoff, then you can sit back, relax, and enjoy the breathtaking views from above. For landing, you'll either take a few steps as we touch down or simply lift your legs while we slide gently onto the soft grass.",
       },
       {
         q: "Are there weight or age limits?",
-        a: "We fly with guests weighing between 25 kg and 110 kg. The minimum age is 5, with parental consent, and there's no upper limit. Our oldest guest so far was 84 years old. Just let us know when booking if there are any mobility considerations we should plan around.",
+        a: "We fly with guests weighing between 20 kg and 120 kg. Children are welcome with parental consent, and there is no upper age limit. If you have any mobility restrictions, simply let us know when booking so we can plan accordingly.",
+      },
+      {
+        q: "Do you offer tandem flights for groups?",
+        a: "We fly together as a team from Plose, and we can also accommodate larger groups. Just get in touch and we'll organize your group flight.",
       },
       {
         q: "What happens if the weather is bad?",
-        a: "The evening before your flight, we'll confirm a weather window for the next 24 hours. If conditions don't cooperate on the day itself, we'll either reschedule or give you a full refund if no new date works. No lost deposit, no questions asked.",
+        a: "We'll get in touch a few days before your flight to confirm the conditions. If the weather isn't suitable for flying, we'll simply arrange a new date with you.",
       },
       {
         q: "What should I wear?",
@@ -219,14 +223,14 @@ export const en = {
       },
       {
         q: "Do I get photos and videos?",
-        a: "Yes. Your pilot films the whole flight with a GoPro mounted on a long pole. Photos and a short video land on your phone by WhatsApp within an hour of landing, for an extra €20.",
+        a: "Yes. Your pilot records the flight with a GoPro. For an additional €20, we'll transfer the photos and one or two short videos directly to your phone after landing.",
       },
     ],
   },
 
   booking: {
-    logoLine1: "Air",
-    logoLine2: "Adventure",
+    logoLine1: "Let’s",
+    logoLine2: "Fly",
     caption: "Tandem Paragliding · Dolomites",
     actions: {
       ok: "OK",
@@ -255,8 +259,6 @@ export const en = {
       contactMethod: "Please select a contact method.",
       passengers: "Please select how many people will fly.",
       dateRange: "The end date must be after the start date.",
-      datePast: "The date must be today or in the future.",
-      submit: "Sending failed. Please try again.",
     },
     steps: {
       nameTitle:
@@ -275,7 +277,7 @@ export const en = {
       whatsappFieldTitle:
         "What's your <span class=\"BookingStep__hl\">WhatsApp number</span>?",
       emailLabel: "Email address",
-      emailPlaceholder: "max.mustermann@example.com",
+      emailPlaceholder: "john.smith@example.com",
       whatsappLabel: "WhatsApp number",
       whatsappPlaceholder: "000 00000000",
 

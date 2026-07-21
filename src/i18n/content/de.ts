@@ -1,6 +1,6 @@
 export const de = {
   meta: {
-    title: "Air Adventures • Tandem Paragliding in den Dolomiten",
+    title: "Air Adventure • Tandem Paragliding in den Dolomiten",
     description:
       "Tandem-Gleitschirmfliegen in den Dolomiten auf der Plose über Brixen und in dem Villnösser Tal (Val di Funes). Vom ruhigen Gleitflug bis zum Abenteuerflug. Ab 100 €, erfahrene Piloten, keine Vorkenntnisse nötig.",
   },
@@ -32,9 +32,9 @@ export const de = {
 
   footer: {
     brandPre: "Air",
-    brandAccent: "Adventures",
+    brandAccent: "Adventure",
     description:
-      "Tandemfliegen mit dem Gleitschirm über den Dolomiten in den Fluggebieten Villnöss (Val di Funes) und Plose über Brixen. Erlebe unvergessliche Flüge mit erfahrenen Piloten – vom ruhigen Gleitflug bis zum Thermikflug mit Blick auf die Geisler und das Eisacktal in Südtirol.",
+      "Tandemfliegen mit dem Gleitschirm über den Dolomiten in den Fluggebieten Villnöss und Plose über Brixen. Erlebe unvergessliche Flüge mit erfahrenen Piloten – vom ruhigen Gleitflug bis zum Thermikflug mit Blick auf die Geisler und das Eisacktal in Südtirol.",
     explore: "Entdecken",
     getInTouch: "Kontakt",
     nav: {
@@ -44,10 +44,10 @@ export const de = {
       faq: "FAQ",
       contact: "Kontakt",
     },
-    email: "info@airadventure.it",
+    email: "info@air-adventure.it",
     phone: "+39 345 992 3589",
     legal:
-      "© {year} Air Adventures des Samuel Messner · Josefweg 1, 39040 Funes (BZ), Italy · P.IVA 03346040219",
+      "© {year} Air Adventure des Samuel Messner · Josefweg 1, 39040 Funes (BZ), Italy · P.IVA 03346040219",
     impressum: "Impressum",
     privacy: "Datenschutz",
     cookies: "Cookies",
@@ -60,7 +60,7 @@ export const de = {
       title: "Wähle <br>dein",
       titleHighlighted: "Abenteuer",
       description:
-        "Ob ein ruhiger Gleitflug, ein Thermikflug über die Berge oder dein ganz persönliches Abenteuer - finde das perfekte Erlebnis für dich.",
+        "Ob ein ruhiger Gleitflug, ein Thermikflug über den Bergen oder dein ganz persönliches Abenteuer - finde das perfekte Erlebnis für dich.",
     },
     items: [
       {
@@ -74,13 +74,13 @@ export const de = {
       {
         title: "Gleitflug",
         description:
-          "Ein ruhiger Flug von der Plose zurück nach St. Andrä über der Stadt Brixen",
+          "Ein ruhiger Flug von der Plose zurück nach St. Andrä über der Stadt Brixen.",
         price: "140 €",
         duration: "20 min",
         maxAltitude: "2.000 m",
       },
       {
-        title: "Gipfelflug",
+        title: "Thermikflug",
         description: "Bis hoch über die Gipfel! Wir nutzen aufsteigende Luft, um länger und höher zu fliegen.",
         price: "170 €",
         duration: "30-40 min",
@@ -88,7 +88,7 @@ export const de = {
       },
       {
         title: "Abenteuerflug",
-        description: "Zusammen mit deinem Piloten planst du ein individuelles Abenteuer in den Dolomiten.",
+        description: "Eine Wanderung mit anschließendem Tandemflug oder ein Streckenflug in den Dolomiten; wir planen dein persönliches Abenteuer.",
         price: "240 €",
         duration: "> 90 min",
         maxAltitude: "3.000 m",
@@ -98,10 +98,10 @@ export const de = {
 
   location: {
     header: {
-      title: "Wo willst du <br>",
+      title: "Wo möchtest du <br>",
       titleHighlighted: "fliegen?",
       description:
-        "Wähle dein Fluggebiet! <b>Plose bietet einen herrlichen Blick auf das Eisacktal und die Stadt Brixen, das Villnösser Tal bietet einen magischen Blick Geisler</b>",
+        "<b>Wähle dein Fluggebiet!</b> Plose ermöglicht einen herrlichen Blick auf das Eisacktal und die Stadt Brixen. Das Villnösser Tal bietet einen magischen Geislerblick.",
     },
     items: [
       { name: "Villnöss", meta: "Start · 1,650 m" },
@@ -165,19 +165,19 @@ export const de = {
       {
         title: "Treffen",
         description:
-          "Wir treffen uns bei deinem Fluggebiet und machen uns auf den Weg zum Startpunkt. Den Treffpunkt erfährst du von deinem Piloten.",
+          "Wir treffen uns beim Fluggebiet und machen uns auf den Weg zum Startplatz. Den Treffpunkt erfährst du von deinem Piloten.",
         imageAlt: "Treffen mit deinem Piloten",
       },
       {
         title: "Starten",
         description:
-          "Wir legen den Gleitschirm aus, ziehen das Gurtzeug an und nach ein paar Schritten sind wir schon in der Luft.",
+          "Wir bereiten den Gleitschirm vor, legen das Gurtzeug an und nach ein paar Schritten sind wir schon in der Luft.",
         imageAlt: "Der Start",
       },
       {
         title: "Fliegen",
         description:
-          "Geniesse die Atemberaubende Aussicht auf die Dolomiten und erlebe das Gefühl, frei wie ein Vogel zu fliegen.",
+          "Genieße die atemberaubende Aussicht auf die Dolomiten und erlebe das Gefühl, frei wie ein Vogel zu fliegen.",
         imageAlt: "Über den Dolomiten fliegen",
       },
       {
@@ -192,26 +192,30 @@ export const de = {
   faq: {
     header: {
       title: "Fragen, die <br>",
-      titleHighlighted: "du vielleicht hast",
+      titleHighlighted: "du haben könntest",
       description:
-        "Sechs Fragen, die uns vor fast jeder Buchung gestellt werden. Ist deine nicht dabei, schreib uns einfach auf WhatsApp. Antworten kommen meist innerhalb einer Stunde.",
+        "",
     },
     items: [
       {
         q: "Ist es sicher?",
-        a: "Tandemparagliding zählt zu den Abenteuersportarten mit den niedrigsten Unfallraten überhaupt. Jeder Pilot bei uns besitzt eine gültige FIVL Lizenz, alle Schirme sind EN zertifiziert und werden alle 100 Stunden überprüft, und wir fliegen ausschließlich bei guten Bedingungen. Passt das Wetter nicht, fliegen wir einfach nicht.",
+        a: "Tandemfliegen kann sehr sicher betrieben werden. Unsere Piloten haben jahrelange Erfahrung, sind staatlich ausgebildet und fliegen mit zertifizierten Gleitschirmen. Wir bringen dich sicher in die Luft und wieder zurück auf den Boden.",
       },
       {
         q: "Brauche ich Erfahrung?",
-        a: "Nein, überhaupt nicht. Die meisten unserer Gäste waren noch nie zuvor mit einem Gleitschirm unterwegs. Dein Pilot übernimmt alles, den Start, die Steuerung und die Landung. Du machst nur ein paar Laufschritte und lehnst dich dann zurück.",
+        a: "Nein, dein Pilot übernimmt die Steuerung des Gleitschirms. Du musst lediglich ein paar Schritte beim Start mitlaufen und dann kannst du die AUssicht von oben genießen. Für die Landung reicht es wenige Schritte mitzulaufen oder du hebst die Beine und wir rutschen ins weiche Gras.",
       },
       {
-        q: "Gibt es Gewichts oder Altersgrenzen?",
-        a: "Wir fliegen mit Gästen von 25 kg bis 110 kg. Das Mindestalter liegt bei 5 Jahren mit Einverständnis der Eltern, eine Obergrenze nach oben gibt es nicht. Unser ältester Fluggast war 84 Jahre alt. Gib uns bei der Buchung einfach Bescheid, falls es Einschränkungen bei der Beweglichkeit gibt.",
+        q: "Gibt es Gewichts- oder Altersgrenzen?",
+        a: "Wir fliegen mit Gästen von 20 kg bis 120 kg. Bei Kindern braucht es das Einverständnis der Eltern, eine Altersobergrenze gibt es nicht.  Gib uns bei der Buchung einfach Bescheid, falls du bei Bewegungen eingeschränkt bist.",
+      },
+      {
+        q: "Bietet ihr Gruppenflüge an?",
+        a: "Wir fliegen als Team zusammen auf der Plose. Auch größere Gruppen können mit uns zusammen fliegen.",
       },
       {
         q: "Was passiert bei schlechtem Wetter?",
-        a: "Wir bestätigen dir am Abend vor deinem Flug ein Wetterfenster für die nächsten 24 Stunden. Passt es am Tag selbst nicht, verschieben wir den Termin oder erstatten dir den vollen Betrag zurück, falls kein neuer Termin möglich ist. Keine verlorene Anzahlung, keine Fragen.",
+        a: "Wir melden uns ein paar Tage im Vorraus um den Flug bei passendem Wetter zu bestätigen. Sollte das Wetter nicht mitspielen, finden wir für dich einen neuen Termin.",
       },
       {
         q: "Was sollte ich anziehen?",
@@ -219,14 +223,14 @@ export const de = {
       },
       {
         q: "Bekomme ich Fotos und Videos?",
-        a: "Ja. Dein Pilot filmt den gesamten Flug mit einer GoPro an einer langen Stange. Fotos und ein kurzes Video landen innerhalb einer Stunde nach der Landung per WhatsApp auf deinem Handy, gegen 20 € Aufpreis.",
+        a: "Ja. Dein Pilot filmt den Flug mit einer GoPro. Fotos und ein, zwei kurze Videos übertragen wir direkt nach der Landung gegen 20€ Aufpreis auf dein Handy, .",
       },
     ],
   },
 
   booking: {
-    logoLine1: "Air",
-    logoLine2: "Adventure",
+    logoLine1: "Let’s",
+    logoLine2: "Fly",
     caption: "Tandem Paragliding · Dolomites",
     actions: {
       ok: "OK",
@@ -255,21 +259,19 @@ export const de = {
       contactMethod: "Bitte wähle eine Kontaktmethode.",
       passengers: "Bitte wähle, wie viele Personen fliegen.",
       dateRange: "Enddatum muss nach dem Startdatum sein.",
-      datePast: "Das Datum muss heute oder in der Zukunft liegen.",
-      submit: "Senden fehlgeschlagen. Bitte versuche es erneut.",
     },
     steps: {
       nameTitle:
         "Wie sollen wir dich <span class=\"BookingStep__hl\">nennen?</span>",
-      nameLabel: "First name",
+      nameLabel: "Vorname",
       namePlaceholder: "Max",
 
       contactTitle:
         "Wie können wir dich <span class=\"BookingStep__hl\">erreichen</span> um deine Buchung zu bestätigen?",
       whatsappTitle: "WhatsApp",
-      whatsappDescription: "Am schnellsten. in der Flugsaison meist innerhalb einer Stunde",
+      whatsappDescription: "Am schnellsten. In der Flugsaison antworten wir meist innerhalb einer Stunde.",
       emailTitle: "Email",
-      emailDescription: "Für alle die kein WhatsApp haben.",
+      emailDescription: "Für alle, die kein WhatsApp haben.",
       emailFieldTitle:
         "Wie lautet deine <span class=\"BookingStep__hl\">E-Mail Adresse</span>?",
       whatsappFieldTitle:
@@ -281,14 +283,14 @@ export const de = {
 
       datesTitle:
         "Wann möchtest du <span class=\"BookingStep__hl\">fliegen?</span>",
-      dateFromLabel: "Früheste Datum",
+      dateFromLabel: "Frühestes Datum",
       dateToLabel: "Spätestes Datum",
       passengersTitle:
         "Wie viele Personen möchten <span class=\"BookingStep__hl\">fliegen?</span>",
       summaryTitle:
         "Das ist alles<span data-summary=\"nameClause\" hidden>, <span class=\"BookingStep__hl\" data-summary=\"nameTitle\"></span></span>!",
       summaryDescription:
-        "Kontrolliere deine Anfrage schnell und sende sie dann ab. Wir antworten innerhalb so schnell wie möglich.",
+        "Kontrolliere deine Anfrage nochmal und sende sie dann ab. Wir antworten so schnell wie möglich.",
       summaryHint: "Keine Verpflichtung — wir schlagen dir einen Termin vor und du entscheidest.",
       summaryName: "Name",
       summaryContact: "E-Mail Adresse",

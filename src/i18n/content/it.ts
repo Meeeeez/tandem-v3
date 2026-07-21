@@ -1,6 +1,6 @@
 export const it = {
   meta: {
-    title: "Air Adventures • Parapendio biposto nelle Dolomiti",
+    title: "Air Adventure • Parapendio biposto nelle Dolomiti",
     description:
       "Volo in parapendio biposto nelle Dolomiti sulla Plose sopra Bressanone e in Val di Funes. Dal volo planato tranquillo al volo avventura. Da 100 €, piloti esperti, nessuna esperienza richiesta.",
   },
@@ -14,8 +14,8 @@ export const it = {
   },
 
   hero: {
-    titlePre: "Air",
-    titleHighlight: "Adventure",
+    titlePre: "Let’s",
+    titleHighlight: "Fly",
     subtitle: "Voli in tandem nelle Dolomiti",
   },
 
@@ -32,9 +32,9 @@ export const it = {
 
   footer: {
     brandPre: "Air",
-    brandAccent: "Adventures",
+    brandAccent: "Adventure",
     description:
-      "Volo in tandem con il parapendio sulle Dolomiti nelle zone di volo di Villnöss (Val di Funes) e Plose sopra Bressanone. Vivi voli indimenticabili con piloti esperti – dal volo planato rilassato al volo termico con vista sulle Odle e sulla Valle Isarco in Alto Adige.",
+      "Volo biposto con il parapendio sulle Dolomiti nelle zone di Val di Funes e Plose sopra Bressanone. Vivi voli indimenticabili con piloti esperti – dal volo planato rilassato al volo termico con vista sulle Odle e sulla Valle Isarco in Alto Adige.",
     explore: "Esplora",
     getInTouch: "Contatti",
     nav: {
@@ -44,10 +44,10 @@ export const it = {
       faq: "FAQ",
       contact: "Contatti",
     },
-    email: "info@airadventure.it",
+    email: "info@air-adventure.it",
     phone: "+39 345 992 3589",
     legal:
-      "© {year} Air Adventures di Samuel Messner · Josefweg 1, 39040 Funes (BZ), Italy · P.IVA 03346040219",
+      "© {year} Air Adventure di Samuel Messner · Josefweg 1, 39040 Funes (BZ), Italy · P.IVA 03346040219",
     impressum: "Note legali",
     privacy: "Informativa sulla privacy",
     cookies: "Cookie",
@@ -74,7 +74,7 @@ export const it = {
       {
         title: "Planata",
         description:
-          "Un volo tranquillo dalla Plose fino a Sant'Andrea, sorvolando la città di Bressanone",
+          "Un volo tranquillo dalla Plose fino a Sant'Andrea, sorvolando la città di Bressanone.",
         price: "140 €",
         duration: "20 min",
         maxAltitude: "2.000 m",
@@ -88,7 +88,7 @@ export const it = {
       },
       {
         title: "Volo avventura",
-        description: "Insieme al tuo pilota pianifichi un'avventura personalizzata nelle Dolomiti.",
+        description: "Che si tratti di un'escursione con successivo volo in parapendio biposto o di un volo di cross-country tra le Dolomiti, pianificheremo la tua avventura personale.",
         price: "240 €",
         duration: "> 90 min",
         maxAltitude: "3.000 m",
@@ -101,7 +101,7 @@ export const it = {
       title: "Dove vuoi <br>",
       titleHighlighted: "volare?",
       description:
-        "Scegli la tua zona di volo! <b>La Plose offre una vista magnifica sulla Val d'Isarco e sulla città di Bressanone, la Val di Funes regala uno sguardo magico sulle Odle</b>",
+        "<b>Scegli la tua zona di volo!</b> La Plose offre una vista magnifica sulla Valle Isarco e sulla città di Bressanone, la Val di Funes regala uno sguardo magico sulle Odle.",
     },
     items: [
       { name: "Val di Funes", meta: "Partenza · 1.650 m" },
@@ -141,7 +141,7 @@ export const it = {
       {
         rating: 5,
         quote:
-          "I 40 minuti sono volati come se fossero 5. Professionale, cordiale, e il panorama parla da sé.",
+          "I 40 minuti sono volati come se fossero 5. Professionale, cordiale e il panorama parla da sé.",
         name: "James P.",
         flightType: "Volo sulle vette",
         flightDate: "Agosto 2025",
@@ -194,24 +194,28 @@ export const it = {
       title: "Le domande <br>",
       titleHighlighted: "che forse ti stai facendo",
       description:
-        "Sei domande che ci vengono poste quasi prima di ogni prenotazione. Se la tua non è tra queste, scrivici pure su WhatsApp. Di solito rispondiamo entro un'ora.",
+        "",
     },
     items: [
       {
         q: "È sicuro?",
-        a: "Il parapendio biposto è tra gli sport d'avventura con il tasso di incidenti più basso in assoluto. Ogni nostro pilota possiede una licenza FIVL valida, tutti i parapendii sono certificati EN e vengono controllati ogni 100 ore, e voliamo solo in condizioni favorevoli. Se il tempo non lo permette, semplicemente non voliamo.",
+        a: "Il parapendio biposto è un'attività molto sicura se praticata da piloti esperti. I nostri piloti sono abilitati, vantano molti anni di esperienza e volano con attrezzatura certificata e regolarmente controllata. Ti accompagneremo in volo in tutta sicurezza e ti riporteremo dolcemente a terra.",
       },
       {
         q: "Serve esperienza?",
-        a: "No, nessuna. La maggior parte dei nostri ospiti non ha mai fatto parapendio prima. Il tuo pilota si occupa di tutto, dal decollo alla guida fino all'atterraggio. Tu devi solo fare qualche passo di corsa e poi rilassarti.",
+        a: "No. Il tuo pilota si occupa di controllare il parapendio. Tu dovrai semplicemente fare qualche passo durante il decollo e poi potrai rilassarti e goderti il panorama dall'alto. Per l'atterraggio sarà sufficiente fare qualche passo oppure sollevare le gambe mentre atterriamo dolcemente sull'erba.",
       },
       {
         q: "Ci sono limiti di peso o età?",
-        a: "Voliamo con ospiti da 25 kg a 110 kg. L'età minima è 5 anni con il consenso dei genitori, mentre non c'è un limite massimo. Il nostro ospite più anziano aveva 84 anni. Facci sapere al momento della prenotazione se ci sono limitazioni di mobilità.",
+        a: "Voliamo con passeggeri di peso compreso tra 20 kg e 120 kg. I bambini possono volare con il consenso dei genitori e non esiste un limite massimo di età. Se hai qualche limitazione nei movimenti, faccelo sapere al momento della prenotazione, così potremo organizzare il volo nel modo migliore.",
+      },
+      {
+        q: "Offrite voli in parapendio per gruppi?",
+        a: "Voliamo insieme come team dalla Plose e possiamo organizzare anche voli per gruppi numerosi. Contattaci e organizzeremo insieme la vostra esperienza."
       },
       {
         q: "Cosa succede in caso di maltempo?",
-        a: "La sera prima del tuo volo ti confermiamo una finestra meteo per le 24 ore successive. Se il giorno stesso le condizioni non sono adatte, spostiamo la data oppure ti rimborsiamo l'intero importo, qualora non sia possibile trovare una nuova data. Nessun anticipo perso, nessuna domanda.",
+        a: "Ti contatteremo qualche giorno prima del volo per confermare le condizioni meteo. Se il tempo non sarà adatto al volo, fisseremo semplicemente una nuova data insieme a te.",
       },
       {
         q: "Cosa dovrei indossare?",
@@ -219,7 +223,7 @@ export const it = {
       },
       {
         q: "Ricevo foto e video?",
-        a: "Sì. Il tuo pilota filma l'intero volo con una GoPro montata su un'asta lunga. Foto e un breve video ti arrivano su WhatsApp entro un'ora dall'atterraggio, con un piccolo supplemento di 20 €.",
+        a: "Sì. Il tuo pilota riprenderà il volo con una GoPro. Con un supplemento di 20 €, ti trasferiremo le foto e uno o due brevi video direttamente sul tuo smartphone subito dopo l'atterraggio.",
       },
     ],
   },
@@ -255,8 +259,6 @@ export const it = {
       contactMethod: "Seleziona un metodo di contatto.",
       passengers: "Seleziona quante persone voleranno.",
       dateRange: "La data di fine deve essere successiva a quella di inizio.",
-      datePast: "La data deve essere oggi o nel futuro.",
-      submit: "Invio non riuscito. Riprova.",
     },
     steps: {
       nameTitle:
