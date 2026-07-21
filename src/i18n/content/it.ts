@@ -67,7 +67,7 @@ export const it = {
         title: "Volo Odle",
         description:
           "Uno spettacolo assoluto! Un volo splendido con vista sulle Odle, nella Val di Funes.",
-        price: "100 €",
+        price: "90 €",
         duration: "5 - 10 min",
         maxAltitude: "1.650 m",
       },

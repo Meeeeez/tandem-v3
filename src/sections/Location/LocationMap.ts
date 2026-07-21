@@ -61,9 +61,33 @@ export function initLocationMap(root: HTMLElement) {
     zoomControl: false,
   });
 
+
+  // Base imagery layer
   L.tileLayer(
     "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+    { attribution: "Tiles © Esri" }
   ).addTo(map);
+
+  // CARTO labels-only overlay (transparent, sits on top)
+  const labels = L.tileLayer(
+    "https://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}{r}.png",
+    {
+      attribution: '© OpenStreetMap contributors © CARTO',
+      subdomains: 'abcd',
+      maxZoom: 20,
+      pane: 'labelsPane' // keeps it above imagery, see below
+    }
+  );
+
+  map.createPane('labelsPane');
+  const labelsPane = map.getPane('labelsPane');
+  if (labelsPane) {
+    labelsPane.style.zIndex = "650";
+    labelsPane.style.pointerEvents = 'none'; // clicks pass through to map
+  }
+
+
+  labels.addTo(map);
 
   useResponsiveZoomControl(map);
 

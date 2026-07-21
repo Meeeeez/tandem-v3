@@ -67,7 +67,7 @@ export const de = {
         title: "Geislerblick",
         description:
           "Großes Kino! Ein herrlicher Flug mit Blick auf die Geisler im Villnösser Tal.",
-        price: "100 €",
+        price: "90 €",
         duration: "5-10 min",
         maxAltitude: "1.650 m",
       },

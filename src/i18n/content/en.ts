@@ -67,7 +67,7 @@ export const en = {
         title: "Odles",
         description:
           "Pure cinema! A wonderful flight with a view of the Geisler peaks in Val di Funes.",
-        price: "100 €",
+        price: "90 €",
         duration: "5 - 10 min",
         maxAltitude: "1,650 m",
       },
