@@ -2,7 +2,7 @@ export const it = {
   meta: {
     title: "Air Adventure • Parapendio biposto nelle Dolomiti",
     description:
-      "Volo in parapendio biposto nelle Dolomiti sulla Plose sopra Bressanone e in Val di Funes. Dal volo planato tranquillo al volo avventura. Da 100 €, piloti esperti, nessuna esperienza richiesta.",
+      "Volo in parapendio biposto nelle Dolomiti sulla Plose sopra Bressanone e in Val di Funes. Dal volo planato tranquillo al volo avventura. Da 90 €, piloti esperti, nessuna esperienza richiesta.",
   },
 
   nav: {

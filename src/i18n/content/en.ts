@@ -2,7 +2,7 @@ export const en = {
   meta: {
     title: "Air Adventure • Tandem Paragliding in the Dolomites",
     description:
-      "Tandem paragliding in the Dolomites on the Plose above Brixen and in Villnöß. From a calm glide to an adventure flight. From €100, experienced pilots, no prior experience needed.",
+      "Tandem paragliding in the Dolomites on the Plose above Brixen and in Villnöß. From a calm glide to an adventure flight. From €90, experienced pilots, no prior experience needed.",
   },
 
   nav: {
