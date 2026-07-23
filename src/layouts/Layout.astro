@@ -19,8 +19,8 @@ const route = getRouteFromUrl(Astro.url);
 const t = useTranslations(lang);
 const { title = t.meta.title, description = t.meta.description } = Astro.props;
 
-const base = import.meta.env.BASE_URL;
-const ogImage = new URL(`${base}/img/hero.webp`, Astro.site);
+const base = import.meta.env.BASE_URL; // always ends with /
+const ogImage = new URL(`${base}img/hero.webp`, Astro.site);
 
 const absoluteLocalized = (locale: typeof locales[number]) => new URL(localizedPath(locale, route), Astro.site).href;
 
