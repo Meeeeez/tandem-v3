@@ -60,7 +60,7 @@ export const de = {
       title: "Wähle <br>dein",
       titleHighlighted: "Abenteuer",
       description:
-        "Ob ein ruhiger Gleitflug, ein Thermikflug über den Bergen oder dein ganz persönliches Abenteuer - finde das perfekte Erlebnis für dich.",
+        "Ob ein ruhiger Gleitflug, ein Thermikflug über den Bergen oder dein ganz persönliches Abenteuer - finde das perfekte Erlebnis für dich. <b>Fotos und Videos gewünscht? Für nur 20 € dazu buchbar.</b>",
     },
     items: [
       {
@@ -69,7 +69,7 @@ export const de = {
           "Großes Kino! Ein herrlicher Flug mit Blick auf die Geisler im Villnösser Tal.",
         price: "90 €",
         duration: "5-10 min",
-        maxAltitude: "1.650 m",
+        maxAltitude: "⇅ 350 m",
       },
       {
         title: "Gleitflug",
@@ -77,21 +77,21 @@ export const de = {
           "Ein ruhiger Flug von der Plose zurück nach St. Andrä über der Stadt Brixen.",
         price: "140 €",
         duration: "20 min",
-        maxAltitude: "2.000 m",
+        maxAltitude: "⇅ 1100 m",
       },
       {
         title: "Thermikflug",
         description: "Bis hoch über die Gipfel! Wir nutzen aufsteigende Luft, um länger und höher zu fliegen.",
         price: "170 €",
-        duration: "30-40 min",
-        maxAltitude: "2.500 m",
+        duration: "30 - 40 min",
+        maxAltitude: "⇅ 1100+ m",
       },
       {
         title: "Abenteuerflug",
         description: "Eine Wanderung mit anschließendem Tandemflug oder ein Streckenflug in den Dolomiten; wir planen dein persönliches Abenteuer.",
-        price: "240 €",
-        duration: "> 90 min",
-        maxAltitude: "3.000 m",
+        price: "250 €",
+        duration: "komplett individuell",
+        maxAltitude: "",
       },
     ],
   },
@@ -111,8 +111,8 @@ export const de = {
 
   reviews: {
     header: {
-      title: "Fünf Sterne <br>auf jeder",
-      titleHighlighted: "Plattform",
+      title: "Fünf Sterne <br>auf",
+      titleHighlighted: "jeder Plattform",
       description:
         "Unsere Gäste sind sich einig: <br>Unvergessliche Flüge, erfahrene Piloten und ein Erlebnis, das seinesgleichen sucht.",
     },

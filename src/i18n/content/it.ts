@@ -60,7 +60,7 @@ export const it = {
       title: "Scegli <br>la tua",
       titleHighlighted: "Avventura",
       description:
-        "Che tu preferisca un volo tranquillo in planata, un volo termico sopra le montagne o un'avventura tutta tua, troverai l'esperienza perfetta per te.",
+        "Che tu preferisca un volo tranquillo in planata, un volo termico sopra le montagne o un'avventura tutta tua, troverai l'esperienza perfetta per te. <b>Vuoi foto e video? Aggiungili per soli 20 €.</b>",
     },
     items: [
       {
@@ -69,29 +69,29 @@ export const it = {
           "Uno spettacolo assoluto! Un volo splendido con vista sulle Odle, nella Val di Funes.",
         price: "90 €",
         duration: "5 - 10 min",
-        maxAltitude: "1.650 m",
+        maxAltitude: "⇅ 350 m",
       },
       {
-        title: "Planata",
+        title: "Volo planato",
         description:
           "Un volo tranquillo dalla Plose fino a Sant'Andrea, sorvolando la città di Bressanone.",
         price: "140 €",
         duration: "20 min",
-        maxAltitude: "2.000 m",
+        maxAltitude: "⇅ 1100 m",
       },
       {
         title: "Volo in cima",
         description: "Fino sopra le cime! Sfruttiamo le correnti ascensionali per volare più a lungo e più in alto.",
         price: "170 €",
-        duration: "da 30 a 40 min",
-        maxAltitude: "2.500 m",
+        duration: "30 - 40 min",
+        maxAltitude: "⇅ 1100+ m",
       },
       {
         title: "Volo avventura",
-        description: "Che si tratti di un'escursione con successivo volo in parapendio biposto o di un volo di cross-country tra le Dolomiti, pianificheremo la tua avventura personale.",
-        price: "240 €",
-        duration: "> 90 min",
-        maxAltitude: "3.000 m",
+        description: "Che tu voglia un'escursione, un volo lungo tra le Dolomiti o qualcos'altro, pianifichiamo insieme la tua avventura.",
+        price: "250 €",
+        duration: "personalizzabile",
+        maxAltitude: "",
       },
     ],
   },
@@ -111,8 +111,8 @@ export const it = {
 
   reviews: {
     header: {
-      title: "Cinque stelle <br>su ogni",
-      titleHighlighted: "piattaforma",
+      title: "Cinque stelle <br>su",
+      titleHighlighted: "ogni piattaforma",
       description:
         "I nostri ospiti sono concordi: <br>voli indimenticabili, piloti esperti e un'esperienza senza eguali.",
     },

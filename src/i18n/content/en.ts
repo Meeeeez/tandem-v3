@@ -60,7 +60,7 @@ export const en = {
       title: "Choose <br>your",
       titleHighlighted: "Adventure",
       description:
-        "Whether it's a calm glide, a thermal flight above the mountains, or your own personal adventure, find the perfect experience for you.",
+        "Whether it's a calm glide, a thermal flight above the mountains, or your own personal adventure, find the perfect experience for you. <b>Want photos and videos? Add it on for just 20 €.</b>",
     },
     items: [
       {
@@ -69,37 +69,37 @@ export const en = {
           "Pure cinema! A wonderful flight with a view of the Geisler peaks in Val di Funes.",
         price: "90 €",
         duration: "5 - 10 min",
-        maxAltitude: "1,650 m",
+        maxAltitude: "⇅ 350 m",
       },
       {
         title: "Glide",
         description:
-          "A calm flight from Plose back to St. Andrä, above the town of Brixen.",
+          "A calm flight from Plose back to St. Andrä, above the town of Bressanone.",
         price: "140 €",
         duration: "20 min",
-        maxAltitude: "2,000 m",
+        maxAltitude: "⇅ 1,100 m",
       },
       {
         title: "Summit",
         description: "Up above the peaks! We ride rising air currents to fly longer and higher.",
         price: "170 €",
         duration: "30 - 40 min",
-        maxAltitude: "2,500 m",
+        maxAltitude: "⇵ 1,100+ m",
       },
       {
         title: "Adventure",
         description: "Whether it's a hike followed by a tandem flight or a cross-country flight through the Dolomites, we'll create your personal adventure together.",
-        price: "240 €",
-        duration: "> 90 min",
-        maxAltitude: "3,000 m",
+        price: "250 €",
+        duration: "completely customizable",
+        maxAltitude: "",
       },
     ],
   },
 
   location: {
     header: {
-      title: "Where do you want to <br>",
-      titleHighlighted: "fly?",
+      title: "Where do you want <br>",
+      titleHighlighted: "to fly?",
       description:
         "<b>Pick your flying area!</b> Plose offers a wonderful view over the valley and the town of Bressanone, while Villnöß offers a magical view of the Geisler peaks.",
     },
@@ -111,8 +111,8 @@ export const en = {
 
   reviews: {
     header: {
-      title: "Five stars <br>on every",
-      titleHighlighted: "platform",
+      title: "Five stars <br>on",
+      titleHighlighted: "every platform",
       description:
         "Our guests all agree: <br>unforgettable flights, experienced pilots, and an experience unlike any other.",
     },
