@@ -1,6 +1,6 @@
 export const it = {
   meta: {
-    title: "Air Adventure • Parapendio biposto nelle Dolomiti",
+    title: "Parapendio Bressanone (Plose) e Val di Funes – Volo in biposto da 90 € | Air Adventure",
     description:
       "Volo in parapendio biposto nelle Dolomiti sulla Plose sopra Bressanone e in Val di Funes. Dal volo planato tranquillo al volo avventura. Da 90 €, piloti esperti, nessuna esperienza richiesta.",
   },
@@ -46,6 +46,7 @@ export const it = {
     },
     email: "info@airadventure.it",
     phone: "+39 376 076 0345",
+    whatsappUrl: "https://wa.me/393760760345",
     legal:
       "© {year} Air Adventure di Samuel Messner · Josefweg 1, 39040 Funes (BZ), Italy · P.IVA 03346040219",
     impressum: "Note legali",
@@ -229,8 +230,8 @@ export const it = {
   },
 
   booking: {
-    logoLine1: "Let’s",
-    logoLine2: "Fly",
+    logoLine1: "Air",
+    logoLine2: "Adventure",
     caption: "Parapendio biposto · Dolomiti",
     actions: {
       ok: "OK",

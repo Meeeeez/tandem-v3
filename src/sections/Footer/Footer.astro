@@ -58,6 +58,14 @@ const exploreLinks = [
           <div class="Footer__contact">
             <a class="Footer__contactLink" href={`mailto:${f.email}`}>{f.email}</a>
             <a class="Footer__contactLink" href={`tel:${f.phone.replace(/\s/g, "")}`}>{f.phone}</a>
+            <a
+              class="Footer__contactLink"
+              href={f.whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {t.cta.whatsapp}
+            </a>
           </div>
         </div>
       </div>

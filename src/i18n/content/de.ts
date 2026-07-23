@@ -1,6 +1,6 @@
 export const de = {
   meta: {
-    title: "Air Adventure • Tandem Paragliding in den Dolomiten",
+    title: "Tandemflug Brixen (Plose) & Villnöss – Gleitschirmfliegen ab 90 € | Air Adventure",
     description:
       "Tandem-Gleitschirmfliegen in den Dolomiten auf der Plose über Brixen und in dem Villnösser Tal (Val di Funes). Vom ruhigen Gleitflug bis zum Abenteuerflug. Ab 90 €, erfahrene Piloten, keine Vorkenntnisse nötig.",
   },
@@ -46,6 +46,7 @@ export const de = {
     },
     email: "info@airadventure.it",
     phone: "+39 376 076 0345",
+    whatsappUrl: "https://wa.me/393760760345",
     legal:
       "© {year} Air Adventure des Samuel Messner · Josefweg 1, 39040 Funes (BZ), Italy · P.IVA 03346040219",
     impressum: "Impressum",
@@ -229,8 +230,8 @@ export const de = {
   },
 
   booking: {
-    logoLine1: "Let’s",
-    logoLine2: "Fly",
+    logoLine1: "Air",
+    logoLine2: "Adventure",
     caption: "Tandem Paragliding · Dolomites",
     actions: {
       ok: "OK",

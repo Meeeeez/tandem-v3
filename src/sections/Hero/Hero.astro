@@ -8,6 +8,7 @@ import { getLangFromUrl, useTranslations, localizedPath } from "../../i18n/utils
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const bookingHref = localizedPath(lang, "booking");
+const whatsappHref = t.footer.whatsappUrl;
 ---
 
 <section class="Hero">
@@ -29,9 +30,15 @@ const bookingHref = localizedPath(lang, "booking");
         <ArrowIcon />
         {t.nav.bookNow}
       </a>
-      <button class="button--icon animate-fill" type="button" aria-label={t.cta.whatsapp}>
+      <a
+        class="button--icon animate-fill"
+        href={whatsappHref}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={t.cta.whatsapp}
+      >
         <WhatsappIcon />
-      </button>
+      </a>
       <LanguageSwitcher route="home" />
     </div>
     <div class="Hero__logoWrapper"></div>
@@ -58,6 +65,14 @@ const bookingHref = localizedPath(lang, "booking");
               href={`tel:${t.footer.phone.replace(/\s/g, "")}`}
             >
               {t.footer.phone}
+            </a>
+            <a
+              class="Hero__navContactLink"
+              href={whatsappHref}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {t.cta.whatsapp}
             </a>
           </div>
         </div>
@@ -100,9 +115,15 @@ const bookingHref = localizedPath(lang, "booking");
         <ArrowIcon />
         {t.nav.bookNow}
       </a>
-      <button class="Hero__whatsappButton button--icon animate-fill" type="button" aria-label={t.cta.whatsapp}>
+      <a
+        class="Hero__whatsappButton button--icon animate-fill"
+        href={whatsappHref}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={t.cta.whatsapp}
+      >
         <WhatsappIcon />
-      </button>
+      </a>
     </div>
   </div>
 </section>

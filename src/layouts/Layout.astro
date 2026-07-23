@@ -26,10 +26,10 @@ const absoluteLocalized = (locale: typeof locales[number]) => new URL(localizedP
 
 const structuredData = {
   "@context": "https://schema.org",
-  "@type": "LocalBusiness",
+  "@type": "SportsActivityLocation",
   name: `${t.footer.brandPre} ${t.footer.brandAccent}`,
   image: ogImage.href,
-  telephone: "+393459923589",
+  telephone: "+393760760345",
   email: t.footer.email,
   priceRange: "€",
   address: {
@@ -41,6 +41,7 @@ const structuredData = {
     addressCountry: "IT",
   },
   url: Astro.site,
+  sameAs: [t.footer.whatsappUrl],
   inLanguage: lang,
 };
 ---

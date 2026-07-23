@@ -1,6 +1,6 @@
 export const en = {
   meta: {
-    title: "Air Adventure • Tandem Paragliding in the Dolomites",
+    title: "Tandem Paragliding Dolomites – Bressanone Brixen (Plose) & Val di Funes (Villnöss) from €90 | Air Adventure",
     description:
       "Tandem paragliding in the Dolomites on the Plose above Brixen and in Villnöß. From a calm glide to an adventure flight. From €90, experienced pilots, no prior experience needed.",
   },
@@ -46,6 +46,7 @@ export const en = {
     },
     email: "info@airadventure.it",
     phone: "+39 376 076 0345",
+    whatsappUrl: "https://wa.me/393760760345",
     legal:
       "© {year} Air Adventure by Samuel Messner · Josefweg 1, 39040 Funes (BZ), Italy · P.IVA 03346040219",
     impressum: "Legal Notice",
@@ -229,8 +230,8 @@ export const en = {
   },
 
   booking: {
-    logoLine1: "Let’s",
-    logoLine2: "Fly",
+    logoLine1: "Air",
+    logoLine2: "Adventure",
     caption: "Tandem Paragliding · Dolomites",
     actions: {
       ok: "OK",

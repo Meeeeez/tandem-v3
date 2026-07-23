@@ -142,6 +142,11 @@ p {
   width: 55px;
   height: 55px;
   padding: 0;
+
+  // Beat `a.animate-fill` padding so icon links match icon buttons
+  &.animate-fill {
+    padding: 0;
+  }
 }
 
 .button--filled {

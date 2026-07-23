@@ -7,6 +7,7 @@ import { getLangFromUrl, useTranslations, localizedPath } from "../../i18n/utils
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const bookingHref = localizedPath(lang, "booking");
+const whatsappHref = t.footer.whatsappUrl;
 ---
 
 <section class="Cta" id="contact">
@@ -21,10 +22,15 @@ const bookingHref = localizedPath(lang, "booking");
         <ArrowIcon />
         {t.cta.book}
       </a>
-      <button class="Cta__whatsapp animate-fill" type="button">
+      <a
+        class="Cta__whatsapp animate-fill"
+        href={whatsappHref}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <WhatsappIcon />
         {t.cta.whatsapp}
-      </button>
+      </a>
     </div>
   </div>
 </section>
