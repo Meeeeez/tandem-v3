@@ -91,7 +91,7 @@ export const de = {
         title: "Abenteuerflug",
         description: "Eine Wanderung mit anschließendem Tandemflug oder ein Streckenflug in den Dolomiten; wir planen dein persönliches Abenteuer.",
         price: "250 €",
-        duration: "komplett individuell",
+        duration: "individuell",
         altitudeDifference: "",
       },
     ],

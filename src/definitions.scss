@@ -27,6 +27,7 @@ $gutter-lg: 1.5rem;
 $gutter-xl: 2rem;
 $gutter-xxl: 3rem;
 
+$xxs: 360px;
 $xs: 480px;
 $sm: 640px;
 $md: 768px;
@@ -43,6 +44,12 @@ $font-xxl: 1.5rem;
 $font-title-lg: 2.75rem;
 $font-title-md: 2.5rem;	
 $font-title-sm: 2rem;
+
+@mixin xxs {
+  @media (min-width: #{$xxs}) {
+    @content;
+  }
+}
 
 @mixin xs {
   @media (min-width: #{$xs}) {

@@ -91,7 +91,7 @@ export const en = {
         title: "Adventure",
         description: "Whether it's a hike followed by a tandem flight or a cross-country flight through the Dolomites, we'll create your personal adventure together.",
         price: "250 €",
-        duration: "completely customizable",
+        duration: "customizable",
         altitudeDifference: "",
       },
     ],
