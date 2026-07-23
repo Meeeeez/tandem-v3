@@ -6,7 +6,7 @@ const {
   description,
   price,
   duration,
-  maxAltitude,
+  altitudeDifference,
   isMarked,
   popularLabel,
   bookLabel,
@@ -16,7 +16,7 @@ const {
   href
 } = Astro.props;
 
-const facts = [maxAltitude, duration].filter(Boolean);
+const facts = [altitudeDifference, duration].filter(Boolean);
 ---
 
 <div class="FlightCard">
