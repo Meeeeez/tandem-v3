@@ -216,7 +216,7 @@ export const de = {
       },
       {
         q: "Was passiert bei schlechtem Wetter?",
-        a: "Wir melden uns ein paar Tage im Vorraus um den Flug bei passendem Wetter zu bestätigen. Sollte das Wetter nicht mitspielen, finden wir für dich einen neuen Termin.",
+        a: "Wir melden uns ein paar Tage im voraus um den Flug bei passendem Wetter zu bestätigen. Sollte das Wetter nicht mitspielen, finden wir für dich einen neuen Termin.",
       },
       {
         q: "Was sollte ich anziehen?",
