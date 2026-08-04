@@ -1,6 +1,6 @@
 export const en = {
   meta: {
-    title: "Tandem Paragliding Dolomites – Bressanone Brixen (Plose) & Val di Funes (Villnöss) from €90 | Air Adventure",
+    title: "Tandem flights in Bressanone Brixen (Plose) & Val di Funes (Villnöss) – Paragliding in the Dolomites | Air Adventure",
     description:
       "Tandem paragliding in the Dolomites on the Plose above Brixen and in Villnöß. From a calm glide to an adventure flight. From €90, experienced pilots, no prior experience needed.",
   },

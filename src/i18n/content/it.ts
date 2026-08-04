@@ -1,6 +1,6 @@
 export const it = {
   meta: {
-    title: "Parapendio Bressanone (Plose) e Val di Funes – Volo in biposto da 90 € | Air Adventure",
+    title: "Voli in tandem a Bressanone (Plose) e Val di Funes – Parapendio nelle Dolomiti | Air Adventure",
     description:
       "Volo in parapendio biposto nelle Dolomiti sulla Plose sopra Bressanone e in Val di Funes. Dal volo planato tranquillo al volo avventura. Da 90 €, piloti esperti, nessuna esperienza richiesta.",
   },

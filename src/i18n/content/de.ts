@@ -1,6 +1,6 @@
 export const de = {
   meta: {
-    title: "Tandemflug Brixen (Plose) & Villnöss – Gleitschirmfliegen ab 90 € | Air Adventure",
+    title: "Tandemflug Brixen (Plose) & Villnöss – Gleitschirmfliegen in den Dolomiten | Air Adventure",
     description:
       "Tandem-Gleitschirmfliegen in den Dolomiten auf der Plose über Brixen und in dem Villnösser Tal (Val di Funes). Vom ruhigen Gleitflug bis zum Abenteuerflug. Ab 90 €, erfahrene Piloten, keine Vorkenntnisse nötig.",
   },
@@ -204,7 +204,7 @@ export const de = {
       },
       {
         q: "Brauche ich Erfahrung?",
-        a: "Nein, dein Pilot übernimmt die Steuerung des Gleitschirms. Du musst lediglich ein paar Schritte beim Start mitlaufen und dann kannst du die AUssicht von oben genießen. Für die Landung reicht es wenige Schritte mitzulaufen oder du hebst die Beine und wir rutschen ins weiche Gras.",
+        a: "Nein, dein Pilot übernimmt die Steuerung des Gleitschirms. Du musst lediglich ein paar Schritte beim Start mitlaufen und dann kannst du die Aussicht von oben genießen. Für die Landung reicht es wenige Schritte mitzulaufen oder du hebst die Beine und wir rutschen ins weiche Gras.",
       },
       {
         q: "Gibt es Gewichts- oder Altersgrenzen?",
