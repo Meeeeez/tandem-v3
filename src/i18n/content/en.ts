@@ -64,14 +64,14 @@ export const en = {
         "Whether it's a calm glide, a thermal flight above the mountains, or your own personal adventure, find the perfect experience for you. <b>Want photos and videos? Add it on for just 20 €.</b>",
     },
     items: [
-      {
+      /*{
         title: "Odles",
         description:
           "Pure cinema! A wonderful flight with a view of the Geisler peaks in Val di Funes.",
         price: "90 €",
         duration: "5 - 10 min",
         altitudeDifference: "⇅ 350 m",
-      },
+      },*/
       {
         title: "Glide",
         description:

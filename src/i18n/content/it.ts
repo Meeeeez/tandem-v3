@@ -64,14 +64,14 @@ export const it = {
         "Che tu preferisca un volo tranquillo in planata, un volo termico sopra le montagne o un'avventura tutta tua, troverai l'esperienza perfetta per te. <b>Vuoi foto e video? Aggiungili per soli 20 €.</b>",
     },
     items: [
-      {
+      /*{
         title: "Volo Odle",
         description:
           "Uno spettacolo assoluto! Un volo splendido con vista sulle Odle, nella Val di Funes.",
         price: "90 €",
         duration: "5 - 10 min",
         altitudeDifference: "⇅ 350 m",
-      },
+      },*/
       {
         title: "Volo planato",
         description:

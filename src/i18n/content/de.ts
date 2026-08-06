@@ -64,14 +64,14 @@ export const de = {
         "Ob ein ruhiger Gleitflug, ein Thermikflug über den Bergen oder dein ganz persönliches Abenteuer - finde das perfekte Erlebnis für dich. <b>Fotos und Videos gewünscht? Für nur 20 € dazu buchbar.</b>",
     },
     items: [
-      {
+      /*{
         title: "Geislerblick",
         description:
           "Großes Kino! Ein herrlicher Flug mit Blick auf die Geisler im Villnösser Tal.",
         price: "90 €",
         duration: "5-10 min",
         altitudeDifference: "⇅ 350 m",
-      },
+      },*/
       {
         title: "Gleitflug",
         description:
